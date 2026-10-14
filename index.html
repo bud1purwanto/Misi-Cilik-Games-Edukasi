@@ -874,20 +874,63 @@
             </div>
           </div>
 
-          <!-- Kustomisasi Karakter Suara AI (Suara Anak-anak vs Guru) -->
+          <!-- Kustomisasi Karakter Suara AI (Voice Studio) -->
           <div class="pt-3 border-t border-slate-200">
-            <h5 class="font-bold text-slate-800 text-xs uppercase mb-1">Pilihan Karakter Suara Narasi (TTS):</h5>
-            <p class="text-[11px] text-slate-500 mb-2">Pilih karakter nada suara pembaca cerita & instruksi:</p>
-            <div class="grid grid-cols-2 gap-2 mb-2">
-              <button id="btn-voice-child" onclick="changeVoiceProfile('child')" class="p-2.5 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
-                <span>🧒</span> <span>Suara Anak-anak (Ceria)</span>
+            <div class="flex items-center justify-between mb-1">
+              <h5 class="font-bold text-slate-800 text-xs uppercase flex items-center gap-1">
+                <span>🎙️</span> <span>Studio Suara Karakter (AI Voice Tuner)</span>
+              </h5>
+              <span id="voice-status-tag" class="text-[10px] bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded-full">Anak TK Imut</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mb-2">Pilih karakter atau geser nada suara agar terdengar mungil, manis, dan lembut:</p>
+            
+            <!-- 3 Tombol Preset -->
+            <div class="grid grid-cols-3 gap-2 mb-3">
+              <button id="btn-voice-child" onclick="changeVoiceProfile('child')" class="p-2 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-[11px] flex flex-col items-center justify-center gap-0.5 shadow-sm transition">
+                <span class="text-lg">🧒</span> <span>Anak TK Imut</span>
               </button>
-              <button id="btn-voice-teacher" onclick="changeVoiceProfile('teacher')" class="p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 transition">
-                <span>👩</span> <span>Suara Ibu Guru (Kalem)</span>
+              <button id="btn-voice-toddler" onclick="changeVoiceProfile('toddler')" class="p-2 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-[11px] flex flex-col items-center justify-center gap-0.5 shadow-sm hover:bg-slate-50 transition">
+                <span class="text-lg">👧</span> <span>Super Mungil</span>
+              </button>
+              <button id="btn-voice-teacher" onclick="changeVoiceProfile('teacher')" class="p-2 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-[11px] flex flex-col items-center justify-center gap-0.5 shadow-sm hover:bg-slate-50 transition">
+                <span class="text-lg">👩</span> <span>Ibu Guru</span>
               </button>
             </div>
+
+            <!-- Slider Nada & Kecepatan -->
+            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 space-y-2 mb-3">
+              <div>
+                <div class="flex justify-between text-[11px] font-bold text-slate-700 mb-1">
+                  <span>Tinggi Nada (Pitch):</span>
+                  <span id="label-pitch-value" class="text-purple-700 font-bold">1.78x (Tinggi/Imut)</span>
+                </div>
+                <input id="slider-pitch" type="range" min="1.0" max="2.0" step="0.05" value="1.78" oninput="onPitchSliderChange(this.value)" class="w-full h-1.5 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600">
+                <div class="flex justify-between text-[9px] text-slate-400 mt-0.5">
+                  <span>Dewasa (1.0)</span>
+                  <span>Anak TK (1.78)</span>
+                  <span>Kartun (2.0)</span>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] font-bold text-slate-700 mb-1">
+                  <span>Kecepatan Bicara (Rate):</span>
+                  <span id="label-rate-value" class="text-purple-700 font-bold">0.94x (Lembut)</span>
+                </div>
+                <input id="slider-rate" type="range" min="0.75" max="1.3" step="0.02" value="0.94" oninput="onRateSliderChange(this.value)" class="w-full h-1.5 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600">
+              </div>
+
+              <!-- Pilihan Sumber Suara Browser -->
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Pilihan Suara Mesin Browser:</label>
+                <select id="select-browser-voice" onchange="onVoiceSelectChange(this.value)" class="w-full text-xs p-1.5 border border-slate-300 rounded-lg bg-white text-slate-700 focus:ring-2 focus:ring-purple-400 outline-none">
+                  <option value="auto">🌟 Otomatis Pilih Suara Paling Lembut & Pas</option>
+                </select>
+              </div>
+            </div>
+
             <button onclick="testChildVoice()" class="w-full py-2 bg-amber-400 hover:bg-amber-500 text-amber-900 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition">
-              <span>🔊</span> <span>Coba Dengarkan Sampel Suara Karakter</span>
+              <span>🔊</span> <span>Coba Dengarkan Suara Ini Sekarang</span>
             </button>
           </div>
         </div>
@@ -1415,27 +1458,106 @@
 
     /* =======================================================
        C. SPEECH ENGINE (WEB SPEECH API BAHASA INDONESIA)
-       DIPERBARUI: PROFIL SUARA ANAK-ANAK CERIA (PITCH 1.55)
+       DIPERBARUI: PROFIL SUARA ANAK TK LEMBUT & IMUT (PITCH 1.78)
        ======================================================= */
     class SpeechEngine {
       constructor() {
         this.isEnabled = true;
         this.isSupported = 'speechSynthesis' in window;
-        // Profil Default: Karakter Suara Anak-anak Ceria
-        this.voiceMode = 'child'; // 'child' | 'teacher'
-        this.pitch = 1.55;        // Pitch tinggi ceria khas anak-anak/karakter kartun
-        this.rate = 1.02;         // Laju wicara lincah & bersemangat
+        // Profil Default: Karakter Suara Anak TK yang Lembut & Imut
+        this.voiceMode = 'child'; // 'child' | 'toddler' | 'teacher'
+        this.pitch = 1.78;        // Nada tinggi imut anak TK (bebas kesan suara pria/berat)
+        this.rate = 0.94;         // Lembut, artikulasi santai & menggemaskan
+        this.selectedVoiceURI = 'auto';
+        this.availableVoices = [];
+
+        if (this.isSupported) {
+          this.loadVoices();
+          window.speechSynthesis.onvoiceschanged = () => {
+            this.loadVoices();
+          };
+        }
+      }
+
+      loadVoices() {
+        this.availableVoices = window.speechSynthesis.getVoices();
+        this.populateVoiceDropdown();
+      }
+
+      populateVoiceDropdown() {
+        const selectEl = document.getElementById('select-browser-voice');
+        if (!selectEl) return;
+
+        selectEl.innerHTML = '<option value="auto">🌟 Otomatis Pilih Suara Paling Lembut & Pas</option>';
+
+        this.availableVoices.forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v.voiceURI;
+          const isId = v.lang.includes('id') || v.lang.includes('ID');
+          const isFemale = v.name.toLowerCase().includes('gadis') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('female');
+          const badge = isId ? '🇮🇩 ' : (isFemale ? '👧 ' : '');
+          opt.text = `${badge}${v.name} (${v.lang})`;
+          if (this.selectedVoiceURI === v.voiceURI) opt.selected = true;
+          selectEl.appendChild(opt);
+        });
       }
 
       setVoiceMode(mode) {
         this.voiceMode = mode;
         if (mode === 'child') {
-          this.pitch = 1.55;
-          this.rate = 1.02;
+          this.pitch = 1.78;
+          this.rate = 0.94;
+        } else if (mode === 'toddler') {
+          this.pitch = 1.95;
+          this.rate = 0.98;
         } else {
           this.pitch = 1.15;
           this.rate = 0.90;
         }
+        this.updateSlidersUI();
+      }
+
+      updateSlidersUI() {
+        const pSlider = document.getElementById('slider-pitch');
+        const rSlider = document.getElementById('slider-rate');
+        const pLabel = document.getElementById('label-pitch-value');
+        const rLabel = document.getElementById('label-rate-value');
+        if (pSlider) pSlider.value = this.pitch;
+        if (rSlider) rSlider.value = this.rate;
+        if (pLabel) pLabel.innerText = `${this.pitch.toFixed(2)}x (${this.pitch >= 1.7 ? 'Sangat Imut' : (this.pitch >= 1.4 ? 'Ceria' : 'Dewasa')})`;
+        if (rLabel) rLabel.innerText = `${this.rate.toFixed(2)}x (${this.rate < 1.0 ? 'Lembut' : 'Cepat'})`;
+      }
+
+      pickBestVoice() {
+        if (!this.availableVoices.length) {
+          this.availableVoices = window.speechSynthesis.getVoices();
+        }
+
+        // Jika guru/juri memilih suara tertentu dari dropdown
+        if (this.selectedVoiceURI && this.selectedVoiceURI !== 'auto') {
+          const found = this.availableVoices.find(v => v.voiceURI === this.selectedVoiceURI);
+          if (found) return found;
+        }
+
+        // 1. Prioritaskan suara perempuan bahasa Indonesia (Gadis, Indah, Siti, Natural, Google)
+        const idVoices = this.availableVoices.filter(v => v.lang.includes('id') || v.lang.includes('ID') || v.lang.includes('in-ID'));
+        const bestIdFemale = idVoices.find(v => {
+          const n = v.name.toLowerCase();
+          return n.includes('gadis') || n.includes('indah') || n.includes('siti') || n.includes('natural') || n.includes('google') || n.includes('female');
+        });
+        if (bestIdFemale) return bestIdFemale;
+        if (idVoices.length > 0) return idVoices[0];
+
+        // 2. Jika tidak ada suara Bahasa Indonesia, CARI SUARA PEREMPUAN (Female / Natural)
+        // Hal ini sangat penting untuk MENGHINDARI Microsoft David (laki-laki dewasa) yang terdengar berat/besar!
+        const femaleVoice = this.availableVoices.find(v => {
+          const n = v.name.toLowerCase();
+          return (n.includes('zira') || n.includes('jenny') || n.includes('natural') || n.includes('female') || n.includes('google') || n.includes('samantha')) &&
+                 !n.includes('david') && !n.includes('male') && !n.includes('george') && !n.includes('mark');
+        });
+        if (femaleVoice) return femaleVoice;
+
+        return this.availableVoices[0] || null;
       }
 
       speak(text, onEndCallback = null) {
@@ -1445,26 +1567,16 @@
         }
 
         try {
-          window.speechSynthesis.cancel(); // Hentikan ucapan sebelumnya
+          window.speechSynthesis.cancel();
           const utterance = new SpeechSynthesisUtterance(text);
           utterance.lang = 'id-ID';
           utterance.rate = this.rate;
           utterance.pitch = this.pitch;
 
-          const voices = window.speechSynthesis.getVoices();
-          // Filter seluruh suara bahasa Indonesia yang tersedia di peramban
-          const idVoices = voices.filter(v => v.lang.includes('id') || v.lang.includes('ID'));
-          
-          // Prioritaskan suara perempuan / natural (seperti Gadis, Indah, Google Bahasa Indonesia)
-          // yang ketika dipadukan dengan pitch 1.55 menghasilkan efek suara anak kecil yang sangat alami
-          const preferredVoice = idVoices.find(v => 
-            v.name.toLowerCase().includes('gadis') || 
-            v.name.toLowerCase().includes('female') || 
-            v.name.toLowerCase().includes('google') ||
-            v.name.toLowerCase().includes('indonesia')
-          ) || idVoices[0];
-
-          if (preferredVoice) utterance.voice = preferredVoice;
+          const chosenVoice = this.pickBestVoice();
+          if (chosenVoice) {
+            utterance.voice = chosenVoice;
+          }
 
           if (onEndCallback) utterance.onend = onEndCallback;
           window.speechSynthesis.speak(utterance);
@@ -2243,33 +2355,67 @@
       speech.speak(`Halo teman-teman hebat! Namaku ${GAME_CONFIG.maskot.nama}. Ayo tekan tombol Mulai Misi!`);
     }
 
-    // Pengaturan Karakter Suara AI (Anak-anak vs Guru)
+    // Pengaturan Karakter Suara AI (Anak TK vs Balita vs Guru)
     function changeVoiceProfile(mode) {
       audio.playPop();
       speech.setVoiceMode(mode);
 
       const childBtn = document.getElementById('btn-voice-child');
+      const toddlerBtn = document.getElementById('btn-voice-toddler');
       const teacherBtn = document.getElementById('btn-voice-teacher');
+      const tag = document.getElementById('voice-status-tag');
+
+      // Reset tampilan tombol
+      [childBtn, toddlerBtn, teacherBtn].forEach(b => {
+        if (b) b.className = "p-2 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-[11px] flex flex-col items-center justify-center gap-0.5 shadow-sm hover:bg-slate-50 transition";
+      });
 
       if (mode === 'child') {
-        if (childBtn) childBtn.className = "p-2.5 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition";
-        if (teacherBtn) teacherBtn.className = "p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 transition";
-        speech.speak("Halo teman-teman! Sekarang aku memakai suara anak-anak yang ceria!");
+        if (childBtn) childBtn.className = "p-2 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-[11px] flex flex-col items-center justify-center gap-0.5 shadow-sm transition";
+        if (tag) tag.innerText = "Anak TK Imut (1.78x)";
+        speech.speak("Halo temen-temen! Sekarang suara Ara jadi imut dan lembut!");
+      } else if (mode === 'toddler') {
+        if (toddlerBtn) toddlerBtn.className = "p-2 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-[11px] flex flex-col items-center justify-center gap-0.5 shadow-sm transition";
+        if (tag) tag.innerText = "Super Mungil (1.95x)";
+        speech.speak("Cilukba! Hihihi, suara aku jadi lucu dan mungil banget!");
       } else {
-        if (teacherBtn) teacherBtn.className = "p-2.5 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition";
-        if (childBtn) childBtn.className = "p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 transition";
+        if (teacherBtn) teacherBtn.className = "p-2 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-[11px] flex flex-col items-center justify-center gap-0.5 shadow-sm transition";
+        if (tag) tag.innerText = "Ibu Guru (1.15x)";
         speech.speak("Halo anak-anak pintar. Sekarang mode suara Ibu Guru yang berbicara.");
       }
     }
 
+    function onPitchSliderChange(val) {
+      const p = parseFloat(val);
+      speech.pitch = p;
+      const lbl = document.getElementById('label-pitch-value');
+      if (lbl) lbl.innerText = `${p.toFixed(2)}x (${p >= 1.7 ? 'Sangat Imut' : (p >= 1.4 ? 'Ceria' : 'Dewasa')})`;
+    }
+
+    function onRateSliderChange(val) {
+      const r = parseFloat(val);
+      speech.rate = r;
+      const lbl = document.getElementById('label-rate-value');
+      if (lbl) lbl.innerText = `${r.toFixed(2)}x (${r < 1.0 ? 'Lembut' : 'Cepat'})`;
+    }
+
+    function onVoiceSelectChange(val) {
+      speech.selectedVoiceURI = val;
+      audio.playPop();
+    }
+
     function testChildVoice() {
       audio.playPop();
-      speech.speak(`Halo teman-teman hebat! Namaku ${GAME_CONFIG.maskot.nama}. Senang sekali bisa belajar dan bermain bersamamu!`);
+      speech.speak(`Halo teman-teman hebat! Namaku ${GAME_CONFIG.maskot.nama}. Lihat deh, tamannya sekarang bersih dan banyak bunganya! Lucu banget kan?`);
     }
 
     // Inisialisasi awal saat DOM siap
     document.addEventListener('DOMContentLoaded', () => {
       updateStarsDisplay();
+      if (speech.isSupported) {
+        speech.loadVoices();
+        speech.updateSlidersUI();
+      }
     });
   </script>
 </body>
