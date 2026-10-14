@@ -225,11 +225,46 @@
       </p>
 
       <!-- Badge Kurikulum Singkat -->
-      <div class="flex flex-wrap justify-center gap-2 mb-8">
+      <div class="flex flex-wrap justify-center gap-2 mb-6">
         <span class="bg-white/80 text-emerald-700 font-bold text-xs px-3 py-1.5 rounded-full border border-emerald-200 shadow-sm">🌿 Nilai Agama & Moral</span>
         <span class="bg-white/80 text-amber-700 font-bold text-xs px-3 py-1.5 rounded-full border border-amber-200 shadow-sm">🧩 Kognitif & Sains</span>
         <span class="bg-white/80 text-sky-700 font-bold text-xs px-3 py-1.5 rounded-full border border-sky-200 shadow-sm">🔢 Numerasi 1-5</span>
         <span class="bg-white/80 text-rose-700 font-bold text-xs px-3 py-1.5 rounded-full border border-rose-200 shadow-sm">🤝 Aksi Nyata Kelas</span>
+      </div>
+
+      <!-- PANGGUNG VIDEO ANIMASI PEMBELAJARAN (AI STORY PROLOGUE) -->
+      <div class="w-full max-w-xl mb-6">
+        <div class="relative bg-white/95 backdrop-blur-md rounded-3xl p-3 md:p-4 border-4 border-emerald-400 shadow-xl overflow-hidden group">
+          
+          <!-- Header Bar Video Kartun -->
+          <div class="flex items-center justify-between px-2 mb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xl md:text-2xl animate-bounce-slow">🎬</span>
+              <span id="prologue-video-title" class="text-xs md:text-sm font-black text-emerald-800 tracking-wide">
+                Video Cerita: Penyelamat Taman Ceria
+              </span>
+            </div>
+            <span class="bg-amber-100 text-amber-800 text-[10px] md:text-xs font-bold px-2.5 py-0.5 rounded-full border border-amber-300">
+              Animasi AI • Suara Asli
+            </span>
+          </div>
+
+          <!-- Video Element (16:9 Aspect Ratio) -->
+          <div class="relative w-full aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center">
+            <video id="prologue-video" 
+                   playsinline 
+                   controls 
+                   preload="metadata"
+                   class="w-full h-full object-cover">
+              <source id="prologue-video-source" src="assets/video/cerita_taman.mp4" type="video/mp4">
+              Browser Anda tidak mendukung pemutar video HTML5.
+            </video>
+          </div>
+
+          <p class="text-[11px] text-slate-500 font-medium text-center mt-2 flex items-center justify-center gap-1">
+            <span>💡</span> <span>Tonton video cerita di atas bersama anak-anak, lalu klik tombol <strong>MULAI MISI!</strong> di bawah</span>
+          </p>
+        </div>
       </div>
 
       <!-- Tombol Aksi Utama Raksasa -->
@@ -1637,6 +1672,12 @@
       audio.playPop();
       speech.stop();
 
+      // Hentikan video prolog jika sedang diputar
+      const pVid = document.getElementById('prologue-video');
+      if (pVid && !pVid.paused) {
+        pVid.pause();
+      }
+
       // Sembunyikan semua layar
       for (let i = 0; i <= 5; i++) {
         const s = document.getElementById(`screen-${i}`);
@@ -1670,6 +1711,11 @@
     }
 
     function startMission() {
+      // Pastikan video prolog dihentikan saat berpindah ke game
+      const pVid = document.getElementById('prologue-video');
+      if (pVid && !pVid.paused) {
+        pVid.pause();
+      }
       audio.init();
       audio.startBGM();
       goToScreen(1);
@@ -2415,6 +2461,20 @@
       if (speech.isSupported) {
         speech.loadVoices();
         speech.updateSlidersUI();
+      }
+
+      // Event listener video prolog di Beranda
+      const pVid = document.getElementById('prologue-video');
+      if (pVid) {
+        pVid.addEventListener('play', () => {
+          // Matikan BGM web & hentikan TTS agar suara video terdengar jelas
+          audio.stopBGM();
+          speech.stop();
+        });
+        pVid.addEventListener('ended', () => {
+          // Nyalakan kembali musik latar setelah video selesai
+          audio.startBGM();
+        });
       }
     });
   </script>

@@ -69,7 +69,7 @@ stateDiagram-v2
 ```
 
 ### Definisi Status (Screen States):
-* `STATE_0_HOME`: Layar pembuka, judul besar, tombol mulai raksasa, akses cepat ganti tema.
+* `STATE_0_HOME`: Layar pembuka, judul besar, panggung video animasi pembelajaran AI (`assets/video/cerita_taman.mp4`), tombol mulai raksasa, dan tombol ubah tema dadakan.
 * `STATE_1_MISSION`: Animasi taman kotor, tombol pemantik audio narasi, panel pertanyaan diskusi guru.
 * `STATE_2_DETECTIVE`: Permainan pilah 6 sampah (organik vs anorganik) + sub-kuis memilih alat siram tanaman.
 * `STATE_3_CHALLENGE`: 
