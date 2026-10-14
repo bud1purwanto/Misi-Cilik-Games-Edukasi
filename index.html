@@ -873,6 +873,23 @@
               </button>
             </div>
           </div>
+
+          <!-- Kustomisasi Karakter Suara AI (Suara Anak-anak vs Guru) -->
+          <div class="pt-3 border-t border-slate-200">
+            <h5 class="font-bold text-slate-800 text-xs uppercase mb-1">Pilihan Karakter Suara Narasi (TTS):</h5>
+            <p class="text-[11px] text-slate-500 mb-2">Pilih karakter nada suara pembaca cerita & instruksi:</p>
+            <div class="grid grid-cols-2 gap-2 mb-2">
+              <button id="btn-voice-child" onclick="changeVoiceProfile('child')" class="p-2.5 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
+                <span>🧒</span> <span>Suara Anak-anak (Ceria)</span>
+              </button>
+              <button id="btn-voice-teacher" onclick="changeVoiceProfile('teacher')" class="p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 transition">
+                <span>👩</span> <span>Suara Ibu Guru (Kalem)</span>
+              </button>
+            </div>
+            <button onclick="testChildVoice()" class="w-full py-2 bg-amber-400 hover:bg-amber-500 text-amber-900 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition">
+              <span>🔊</span> <span>Coba Dengarkan Sampel Suara Karakter</span>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -1398,11 +1415,27 @@
 
     /* =======================================================
        C. SPEECH ENGINE (WEB SPEECH API BAHASA INDONESIA)
+       DIPERBARUI: PROFIL SUARA ANAK-ANAK CERIA (PITCH 1.55)
        ======================================================= */
     class SpeechEngine {
       constructor() {
         this.isEnabled = true;
         this.isSupported = 'speechSynthesis' in window;
+        // Profil Default: Karakter Suara Anak-anak Ceria
+        this.voiceMode = 'child'; // 'child' | 'teacher'
+        this.pitch = 1.55;        // Pitch tinggi ceria khas anak-anak/karakter kartun
+        this.rate = 1.02;         // Laju wicara lincah & bersemangat
+      }
+
+      setVoiceMode(mode) {
+        this.voiceMode = mode;
+        if (mode === 'child') {
+          this.pitch = 1.55;
+          this.rate = 1.02;
+        } else {
+          this.pitch = 1.15;
+          this.rate = 0.90;
+        }
       }
 
       speak(text, onEndCallback = null) {
@@ -1415,12 +1448,23 @@
           window.speechSynthesis.cancel(); // Hentikan ucapan sebelumnya
           const utterance = new SpeechSynthesisUtterance(text);
           utterance.lang = 'id-ID';
-          utterance.rate = 0.90; // Ramah anak TK, sedikit lambat agar artikulasi jelas
-          utterance.pitch = 1.25; // Ceria dan bersahabat
+          utterance.rate = this.rate;
+          utterance.pitch = this.pitch;
 
           const voices = window.speechSynthesis.getVoices();
-          const idVoice = voices.find(v => v.lang.includes('id') || v.lang.includes('ID'));
-          if (idVoice) utterance.voice = idVoice;
+          // Filter seluruh suara bahasa Indonesia yang tersedia di peramban
+          const idVoices = voices.filter(v => v.lang.includes('id') || v.lang.includes('ID'));
+          
+          // Prioritaskan suara perempuan / natural (seperti Gadis, Indah, Google Bahasa Indonesia)
+          // yang ketika dipadukan dengan pitch 1.55 menghasilkan efek suara anak kecil yang sangat alami
+          const preferredVoice = idVoices.find(v => 
+            v.name.toLowerCase().includes('gadis') || 
+            v.name.toLowerCase().includes('female') || 
+            v.name.toLowerCase().includes('google') ||
+            v.name.toLowerCase().includes('indonesia')
+          ) || idVoices[0];
+
+          if (preferredVoice) utterance.voice = preferredVoice;
 
           if (onEndCallback) utterance.onend = onEndCallback;
           window.speechSynthesis.speak(utterance);
@@ -2197,6 +2241,30 @@
     function speakCurrentMascot() {
       audio.playPop();
       speech.speak(`Halo teman-teman hebat! Namaku ${GAME_CONFIG.maskot.nama}. Ayo tekan tombol Mulai Misi!`);
+    }
+
+    // Pengaturan Karakter Suara AI (Anak-anak vs Guru)
+    function changeVoiceProfile(mode) {
+      audio.playPop();
+      speech.setVoiceMode(mode);
+
+      const childBtn = document.getElementById('btn-voice-child');
+      const teacherBtn = document.getElementById('btn-voice-teacher');
+
+      if (mode === 'child') {
+        if (childBtn) childBtn.className = "p-2.5 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition";
+        if (teacherBtn) teacherBtn.className = "p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 transition";
+        speech.speak("Halo teman-teman! Sekarang aku memakai suara anak-anak yang ceria!");
+      } else {
+        if (teacherBtn) teacherBtn.className = "p-2.5 rounded-xl border-2 border-purple-500 bg-purple-50 text-purple-900 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition";
+        if (childBtn) childBtn.className = "p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 transition";
+        speech.speak("Halo anak-anak pintar. Sekarang mode suara Ibu Guru yang berbicara.");
+      }
+    }
+
+    function testChildVoice() {
+      audio.playPop();
+      speech.speak(`Halo teman-teman hebat! Namaku ${GAME_CONFIG.maskot.nama}. Senang sekali bisa belajar dan bermain bersamamu!`);
     }
 
     // Inisialisasi awal saat DOM siap

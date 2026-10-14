@@ -33,10 +33,11 @@ flowchart LR
 
 Untuk mendampingi anak-anak TK yang mayoritas belum lancar membaca tulisan, sistem menyediakan pembacaan teks otomatis menggunakan **Web Speech API** (`window.speechSynthesis`):
 
-### Parameter Konfigurasi Suara Anak-Ramah:
+### Parameter Konfigurasi Suara Anak Ceria (Child Voice Profile):
 * **Bahasa (`lang`):** `'id-ID'` (Bahasa Indonesia).
-* **Laju Bicara (`rate`):** `0.88` s/d `0.92` (sedikit lebih lambat dari normal agar pelafalan setiap suku kata jelas ditangkap anak usia 4–6 tahun).
-* **Nada Suara (`pitch`):** `1.20` s/d `1.30` (nada lebih tinggi dan ceria, menyerupai karakter animasi atau suara ramah guru TK).
+* **Laju Bicara (`rate`):** `1.02` (sedikit lebih lincah dan bersemangat, khas gaya bicara anak-anak).
+* **Nada Suara (`pitch`):** `1.55` (frekuensi nada tinggi khas anak kecil / karakter kartun maskot imut).
+* **Pilihan Karakter:** Tersedia opsi alih karakter di Panel Juri (`🧒 Suara Anak-anak` [default] vs `👩 Suara Ibu Guru` [pitch 1.15, rate 0.90]).
 * **Volume:** `1.0`.
 
 ### Strategi Pengelolaan Suara (Speech Queue Safety):
