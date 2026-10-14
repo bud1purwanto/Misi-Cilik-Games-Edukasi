@@ -33,16 +33,15 @@ flowchart LR
 
 Untuk mendampingi anak-anak TK yang mayoritas belum lancar membaca tulisan, sistem menyediakan pembacaan teks otomatis menggunakan **Web Speech API** (`window.speechSynthesis`):
 
-### Parameter Konfigurasi Suara Anak TK Imut & Lembut:
-* **Bahasa (`lang`):** `'id-ID'` (Bahasa Indonesia).
-* **Laju Bicara (`rate`):** `0.94` (artikulasi lembut, santai, dan tidak kaku).
-* **Nada Suara (`pitch`):** `1.78` (nada tinggi khas anak TK mungil, menghilangkan kesan suara berat/besar).
+### Parameter Konfigurasi Suara Anak Lembut (Ibu Guru Diperkecil):
+* **Basis Suara:** Suara perempuan alami Bahasa Indonesia (Gadis, Indah, Google Bahasa Indonesia, atau Zira) yang bebas dari resonansi pria dewasa.
+* **Tinggi Nada (`pitch`):** `1.34` (sweet spot harmonis yang memperkecil suara Ibu Guru menjadi suara anak manis tanpa distorsi cempreng).
+* **Laju Bicara (`rate`):** `0.94` (artikulasi lembut, santun, dan jelas didengar anak TK).
 * **Preset Studio Suara AI:**
-  * 🧒 **Anak TK Imut:** `pitch: 1.78`, `rate: 0.94` (Default)
-  * 👧 **Super Mungil (Balita):** `pitch: 1.95`, `rate: 0.98`
-  * 👩 **Ibu Guru:** `pitch: 1.15`, `rate: 0.90`
-* **Studio Tuner:** Tersedia slider pitch (1.0 - 2.0x), slider rate (0.75 - 1.30x), dan pemilih suara browser langsung di Panel Juri.
-* **Filter Suara Cerdas:** Menghindari otomatis suara pria dewasa (David/Andika) yang berat, dan memprioritaskan suara perempuan/natural (Gadis, Zira, Google, dsb.) yang jika dinaikkan nadanya menjadi suara anak kecil alami.
+  * 🧒 **Ibu Guru Diperkecil:** `pitch: 1.34`, `rate: 0.94` (Default Pas & Lembut)
+  * 👧 **Lebih Mungil:** `pitch: 1.42`, `rate: 0.96`
+  * 👩 **Ibu Guru Asli:** `pitch: 1.15`, `rate: 0.90`
+* **Studio Tuner:** Slider pitch (1.00 - 1.60x), slider rate (0.80 - 1.20x), dan dropdown pemilih suara browser langsung di Panel Juri.
 
 ### Strategi Pengelolaan Suara (Speech Queue Safety):
 ```javascript
