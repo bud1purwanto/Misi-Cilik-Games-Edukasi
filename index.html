@@ -889,12 +889,16 @@
       </div>
 
       <!-- Tab Buttons -->
-      <div class="flex border-b border-slate-200 bg-slate-50 px-4 pt-2">
-        <button id="modal-tab-1" onclick="switchModalTab(1)" class="px-4 py-2 font-bold text-sm text-purple-700 border-b-2 border-purple-600">
-          1. Kurikulum, Naskah & Justifikasi AI
+      <div class="flex border-b border-slate-200 bg-slate-50 px-4 pt-2 overflow-x-auto gap-1">
+        <button id="modal-tab-1" onclick="switchModalTab(1)" class="px-4 py-2 font-bold text-xs md:text-sm text-purple-700 border-b-2 border-purple-600 whitespace-nowrap">
+          1. Kurikulum & AI
         </button>
-        <button id="modal-tab-2" onclick="switchModalTab(2)" class="px-4 py-2 font-bold text-sm text-slate-500 hover:text-slate-800">
-          2. Live Theme Switcher (4 Preset Dadakan)
+        <button id="modal-tab-2" onclick="switchModalTab(2)" class="px-4 py-2 font-bold text-xs md:text-sm text-slate-500 hover:text-slate-800 whitespace-nowrap">
+          2. Live Theme Switcher
+        </button>
+        <button id="modal-tab-3" onclick="switchModalTab(3)" class="px-4 py-2 font-bold text-xs md:text-sm text-slate-500 hover:text-slate-800 whitespace-nowrap flex items-center gap-1.5">
+          <span>🎓</span> <span>3. Rekap Hasil Murid</span>
+          <span id="badge-record-count" class="bg-purple-200 text-purple-900 text-[10px] px-2 py-0.5 rounded-full font-black">0</span>
         </button>
       </div>
 
@@ -1066,6 +1070,29 @@
             <button onclick="testChildVoice()" class="w-full py-2 bg-amber-400 hover:bg-amber-500 text-amber-900 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition">
               <span>🔊</span> <span>Coba Dengarkan Suara Ini Sekarang</span>
             </button>
+          </div>
+        </div>
+
+        <!-- Tab Content 3: Rekap Hasil Murid & Cetak Ulang Sertifikat -->
+        <div id="modal-content-tab-3" class="space-y-4 hidden">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-purple-50 border border-purple-200 rounded-2xl">
+            <div>
+              <h4 class="font-bold text-purple-900 text-sm flex items-center gap-1.5">
+                <span>🎓</span> <span>Rekapitulasi Asesmen & Sertifikat Murid</span>
+              </h4>
+              <p class="text-xs text-purple-700">Tersimpan otomatis di penyimpanan lokal (Local Storage) perangkat guru.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="badge-total-records" class="text-xs font-bold px-2.5 py-1 bg-purple-200 text-purple-900 rounded-lg">0 Murid</span>
+              <button onclick="clearAllStudentRecords()" class="text-xs font-bold px-3 py-1 bg-rose-100 hover:bg-rose-200 active:scale-95 text-rose-800 rounded-lg border border-rose-300 transition">
+                🗑️ Hapus Semua
+              </button>
+            </div>
+          </div>
+
+          <!-- Daftar Kartu Hasil Murid -->
+          <div id="student-records-list-container" class="space-y-3">
+            <!-- Diisi secara dinamis via JavaScript -->
           </div>
         </div>
 
@@ -1756,6 +1783,7 @@
        D. STATE MANAGER & SIKLUS PERMAINAN
        ======================================================= */
     const GameState = {
+      currentRecordId: null,
       studentName: "Sahabat Cilik Hebat",
       currentScreen: 0,
       stars: 0,
@@ -1806,7 +1834,7 @@
       }
     }
 
-    function goToScreen(screenIndex) {
+    function goToScreen(screenIndex, isViewingRecord = false) {
       audio.playPop();
       speech.stop();
       if (typeof stopAiSceneAnimation === 'function') stopAiSceneAnimation();
@@ -1861,7 +1889,7 @@
       else if (screenIndex === 2) initStage2();
       else if (screenIndex === 3) initStage3();
       else if (screenIndex === 4) initStage4();
-      else if (screenIndex === 5) initStage5();
+      else if (screenIndex === 5) initStage5(isViewingRecord);
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1883,6 +1911,9 @@
         if (certNameEl) certNameEl.innerText = GameState.studentName;
         const inputName = document.getElementById('input-student-name');
         if (inputName) inputName.value = GameState.studentName;
+        if (typeof saveCurrentStudentRecord === 'function') {
+          saveCurrentStudentRecord();
+        }
       }
     }
 
@@ -1898,6 +1929,9 @@
       // Pastikan nama murid langsung terpasang di sertifikat
       const certNameEl = document.getElementById('cert-student-name');
       if (certNameEl) certNameEl.innerText = GameState.studentName;
+
+      // Reset ID rekaman untuk murid baru
+      GameState.currentRecordId = null;
 
       // Reset skor & riwayat kesalahan untuk sesi bermain baru
       GameState.stars = 0;
@@ -2611,12 +2645,15 @@
 
       GameState.rubricPredicates[aspect] = nextPred;
       renderRubricTable();
+      if (typeof saveCurrentStudentRecord === 'function') {
+        saveCurrentStudentRecord();
+      }
     }
 
     // --- TAHAP 5: MISI BERHASIL & SERTIFIKAT ---
-    function initStage5() {
+    function initStage5(isViewingRecord = false) {
       // Pastikan genap 5 bintang
-      GameState.stars = 5;
+      GameState.stars = GameState.stars || 5;
       updateStarsDisplay();
 
       document.getElementById('stage5-title').innerText = GAME_CONFIG.tahap5.judul;
@@ -2628,12 +2665,21 @@
         certNameEl.innerText = GameState.studentName || "Sahabat Cilik Hebat";
       }
 
-      // Hitung evaluasi rubrik autentik berdasarkan riwayat aktivitas dan jawaban murid
-      calculateRubricPredicates();
+      if (!isViewingRecord) {
+        // Hitung evaluasi rubrik autentik berdasarkan riwayat aktivitas dan jawaban murid
+        calculateRubricPredicates();
 
-      // Set tanggal hari ini pada sertifikat
-      const now = new Date();
-      document.getElementById('cert-date-text').innerText = `Tanggal: ${now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+        // Set tanggal hari ini pada sertifikat
+        const now = new Date();
+        document.getElementById('cert-date-text').innerText = `Tanggal: ${now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+
+        // Simpan data murid dan hasil evaluasi ke Local Storage
+        if (typeof saveCurrentStudentRecord === 'function') {
+          saveCurrentStudentRecord();
+        }
+      } else {
+        renderRubricTable();
+      }
 
       audio.playFanfare();
       launchConfetti();
@@ -2645,6 +2691,7 @@
 
     function restartGame() {
       audio.playPop();
+      GameState.currentRecordId = null;
       GameState.stars = 0;
       GameState.hasDiscussed = false;
       GameState.trashMistakes = 0;
@@ -2721,6 +2768,7 @@
        ======================================================= */
     function openJuryModal(defaultTab = 1) {
       audio.playPop();
+      updateRecordsCountBadge();
       document.getElementById('jury-modal').classList.remove('hidden');
       switchModalTab(defaultTab);
     }
@@ -2732,21 +2780,256 @@
 
     function switchModalTab(tabIndex) {
       audio.playPop();
-      const tab1Btn = document.getElementById('modal-tab-1');
-      const tab2Btn = document.getElementById('modal-tab-2');
-      const tab1Content = document.getElementById('modal-content-tab-1');
-      const tab2Content = document.getElementById('modal-content-tab-2');
+      const tabs = [1, 2, 3];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`modal-tab-${t}`);
+        const content = document.getElementById(`modal-content-tab-${t}`);
+        if (!btn || !content) return;
+        if (t === tabIndex) {
+          btn.className = "px-4 py-2 font-bold text-xs md:text-sm text-purple-700 border-b-2 border-purple-600 whitespace-nowrap flex items-center gap-1.5";
+          content.classList.remove('hidden');
+        } else {
+          btn.className = "px-4 py-2 font-bold text-xs md:text-sm text-slate-500 hover:text-slate-800 whitespace-nowrap flex items-center gap-1.5";
+          content.classList.add('hidden');
+        }
+      });
+      if (tabIndex === 3) {
+        renderStudentRecordsTable();
+      }
+    }
 
-      if (tabIndex === 1) {
-        tab1Btn.className = "px-4 py-2 font-bold text-sm text-purple-700 border-b-2 border-purple-600";
-        tab2Btn.className = "px-4 py-2 font-bold text-sm text-slate-500 hover:text-slate-800";
-        tab1Content.classList.remove('hidden');
-        tab2Content.classList.add('hidden');
+    /* =======================================================
+       H. PENYIMPANAN DATA REKAP MURID & SERTIFIKAT (LOCAL STORAGE)
+       ======================================================= */
+    const STORAGE_KEY = 'MISI_CILIK_STUDENT_RECORDS';
+
+    function getStoredStudentRecords() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (err) {
+        console.warn("Gagal membaca records dari LocalStorage:", err);
+        return [];
+      }
+    }
+
+    function saveStudentRecords(records) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+        updateRecordsCountBadge();
+        return true;
+      } catch (err) {
+        console.warn("Gagal menyimpan ke LocalStorage:", err);
+        return false;
+      }
+    }
+
+    function updateRecordsCountBadge() {
+      const records = getStoredStudentRecords();
+      const badge = document.getElementById('badge-record-count');
+      const badgeTotal = document.getElementById('badge-total-records');
+      if (badge) badge.innerText = records.length;
+      if (badgeTotal) badgeTotal.innerText = `${records.length} Murid`;
+    }
+
+    function saveCurrentStudentRecord() {
+      const records = getStoredStudentRecords();
+      const now = new Date();
+      const dateFormatted = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      const timeFormatted = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+      const newRecord = {
+        id: GameState.currentRecordId || ("rec_" + Date.now() + "_" + Math.floor(Math.random() * 1000)),
+        timestamp: Date.now(),
+        dateFormatted: dateFormatted,
+        timeFormatted: timeFormatted,
+        studentName: GameState.studentName || "Sahabat Cilik Hebat",
+        themeId: (GAME_CONFIG && GAME_CONFIG.id) || "taman",
+        themeTitle: (GAME_CONFIG && GAME_CONFIG.judulUtama) || "MISI CILIK: Selamatkan Taman Ceria!",
+        mascotIkon: (GAME_CONFIG && GAME_CONFIG.maskot) ? GAME_CONFIG.maskot.ikon : "🐝",
+        stars: GameState.stars || 5,
+        rubricPredicates: { ...(GameState.rubricPredicates || {}) },
+        mistakes: {
+          trash: GameState.trashMistakes || 0,
+          water: GameState.waterMistakes || 0,
+          counting: GameState.countingMistakes || 0,
+          sequence: GameState.sequenceMistakes || 0,
+          checklist: GameState.checklistCount || 0
+        },
+        photoDataUrl: GameState.photoDataUrl || null
+      };
+
+      GameState.currentRecordId = newRecord.id;
+
+      // Update jika sudah ada, atau tambahkan di awal (paling baru di atas)
+      const existingIdx = records.findIndex(r => r.id === newRecord.id);
+      if (existingIdx >= 0) {
+        records[existingIdx] = newRecord;
       } else {
-        tab2Btn.className = "px-4 py-2 font-bold text-sm text-purple-700 border-b-2 border-purple-600";
-        tab1Btn.className = "px-4 py-2 font-bold text-sm text-slate-500 hover:text-slate-800";
-        tab2Content.classList.remove('hidden');
-        tab1Content.classList.add('hidden');
+        records.unshift(newRecord);
+      }
+
+      saveStudentRecords(records);
+    }
+
+    function renderStudentRecordsTable() {
+      const container = document.getElementById('student-records-list-container');
+      if (!container) return;
+
+      const records = getStoredStudentRecords();
+      updateRecordsCountBadge();
+
+      if (records.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl p-6 space-y-2 select-none">
+            <div class="text-5xl animate-bounce-slow">🎓</div>
+            <h5 class="font-bold text-slate-700 text-sm md:text-base">Belum Ada Rekap Nilai Murid</h5>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto">
+              Saat murid menyelesaikan petualangan hingga Tahap 5, data nama, nilai 6 aspek Kurikulum Merdeka, dan sertifikat akan otomatis tersimpan di sini.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      records.forEach((rec, idx) => {
+        const themeIkon = rec.mascotIkon || '🌻';
+        const preds = rec.rubricPredicates || {};
+
+        html += `
+          <div class="bg-white border-2 border-purple-100 hover:border-purple-300 rounded-2xl p-4 shadow-sm transition hover:shadow-md space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="w-7 h-7 rounded-full bg-purple-100 text-purple-800 font-black text-xs flex items-center justify-center shrink-0">
+                  ${idx + 1}
+                </span>
+                <div>
+                  <h4 class="font-black text-slate-900 text-sm md:text-base leading-tight">${rec.studentName}</h4>
+                  <p class="text-[11px] text-purple-700 font-semibold flex items-center gap-1 mt-0.5">
+                    <span>${themeIkon}</span> <span>${rec.themeTitle || 'Petualangan Ceria'}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 self-end sm:self-center">
+                <span class="text-amber-500 font-black text-xs tracking-wider">⭐⭐⭐⭐⭐</span>
+                <span class="text-[11px] text-slate-400 font-medium">🕒 ${rec.dateFormatted || '-'} ${rec.timeFormatted || ''}</span>
+              </div>
+            </div>
+
+            <!-- Ringkasan Predikat 6 Aspek PAUD -->
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-1.5 text-center">
+              <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="block text-[10px] font-bold text-slate-500">NAM</span>
+                <span class="font-black text-xs text-emerald-700">${preds.nam || 'BSB'}</span>
+              </div>
+              <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="block text-[10px] font-bold text-slate-500">Kognitif</span>
+                <span class="font-black text-xs text-emerald-700">${preds.kognitif || 'BSB'}</span>
+              </div>
+              <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="block text-[10px] font-bold text-slate-500">Bahasa</span>
+                <span class="font-black text-xs text-sky-700">${preds.bahasa || 'BSH'}</span>
+              </div>
+              <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="block text-[10px] font-bold text-slate-500">Numerasi</span>
+                <span class="font-black text-xs text-emerald-700">${preds.numerasi || 'BSB'}</span>
+              </div>
+              <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="block text-[10px] font-bold text-slate-500">Motorik</span>
+                <span class="font-black text-xs text-emerald-700">${preds.motorik || 'BSB'}</span>
+              </div>
+              <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="block text-[10px] font-bold text-slate-500">Sosek</span>
+                <span class="font-black text-xs text-emerald-700">${preds.sosek || 'BSB'}</span>
+              </div>
+            </div>
+
+            <!-- Tombol Aksi Guru -->
+            <div class="flex items-center justify-between pt-1">
+              <div class="text-[11px] text-slate-400">
+                ${rec.photoDataUrl ? '📸 <span class="text-emerald-600 font-semibold">Ada Foto Aksi Murid</span>' : '🖼️ Avatar Sahabat Cilik'}
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="viewStudentCertificate('${rec.id}')" class="px-3.5 py-1.5 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition" title="Buka dan cetak sertifikat murid ini">
+                  <span>🖨️</span> <span>Cetak Sertifikat</span>
+                </button>
+                <button onclick="deleteStudentRecord('${rec.id}')" class="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-700 font-bold rounded-xl text-xs border border-rose-200 transition" title="Hapus data murid ini">
+                  <span>🗑️</span> <span>Hapus</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function viewStudentCertificate(recordId) {
+      audio.playChime();
+      const records = getStoredStudentRecords();
+      const rec = records.find(r => r.id === recordId);
+      if (!rec) return;
+
+      // 1. Pasang data anak ke GameState
+      GameState.currentRecordId = rec.id;
+      GameState.studentName = rec.studentName;
+      GameState.stars = rec.stars || 5;
+      GameState.rubricPredicates = { ...rec.rubricPredicates };
+      GameState.photoDataUrl = rec.photoDataUrl || null;
+
+      // 2. Jika temanya berbeda dengan tema saat ini, aktifkan tema tersebut
+      if (rec.themeId && THEME_PRESETS[rec.themeId]) {
+        GAME_CONFIG = JSON.parse(JSON.stringify(THEME_PRESETS[rec.themeId]));
+      }
+
+      // 3. Terapkan foto ke Sertifikat
+      const certPhotoEl = document.getElementById('cert-photo');
+      if (certPhotoEl) {
+        if (rec.photoDataUrl) {
+          certPhotoEl.src = rec.photoDataUrl;
+        } else {
+          certPhotoEl.src = "assets/video/cerita_taman_scene.jpg";
+        }
+      }
+
+      // 4. Tutup modal juri dan arahkan langsung ke Layar 5 (Sertifikat)
+      closeJuryModal();
+      goToScreen(5, true);
+
+      // 5. Update teks sertifikat dengan tanggal rekaman
+      const dateEl = document.getElementById('cert-date-text');
+      if (dateEl && rec.dateFormatted) {
+        dateEl.innerText = `Tanggal: ${rec.dateFormatted} (${rec.timeFormatted || ''})`;
+      }
+
+      speech.speak(`Membuka sertifikat untuk ${rec.studentName}. Siap dicetak!`);
+    }
+
+    function deleteStudentRecord(recordId) {
+      audio.playPop();
+      const records = getStoredStudentRecords();
+      const rec = records.find(r => r.id === recordId);
+      const name = rec ? rec.studentName : "data murid ini";
+
+      if (confirm(`Apakah Ibu Guru yakin ingin menghapus catatan nilai dan sertifikat untuk ${name}?`)) {
+        const filtered = records.filter(r => r.id !== recordId);
+        saveStudentRecords(filtered);
+        renderStudentRecordsTable();
+        speech.speak("Data murid telah dihapus.");
+      }
+    }
+
+    function clearAllStudentRecords() {
+      audio.playPop();
+      const records = getStoredStudentRecords();
+      if (records.length === 0) return;
+
+      if (confirm(`Hapus seluruh data (${records.length} murid) dari penyimpanan lokal? Tindakan ini tidak dapat dibatalkan.`)) {
+        saveStudentRecords([]);
+        renderStudentRecordsTable();
+        speech.speak("Seluruh riwayat murid telah dibersihkan.");
       }
     }
 
@@ -3049,6 +3332,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       updateStarsDisplay();
       renderRubricTable();
+      updateRecordsCountBadge();
       if (speech.isSupported) {
         speech.loadVoices();
         speech.updateSlidersUI();
