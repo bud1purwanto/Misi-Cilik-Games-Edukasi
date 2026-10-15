@@ -3166,7 +3166,6 @@
 
     function applyPreset(presetKey) {
       if (!THEME_PRESETS[presetKey]) return;
-      audio.playChime();
 
       GAME_CONFIG = JSON.parse(JSON.stringify(THEME_PRESETS[presetKey]));
 
@@ -3182,13 +3181,16 @@
       document.getElementById('input-custom-mascot-name').value = GAME_CONFIG.maskot.nama;
       document.getElementById('input-custom-mascot-icon').value = GAME_CONFIG.maskot.ikon;
 
+      // Pastikan TTS & BGM senyap saat berganti tema agar suara video asli tidak tertimpa/bentrok
+      speech.stop();
+      audio.stopBGM();
+
       // Ganti Video Cerita Sesuai Tema Baru
       if (GAME_CONFIG.videoUrl) {
         loadThemeVideo(GAME_CONFIG.videoUrl, GAME_CONFIG.videoJudul);
       }
 
       closeJuryModal();
-      speech.speak(`Tema berhasil diubah menjadi ${GAME_CONFIG.judulUtama}! Siap bertualang!`);
       
       // Jika berada di tengah layar, render ulang state saat ini
       if (GameState.currentScreen > 0) {
@@ -3197,7 +3199,6 @@
     }
 
     function applyCustomText() {
-      audio.playChime();
       const customTitle = document.getElementById('input-custom-title').value.trim();
       const customName = document.getElementById('input-custom-mascot-name').value.trim();
       const customIcon = document.getElementById('input-custom-mascot-icon').value.trim();
@@ -3211,7 +3212,6 @@
       document.getElementById('home-title').innerText = GAME_CONFIG.judulUtama;
 
       closeJuryModal();
-      speech.speak("Perubahan teks berhasil disimpan!");
     }
 
     /* =======================================================
