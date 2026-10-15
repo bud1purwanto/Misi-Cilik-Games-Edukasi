@@ -159,12 +159,12 @@
   <!-- 1. HEADER GLOBAL (Sticky Navigasi & Bintang) -->
   <!-- ========================================== -->
   <header id="global-header" class="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-md border-b-4 border-emerald-300 px-4 py-2.5 transition-all">
-    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-2.5 sm:gap-4">
       
-      <!-- Sisi Kiri: Maskot & Nama Game & Tahap Aktif -->
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="goToScreen(0)" title="Klik untuk ke Beranda">
+      <!-- Sisi Kiri / Header Brand: Maskot & Nama Game & Tahap Aktif -->
+      <div class="flex items-center justify-center space-x-3 cursor-pointer text-center sm:text-left" onclick="goToScreen(0)" title="Klik untuk ke Beranda">
         <div id="header-mascot-icon" class="text-4xl animate-bounce-slow">🐝</div>
-        <div>
+        <div class="flex flex-col items-center sm:items-start">
           <h1 id="header-game-title" class="text-lg md:text-xl font-bold text-emerald-800 tracking-wide leading-tight">
             MISI CILIK
           </h1>
@@ -175,7 +175,7 @@
       </div>
 
       <!-- Sisi Tengah: Penghitung Bintang Emas (⭐ x 0 s/d 5) -->
-      <div class="flex items-center bg-amber-100/90 border-2 border-amber-300 px-4 py-1.5 rounded-full shadow-inner">
+      <div class="flex items-center justify-center bg-amber-100/90 border-2 border-amber-300 px-4 py-1.5 rounded-full shadow-inner">
         <span class="text-xs md:text-sm font-bold text-amber-900 mr-2">Bintang:</span>
         <div id="stars-container" class="flex space-x-1 text-2xl md:text-3xl text-amber-400">
           <span id="star-1" class="transition-transform duration-300 text-slate-300">⭐</span>
@@ -188,7 +188,7 @@
       </div>
 
       <!-- Sisi Kanan: Kontrol Audio & Panel Juri -->
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center justify-center space-x-2">
         <button id="btn-toggle-speech" onclick="toggleSpeech()" class="px-3 py-1.5 bg-sky-100 hover:bg-sky-200 text-sky-800 rounded-2xl border-2 border-sky-300 font-bold text-xs md:text-sm flex items-center gap-1 shadow-sm transition" title="Nyalakan/Matikan Narasi Suara">
           <span id="speech-icon">🔊</span> <span class="hidden sm:inline">Suara</span>
         </button>
