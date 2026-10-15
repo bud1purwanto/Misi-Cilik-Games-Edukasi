@@ -68,6 +68,15 @@
       animation: bounce-slow 1.8s infinite;
     }
 
+    @keyframes kenburns-scene {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.14) translate(-2%, -2%); }
+      100% { transform: scale(1.20) translate(2%, -1%); }
+    }
+    .animate-kenburns {
+      animation: kenburns-scene 14s ease-in-out infinite alternate;
+    }
+
     /* Tombol Timbul Gaya Kartun (3D Cartoon Push Button) */
     .btn-cartoon-emerald {
       box-shadow: 0 8px 0 #047857;
@@ -244,21 +253,65 @@
                 Video Cerita: Penyelamat Taman Ceria
               </span>
             </div>
-            <span class="bg-amber-100 text-amber-800 text-[10px] md:text-xs font-bold px-2.5 py-0.5 rounded-full border border-amber-300">
-              Animasi AI • Suara Asli
+            <span class="bg-emerald-100 text-emerald-800 text-[10px] md:text-xs font-bold px-2.5 py-0.5 rounded-full border border-emerald-300 flex items-center gap-1.5 shadow-sm">
+              <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>Auto-Play & Re-Play</span>
             </span>
           </div>
 
-          <!-- Video Element (16:9 Aspect Ratio) -->
+          <!-- Video & Animated Scene Container (16:9 Aspect Ratio) -->
           <div class="relative w-full aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center">
+            
+            <!-- 1. Pemutar Video MP4 Asli (Jika user memutar file video) -->
             <video id="prologue-video" 
                    playsinline 
                    controls 
-                   preload="metadata"
-                   class="w-full h-full object-cover">
+                   autoplay 
+                   loop 
+                   muted 
+                   preload="auto"
+                   poster="assets/video/cerita_taman_scene.jpg"
+                   class="w-full h-full object-cover hidden">
               <source id="prologue-video-source" src="assets/video/cerita_taman.mp4" type="video/mp4">
               Browser Anda tidak mendukung pemutar video HTML5.
             </video>
+
+            <!-- 2. Panggung Sinematik Animasi Gambar AI (Default Aktif) -->
+            <div id="ai-scene-stage" class="relative w-full h-full overflow-hidden cursor-pointer group" onclick="toggleAiScenePlayback(event)">
+              <!-- Visual Scene 3D Pixar Taman yang Kotor -->
+              <img id="ai-scene-img" 
+                   src="assets/video/cerita_taman_scene.jpg" 
+                   alt="Taman Ceria yang Kotor" 
+                   class="w-full h-full object-cover transition-transform duration-700 ease-out">
+
+              <!-- Badge Status Auto-Play & Re-Play di Kiri Atas -->
+              <div id="ai-scene-status-badge" class="absolute top-2.5 left-2.5 bg-black/65 backdrop-blur-sm text-emerald-300 text-[10px] md:text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-400/40 flex items-center gap-1.5 z-10 shadow">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="ai-scene-status-text">🔄 Auto-Play & Re-Play</span>
+              </div>
+
+              <!-- Tombol Play Raksasa Kartun di Tengah (Hanya Tampil Saat Dijeda Manual) -->
+              <div id="ai-scene-play-btn" class="absolute inset-0 flex flex-col items-center justify-center bg-black/35 backdrop-blur-[2px] hover:bg-black/25 transition-all hidden z-20">
+                <div class="w-16 h-16 md:w-20 md:h-20 bg-rose-500 hover:bg-rose-600 text-white rounded-full flex items-center justify-center text-3xl md:text-4xl shadow-2xl border-4 border-white animate-pulse-glow transition-transform group-hover:scale-110">
+                  ▶️
+                </div>
+                <span class="mt-2.5 bg-white/95 text-slate-800 text-xs md:text-sm font-extrabold px-4 py-1.5 rounded-full shadow-lg border-2 border-emerald-300 flex items-center gap-1.5">
+                  <span>🐝</span> <span>Lanjutkan Cerita Ara</span>
+                </span>
+              </div>
+
+              <!-- Subtitle Narasi saat Cerita Diputar -->
+              <div id="ai-scene-subtitles" class="absolute bottom-2 inset-x-3 bg-black/80 backdrop-blur-md text-white text-xs md:text-sm font-bold text-center py-2 px-3 rounded-xl border border-white/20 shadow-lg z-10">
+                <span id="ai-scene-sub-text">"Halo teman-teman! Aku Ara si Lebah..."</span>
+              </div>
+
+              <!-- Tombol Jeda / Putar Ulang di Pojok Kanan Atas -->
+              <button id="ai-scene-stop-btn" onclick="toggleAiScenePlayback(event)" class="absolute top-2.5 right-2.5 px-2.5 py-1 bg-black/65 hover:bg-black/85 text-white font-bold text-[11px] rounded-lg border border-white/30 z-20 flex items-center gap-1 transition shadow">
+                <span id="ai-scene-stop-icon">⏸️</span>
+                <span id="ai-scene-stop-label">Jeda</span>
+              </button>
+            </div>
+
           </div>
 
           <p class="text-[11px] text-slate-500 font-medium text-center mt-2 flex items-center justify-center gap-1">
@@ -1613,7 +1666,15 @@
             utterance.voice = chosenVoice;
           }
 
-          if (onEndCallback) utterance.onend = onEndCallback;
+          if (onEndCallback) {
+            utterance.onend = onEndCallback;
+            utterance.onerror = (err) => {
+              console.warn("Speech synthesis utterance error:", err);
+              if (err.error !== 'canceled' && err.error !== 'interrupted') {
+                onEndCallback();
+              }
+            };
+          }
           window.speechSynthesis.speak(utterance);
         } catch (e) {
           console.warn("Speech synthesis error:", e);
@@ -1671,6 +1732,7 @@
     function goToScreen(screenIndex) {
       audio.playPop();
       speech.stop();
+      if (typeof stopAiSceneAnimation === 'function') stopAiSceneAnimation();
 
       // Hentikan video prolog jika sedang diputar
       const pVid = document.getElementById('prologue-video');
@@ -1696,7 +1758,14 @@
 
       // Perbarui badge tahap di header
       const stageBadge = document.getElementById('header-stage-badge');
-      if (screenIndex === 0) stageBadge.innerText = "Beranda";
+      if (screenIndex === 0) {
+        stageBadge.innerText = "Beranda";
+        setTimeout(() => {
+          if (GameState.currentScreen === 0 && typeof playAiSceneAnimation === 'function') {
+            playAiSceneAnimation();
+          }
+        }, 350);
+      }
       else if (screenIndex <= 4) stageBadge.innerText = `Tahap ${screenIndex} dari 5`;
       else stageBadge.innerText = "Misi Paripurna 🎉";
 
@@ -1711,7 +1780,7 @@
     }
 
     function startMission() {
-      // Pastikan video prolog dihentikan saat berpindah ke game
+      if (typeof stopAiSceneAnimation === 'function') stopAiSceneAnimation();
       const pVid = document.getElementById('prologue-video');
       if (pVid && !pVid.paused) {
         pVid.pause();
@@ -2455,6 +2524,102 @@
       speech.speak(`Halo teman-teman hebat! Namaku ${GAME_CONFIG.maskot.nama}. Lihat deh, tamannya sekarang bersih dan banyak bunganya! Lucu banget kan?`);
     }
 
+    // --- PENGENDALI ANIMASI SINEMATIK SCENE PROLOG TAMAN KOTOR (AI) ---
+    let isAiScenePlaying = false;
+    let aiSceneReplayTimeout = null;
+
+    function playAiSceneAnimation(isReplay = false) {
+      if (GameState.currentScreen !== 0) return;
+      
+      if (aiSceneReplayTimeout) {
+        clearTimeout(aiSceneReplayTimeout);
+        aiSceneReplayTimeout = null;
+      }
+      
+      isAiScenePlaying = true;
+      audio.init();
+      audio.stopBGM(); // Jeda musik latar agar narasi terdengar jelas
+
+      const img = document.getElementById('ai-scene-img');
+      const playBtn = document.getElementById('ai-scene-play-btn');
+      const stopBtn = document.getElementById('ai-scene-stop-btn');
+      const stopIcon = document.getElementById('ai-scene-stop-icon');
+      const stopLabel = document.getElementById('ai-scene-stop-label');
+      const subBox = document.getElementById('ai-scene-subtitles');
+      const subText = document.getElementById('ai-scene-sub-text');
+      const statusText = document.getElementById('ai-scene-status-text');
+
+      if (playBtn) playBtn.classList.add('hidden');
+      if (stopBtn) stopBtn.classList.remove('hidden');
+      if (stopIcon) stopIcon.innerText = "⏸️";
+      if (stopLabel) stopLabel.innerText = "Jeda";
+      if (subBox) subBox.classList.remove('hidden');
+      if (statusText) statusText.innerText = isReplay ? "🔄 Memutar Ulang..." : "🔄 Sedang Memutar";
+
+      // Jalankan animasi Ken Burns pergerakan kamera sinematik (restart animasi jika replay)
+      if (img) {
+        img.classList.remove('animate-kenburns');
+        void img.offsetWidth; // Force reflow browser agar animasi mulai dari awal
+        img.classList.add('animate-kenburns');
+      }
+
+      // Ambil narasi adaptif sesuai tema yang aktif
+      const mascotName = (GAME_CONFIG && GAME_CONFIG.maskot && GAME_CONFIG.maskot.nama) ? GAME_CONFIG.maskot.nama : "Ara si Lebah";
+      let narrationText = `Halo teman-teman! Aku ${mascotName}. Huwaaa... Lihatlah, Taman Ceria kita sedang sangat sedih! Banyak sekali botol plastik, kaleng minuman, dan sampah berserakan. Bunga-bunganya juga layu kehausan... Siapa anak hebat yang mau ikut membantu Ara membersihkan taman ini? Yuk kita selamatkan Taman Ceria bersama-sama!`;
+      if (GAME_CONFIG && GAME_CONFIG.tahap1 && GAME_CONFIG.tahap1.narasi) {
+        narrationText = GAME_CONFIG.tahap1.narasi;
+      }
+      
+      if (subText) subText.innerText = `"${narrationText}"`;
+
+      speech.speak(narrationText, () => {
+        // Callback ketika narasi selesai: Otomatis Re-Play (Loop) jika masih di Beranda
+        if (GameState.currentScreen === 0 && isAiScenePlaying) {
+          if (subText) subText.innerText = "🔄 Memutar ulang cerita dalam sekejap...";
+          if (statusText) statusText.innerText = "🔄 Re-play Siap...";
+          aiSceneReplayTimeout = setTimeout(() => {
+            if (GameState.currentScreen === 0 && isAiScenePlaying) {
+              playAiSceneAnimation(true);
+            }
+          }, 2000); // Jeda 2 detik yang tenang & nyaman untuk anak sebelum berputar ulang
+        } else {
+          stopAiSceneAnimation();
+        }
+      });
+    }
+
+    function stopAiSceneAnimation(e) {
+      if (e && e.stopPropagation) e.stopPropagation();
+      if (aiSceneReplayTimeout) {
+        clearTimeout(aiSceneReplayTimeout);
+        aiSceneReplayTimeout = null;
+      }
+      isAiScenePlaying = false;
+      speech.stop();
+
+      const img = document.getElementById('ai-scene-img');
+      const playBtn = document.getElementById('ai-scene-play-btn');
+      const stopBtn = document.getElementById('ai-scene-stop-btn');
+      const stopIcon = document.getElementById('ai-scene-stop-icon');
+      const stopLabel = document.getElementById('ai-scene-stop-label');
+      const statusText = document.getElementById('ai-scene-status-text');
+
+      if (img) img.classList.remove('animate-kenburns');
+      if (playBtn) playBtn.classList.remove('hidden');
+      if (stopIcon) stopIcon.innerText = "▶️";
+      if (stopLabel) stopLabel.innerText = "Putar";
+      if (statusText) statusText.innerText = "⏸️ Dijeda";
+    }
+
+    function toggleAiScenePlayback(e) {
+      if (e && e.stopPropagation) e.stopPropagation();
+      if (isAiScenePlaying) {
+        stopAiSceneAnimation(e);
+      } else {
+        playAiSceneAnimation();
+      }
+    }
+
     // Inisialisasi awal saat DOM siap
     document.addEventListener('DOMContentLoaded', () => {
       updateStarsDisplay();
@@ -2463,17 +2628,64 @@
         speech.updateSlidersUI();
       }
 
-      // Event listener video prolog di Beranda
+      // 1. Auto-Play otomatis cerita kartun di Beranda (delay 600ms agar engine speech siap)
+      setTimeout(() => {
+        if (GameState.currentScreen === 0) {
+          playAiSceneAnimation();
+        }
+      }, 600);
+
+      // 2. Fallback gesture unlock untuk kebijakan browser autoplay (Chrome/Edge Audio Policy)
+      const unlockAudioGesture = () => {
+        audio.init();
+        if (GameState.currentScreen === 0 && isAiScenePlaying && (!window.speechSynthesis || !window.speechSynthesis.speaking)) {
+          playAiSceneAnimation();
+        }
+        window.removeEventListener('pointerdown', unlockAudioGesture);
+        window.removeEventListener('keydown', unlockAudioGesture);
+      };
+      window.addEventListener('pointerdown', unlockAudioGesture);
+      window.addEventListener('keydown', unlockAudioGesture);
+
+      // 3. Event listener pemutar video MP4 di Beranda (dengan auto-play & re-play)
       const pVid = document.getElementById('prologue-video');
       if (pVid) {
+        pVid.loop = true;
+        pVid.autoplay = true;
+
+        // Jika file video MP4 terdeteksi dan valid dimuat
+        const activateVideo = () => {
+          pVid.classList.remove('hidden');
+          const stage = document.getElementById('ai-scene-stage');
+          if (stage) stage.classList.add('hidden');
+          stopAiSceneAnimation();
+
+          const playPromise = pVid.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              pVid.muted = true;
+              pVid.play();
+            });
+          }
+        };
+
+        if (pVid.readyState >= 2) {
+          activateVideo();
+        } else {
+          pVid.addEventListener('canplay', activateVideo);
+          pVid.addEventListener('loadeddata', activateVideo);
+        }
+
         pVid.addEventListener('play', () => {
           // Matikan BGM web & hentikan TTS agar suara video terdengar jelas
           audio.stopBGM();
           speech.stop();
         });
+
         pVid.addEventListener('ended', () => {
-          // Nyalakan kembali musik latar setelah video selesai
-          audio.startBGM();
+          // Re-play loop otomatis
+          pVid.currentTime = 0;
+          pVid.play().catch(() => {});
         });
       }
     });
