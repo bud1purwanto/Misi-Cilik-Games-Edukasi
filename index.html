@@ -262,22 +262,28 @@
           <!-- Video & Animated Scene Container (16:9 Aspect Ratio) -->
           <div class="relative w-full aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center">
             
-            <!-- 1. Pemutar Video MP4 Asli (Jika user memutar file video) -->
-            <video id="prologue-video" 
-                   playsinline 
-                   controls 
-                   autoplay 
-                   loop 
-                   muted 
-                   preload="auto"
-                   poster="assets/video/cerita_taman_scene.jpg"
-                   class="w-full h-full object-cover hidden">
-              <source id="prologue-video-source" src="assets/video/cerita_taman.mp4" type="video/mp4">
-              Browser Anda tidak mendukung pemutar video HTML5.
-            </video>
+            <!-- 1. Pemutar Video MP4 Asli (Gemini AI Video) -->
+            <div id="video-wrapper" class="relative w-full h-full flex items-center justify-center">
+              <video id="prologue-video" 
+                     playsinline 
+                     controls 
+                     autoplay 
+                     loop 
+                     preload="auto"
+                     poster="assets/video/cerita_taman_scene.jpg"
+                     class="w-full h-full object-cover">
+                <source id="prologue-video-source" src="assets/video/cerita_taman.mp4" type="video/mp4">
+                Browser Anda tidak mendukung pemutar video HTML5.
+              </video>
 
-            <!-- 2. Panggung Sinematik Animasi Gambar AI (Default Aktif) -->
-            <div id="ai-scene-stage" class="relative w-full h-full overflow-hidden cursor-pointer group" onclick="toggleAiScenePlayback(event)">
+              <!-- Tombol / Indikator Unmute Suara jika Autoplay Dibisukan oleh Browser -->
+              <button id="video-unmute-btn" onclick="unmutePrologueVideo(event)" class="absolute top-2.5 right-2.5 bg-rose-600/90 hover:bg-rose-700 text-white text-[11px] md:text-xs font-bold px-3 py-1.5 rounded-full border border-white/40 shadow-lg cursor-pointer flex items-center gap-1.5 z-20 animate-bounce-slow hidden">
+                <span>🔊</span> <span>Ketuk untuk Bunyikan Suara</span>
+              </button>
+            </div>
+
+            <!-- 2. Panggung Sinematik Animasi Gambar AI (Cadangan) -->
+            <div id="ai-scene-stage" class="relative w-full h-full overflow-hidden cursor-pointer group hidden" onclick="toggleAiScenePlayback(event)">
               <!-- Visual Scene 3D Pixar Taman yang Kotor -->
               <img id="ai-scene-img" 
                    src="assets/video/cerita_taman_scene.jpg" 
@@ -2524,12 +2530,30 @@
       speech.speak(`Halo teman-teman hebat! Namaku ${GAME_CONFIG.maskot.nama}. Lihat deh, tamannya sekarang bersih dan banyak bunganya! Lucu banget kan?`);
     }
 
+    function unmutePrologueVideo(e) {
+      if (e && e.stopPropagation) e.stopPropagation();
+      const pVid = document.getElementById('prologue-video');
+      const unmuteBtn = document.getElementById('video-unmute-btn');
+      if (pVid) {
+        pVid.muted = false;
+        pVid.volume = 1.0;
+        pVid.play().catch(() => {});
+      }
+      if (unmuteBtn) unmuteBtn.classList.add('hidden');
+    }
+
     // --- PENGENDALI ANIMASI SINEMATIK SCENE PROLOG TAMAN KOTOR (AI) ---
     let isAiScenePlaying = false;
     let aiSceneReplayTimeout = null;
 
     function playAiSceneAnimation(isReplay = false) {
       if (GameState.currentScreen !== 0) return;
+
+      // Jika video MP4 sedang aktif/tersedia, jangan jalankan narasi TTS agar suara video tidak tertimpa!
+      const pVid = document.getElementById('prologue-video');
+      if (pVid && !pVid.classList.contains('hidden')) {
+        return;
+      }
       
       if (aiSceneReplayTimeout) {
         clearTimeout(aiSceneReplayTimeout);
@@ -2628,58 +2652,63 @@
         speech.updateSlidersUI();
       }
 
-      // 1. Auto-Play otomatis cerita kartun di Beranda (delay 600ms agar engine speech siap)
+      // 1. Auto-Play cerita kartun AI HANYA jika pemutar video MP4 tidak aktif
       setTimeout(() => {
-        if (GameState.currentScreen === 0) {
+        const pVid = document.getElementById('prologue-video');
+        const hasMp4 = pVid && !pVid.classList.contains('hidden');
+        if (GameState.currentScreen === 0 && !hasMp4) {
           playAiSceneAnimation();
         }
       }, 600);
 
-      // 2. Fallback gesture unlock untuk kebijakan browser autoplay (Chrome/Edge Audio Policy)
-      const unlockAudioGesture = () => {
-        audio.init();
-        if (GameState.currentScreen === 0 && isAiScenePlaying && (!window.speechSynthesis || !window.speechSynthesis.speaking)) {
-          playAiSceneAnimation();
-        }
-        window.removeEventListener('pointerdown', unlockAudioGesture);
-        window.removeEventListener('keydown', unlockAudioGesture);
-      };
-      window.addEventListener('pointerdown', unlockAudioGesture);
-      window.addEventListener('keydown', unlockAudioGesture);
-
-      // 3. Event listener pemutar video MP4 di Beranda (dengan auto-play & re-play)
+      // 2. Setup Pemutar Video MP4 Asli di Beranda (dengan auto-play, re-play & suara asli)
       const pVid = document.getElementById('prologue-video');
+      const unmuteBtn = document.getElementById('video-unmute-btn');
+
       if (pVid) {
         pVid.loop = true;
         pVid.autoplay = true;
 
-        // Jika file video MP4 terdeteksi dan valid dimuat
-        const activateVideo = () => {
-          pVid.classList.remove('hidden');
-          const stage = document.getElementById('ai-scene-stage');
-          if (stage) stage.classList.add('hidden');
+        const startVideoPlayback = () => {
+          // Matikan narasi TTS & BGM agar tidak menimpa suara video asli
+          audio.stopBGM();
+          speech.stop();
           stopAiSceneAnimation();
 
+          // Coba putar dengan suara aktif 100%
+          pVid.muted = false;
+          pVid.volume = 1.0;
           const playPromise = pVid.play();
           if (playPromise !== undefined) {
-            playPromise.catch(() => {
+            playPromise.then(() => {
+              if (unmuteBtn) unmuteBtn.classList.add('hidden');
+            }).catch(() => {
+              // Jika browser menolak unmuted autoplay, putar muted dulu & tampilkan tombol unmute
               pVid.muted = true;
-              pVid.play();
+              pVid.play().then(() => {
+                if (unmuteBtn) unmuteBtn.classList.remove('hidden');
+              }).catch(() => {});
             });
           }
         };
 
         if (pVid.readyState >= 2) {
-          activateVideo();
+          startVideoPlayback();
         } else {
-          pVid.addEventListener('canplay', activateVideo);
-          pVid.addEventListener('loadeddata', activateVideo);
+          pVid.addEventListener('canplay', startVideoPlayback, { once: true });
+          pVid.addEventListener('loadeddata', startVideoPlayback, { once: true });
         }
 
         pVid.addEventListener('play', () => {
-          // Matikan BGM web & hentikan TTS agar suara video terdengar jelas
+          // Pastikan audio BGM & TTS mati saat video diputar
           audio.stopBGM();
           speech.stop();
+        });
+
+        pVid.addEventListener('volumechange', () => {
+          if (!pVid.muted && unmuteBtn) {
+            unmuteBtn.classList.add('hidden');
+          }
         });
 
         pVid.addEventListener('ended', () => {
@@ -2687,6 +2716,31 @@
           pVid.currentTime = 0;
           pVid.play().catch(() => {});
         });
+
+        pVid.addEventListener('error', () => {
+          console.warn("Video MP4 gagal dimuat, beralih ke panggung AI cadangan.");
+          const wrapper = document.getElementById('video-wrapper');
+          const stage = document.getElementById('ai-scene-stage');
+          if (wrapper) wrapper.classList.add('hidden');
+          if (stage) {
+            stage.classList.remove('hidden');
+            playAiSceneAnimation();
+          }
+        });
+
+        // Buka kunci suara video pada sentuhan/klik pertama di layar
+        const unlockVideoAudio = () => {
+          audio.init();
+          if (pVid && GameState.currentScreen === 0) {
+            if (pVid.muted) {
+              pVid.muted = false;
+              pVid.volume = 1.0;
+              if (unmuteBtn) unmuteBtn.classList.add('hidden');
+            }
+          }
+        };
+        window.addEventListener('pointerdown', unlockVideoAudio, { once: true });
+        window.addEventListener('keydown', unlockVideoAudio, { once: true });
       }
     });
   </script>
