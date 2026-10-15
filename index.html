@@ -266,15 +266,24 @@
             <div id="video-wrapper" class="relative w-full h-full flex items-center justify-center">
               <video id="prologue-video" 
                      playsinline 
-                     controls 
                      autoplay 
                      loop 
+                     muted
                      preload="auto"
                      poster="assets/video/cerita_taman_scene.jpg"
                      class="w-full h-full object-cover">
                 <source id="prologue-video-source" src="assets/video/cerita_taman.mp4" type="video/mp4">
                 Browser Anda tidak mendukung pemutar video HTML5.
               </video>
+
+              <!-- Tombol Fullscreen / Exit di Pojok Kiri Bawah Frame Video -->
+              <button id="btn-toggle-fullscreen" 
+                      onclick="toggleAppFullscreen()" 
+                      class="absolute bottom-2.5 left-2.5 z-20 px-3 py-1.5 bg-black/60 hover:bg-black/80 text-white rounded-xl border border-white/40 shadow-lg backdrop-blur-sm flex items-center gap-1.5 text-xs md:text-sm font-bold transition-all active:scale-95" 
+                      title="Buka / Keluar Layar Penuh (F11)">
+                <span id="fullscreen-btn-icon">⛶</span>
+                <span id="fullscreen-btn-label">Layar Penuh</span>
+              </button>
             </div>
 
             <!-- 2. Panggung Sinematik Animasi Gambar AI (Cadangan) -->
@@ -1917,7 +1926,62 @@
       }
     }
 
+    // ==========================================
+    // FUNGSI LAYAR PENUH (FULLSCREEN API) OTOMATIS
+    // ==========================================
+    function isCurrentlyFullscreen() {
+      return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+    }
+
+    function toggleAppFullscreen() {
+      if (!isCurrentlyFullscreen()) {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().catch(err => console.log('Fullscreen ditolak browser:', err));
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(err => console.log('Exit fullscreen gagal:', err));
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+
+    function updateFullscreenButtonState() {
+      const btnIcon = document.getElementById('fullscreen-btn-icon');
+      const btnLabel = document.getElementById('fullscreen-btn-label');
+      const btn = document.getElementById('btn-toggle-fullscreen');
+      if (!btnIcon || !btnLabel) return;
+
+      if (isCurrentlyFullscreen()) {
+        btnIcon.innerText = '🗗';
+        btnLabel.innerText = 'Keluar Penuh';
+        if (btn) btn.title = 'Keluar dari Layar Penuh (Esc / F11)';
+      } else {
+        btnIcon.innerText = '⛶';
+        btnLabel.innerText = 'Layar Penuh';
+        if (btn) btn.title = 'Buka Layar Penuh (F11)';
+      }
+    }
+
+    document.addEventListener('fullscreenchange', updateFullscreenButtonState);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenButtonState);
+    document.addEventListener('mozfullscreenchange', updateFullscreenButtonState);
+    document.addEventListener('MSFullscreenChange', updateFullscreenButtonState);
+
     function startMission() {
+      // Solusi 1: Otomatis memicu Fullscreen saat interaksi pertama anak/guru
+      if (!isCurrentlyFullscreen()) {
+        toggleAppFullscreen();
+      }
+
       // Ambil nama anak dari input di Beranda
       const inputName = document.getElementById('input-student-name');
       if (inputName && inputName.value.trim()) {
