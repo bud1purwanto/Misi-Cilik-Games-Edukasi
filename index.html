@@ -275,15 +275,6 @@
                 <source id="prologue-video-source" src="assets/video/cerita_taman.mp4" type="video/mp4">
                 Browser Anda tidak mendukung pemutar video HTML5.
               </video>
-
-              <!-- Tombol Fullscreen / Exit di Pojok Kiri Bawah Frame Video -->
-              <button id="btn-toggle-fullscreen" 
-                      onclick="toggleAppFullscreen()" 
-                      class="absolute bottom-2.5 left-2.5 z-20 px-3 py-1.5 bg-black/60 hover:bg-black/80 text-white rounded-xl border border-white/40 shadow-lg backdrop-blur-sm flex items-center gap-1.5 text-xs md:text-sm font-bold transition-all active:scale-95" 
-                      title="Buka / Keluar Layar Penuh (F11)">
-                <span id="fullscreen-btn-icon">⛶</span>
-                <span id="fullscreen-btn-label">Layar Penuh</span>
-              </button>
             </div>
 
             <!-- 2. Panggung Sinematik Animasi Gambar AI (Cadangan) -->
@@ -1116,6 +1107,17 @@
 
     </div>
   </div>
+
+  <!-- ========================================== -->
+  <!-- TOMBOL MELAYANG TETAP DI POJOK KIRI BAWAH WEBSITE (GLOBAL FLOATING FULLSCREEN) -->
+  <!-- ========================================== -->
+  <button id="btn-toggle-fullscreen" 
+          onclick="toggleAppFullscreen()" 
+          class="fixed bottom-4 left-4 z-50 px-3.5 py-2 bg-slate-900/80 hover:bg-slate-900 text-white rounded-2xl border-2 border-white/50 shadow-2xl backdrop-blur-md flex items-center gap-2 text-xs md:text-sm font-bold transition-all transform hover:scale-105 active:scale-95 cursor-pointer" 
+          title="Buka / Keluar Layar Penuh Seluruh Website (F11)">
+    <span id="fullscreen-btn-icon" class="text-base md:text-lg">⛶</span>
+    <span id="fullscreen-btn-label">Layar Penuh</span>
+  </button>
 
   <!-- ========================================== -->
   <!-- 5. LOGIKA APLIKASI (VANILLA JAVASCRIPT) -->
