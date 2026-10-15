@@ -275,11 +275,6 @@
                 <source id="prologue-video-source" src="assets/video/cerita_taman.mp4" type="video/mp4">
                 Browser Anda tidak mendukung pemutar video HTML5.
               </video>
-
-              <!-- Tombol / Indikator Unmute Suara jika Autoplay Dibisukan oleh Browser -->
-              <button id="video-unmute-btn" onclick="unmutePrologueVideo(event)" class="absolute top-2.5 right-2.5 bg-rose-600/90 hover:bg-rose-700 text-white text-[11px] md:text-xs font-bold px-3 py-1.5 rounded-full border border-white/40 shadow-lg cursor-pointer flex items-center gap-1.5 z-20 animate-bounce-slow hidden">
-                <span>🔊</span> <span>Ketuk untuk Bunyikan Suara</span>
-              </button>
             </div>
 
             <!-- 2. Panggung Sinematik Animasi Gambar AI (Cadangan) -->
@@ -1101,6 +1096,8 @@
         subJudul: "Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B",
         maskot: { nama: "Ara si Lebah", ikon: "🐝" },
         temaAksen: "emerald",
+        videoUrl: "assets/video/cerita_taman.mp4",
+        videoJudul: "Video Cerita: Penyelamat Taman Ceria",
         tahap1: {
           judul: "Panggilan Misi: Taman Sedang Sedih",
           narasi: "Halo teman-teman! Aku Ara. Lihatlah, Taman Ceria kita sedang sangat sedih karena banyak sampah berserakan dan bunga-bunganya layu kehausan. Yuk amati bersama Ibu Guru, kenapa ya taman kita bisa jadi kotor seperti ini?",
@@ -1172,6 +1169,8 @@
         subJudul: "Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B",
         maskot: { nama: "Lulu Lumba-lumba", ikon: "🐬" },
         temaAksen: "sky",
+        videoUrl: "assets/video/cerita_pantai.mp4",
+        videoJudul: "Video Cerita: Penyelamat Pantai & Laut Bersih",
         tahap1: {
           judul: "Panggilan Misi: Laut Sedang Sedih",
           narasi: "Halo teman-teman! Aku Lulu si lumba-lumba. Lautan kita penuh sampah plastik! Kasihan ikan dan terumbu karang tidak bisa bernapas. Ayo bersama Ibu Guru, amati apa yang terjadi pada pantai kita!",
@@ -1243,6 +1242,8 @@
         subJudul: "Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B",
         maskot: { nama: "Mimi si Monyet", ikon: "🐵" },
         temaAksen: "amber",
+        videoUrl: "assets/video/cerita_zoo.mp4",
+        videoJudul: "Video Cerita: Sahabat Satwa Kebun Binatang",
         tahap1: {
           judul: "Panggilan Misi: Hewan-Hewan Butuh Bantuan",
           narasi: "Halo teman-teman! Aku Mimi si monyet ceria. Kandang hewan kita sedang kotor karena banyak bungkus makanan berceceran. Yuk amati bersama Ibu Guru agar hewan tidak sakit!",
@@ -1314,6 +1315,8 @@
         subJudul: "Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B",
         maskot: { nama: "Budi si Pelajar Cilik", ikon: "🎒" },
         temaAksen: "rose",
+        videoUrl: "assets/video/cerita_kelas.mp4",
+        videoJudul: "Video Cerita: Kelasku Bersih & Nyaman",
         tahap1: {
           judul: "Panggilan Misi: Ruang Kelas Berantakan",
           narasi: "Halo teman-teman! Aku Budi. Setelah kegiatan menggambar, ruang kelas kita penuh serutan pensil dan kertas sobek di lantai. Yuk amati bersama Ibu Guru agar kelas nyaman kembali!",
@@ -1834,11 +1837,21 @@
       const stageBadge = document.getElementById('header-stage-badge');
       if (screenIndex === 0) {
         stageBadge.innerText = "Beranda";
-        setTimeout(() => {
-          if (GameState.currentScreen === 0 && typeof playAiSceneAnimation === 'function') {
-            playAiSceneAnimation();
+        const pVid = document.getElementById('prologue-video');
+        if (pVid && !pVid.classList.contains('hidden')) {
+          pVid.currentTime = 0;
+          if (typeof playCurrentVideo === 'function') {
+            playCurrentVideo();
+          } else {
+            pVid.play().catch(() => {});
           }
-        }, 350);
+        } else {
+          setTimeout(() => {
+            if (GameState.currentScreen === 0 && typeof playAiSceneAnimation === 'function') {
+              playAiSceneAnimation();
+            }
+          }, 350);
+        }
       }
       else if (screenIndex <= 4) stageBadge.innerText = `Tahap ${screenIndex} dari 5`;
       else stageBadge.innerText = "Misi Paripurna 🎉";
@@ -2737,6 +2750,61 @@
       }
     }
 
+    function playCurrentVideo() {
+      const pVid = document.getElementById('prologue-video');
+      if (!pVid) return;
+
+      // Matikan audio BGM & TTS agar suara video asli tidak tertimpa
+      audio.stopBGM();
+      speech.stop();
+      if (typeof stopAiSceneAnimation === 'function') stopAiSceneAnimation();
+
+      pVid.muted = false;
+      pVid.volume = 1.0;
+      const playPromise = pVid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Jika browser membatasi unmuted autoplay saat refresh awal, putar muted dulu
+          pVid.muted = true;
+          pVid.play().catch(() => {});
+        });
+      }
+    }
+
+    function loadThemeVideo(videoUrl, videoJudul) {
+      if (!videoUrl) return;
+
+      const pVid = document.getElementById('prologue-video');
+      const pSource = document.getElementById('prologue-video-source');
+      const titleEl = document.getElementById('prologue-video-title');
+      const wrapper = document.getElementById('video-wrapper');
+      const stage = document.getElementById('ai-scene-stage');
+
+      if (titleEl && videoJudul) {
+        titleEl.innerText = videoJudul;
+      }
+
+      if (pVid && pSource) {
+        if (wrapper) wrapper.classList.remove('hidden');
+        if (stage) stage.classList.add('hidden');
+
+        pVid.pause();
+        pVid.removeAttribute('poster');
+        pSource.src = videoUrl;
+        pVid.load();
+
+        if (GameState.currentScreen === 0) {
+          if (pVid.readyState >= 2) {
+            playCurrentVideo();
+          } else {
+            pVid.addEventListener('canplay', () => {
+              if (GameState.currentScreen === 0) playCurrentVideo();
+            }, { once: true });
+          }
+        }
+      }
+    }
+
     function applyPreset(presetKey) {
       if (!THEME_PRESETS[presetKey]) return;
       audio.playChime();
@@ -2754,6 +2822,11 @@
       document.getElementById('input-custom-title').value = GAME_CONFIG.judulUtama;
       document.getElementById('input-custom-mascot-name').value = GAME_CONFIG.maskot.nama;
       document.getElementById('input-custom-mascot-icon').value = GAME_CONFIG.maskot.ikon;
+
+      // Ganti Video Cerita Sesuai Tema Baru
+      if (GAME_CONFIG.videoUrl) {
+        loadThemeVideo(GAME_CONFIG.videoUrl, GAME_CONFIG.videoJudul);
+      }
 
       closeJuryModal();
       speech.speak(`Tema berhasil diubah menjadi ${GAME_CONFIG.judulUtama}! Siap bertualang!`);
@@ -2863,13 +2936,11 @@
     function unmutePrologueVideo(e) {
       if (e && e.stopPropagation) e.stopPropagation();
       const pVid = document.getElementById('prologue-video');
-      const unmuteBtn = document.getElementById('video-unmute-btn');
       if (pVid) {
         pVid.muted = false;
         pVid.volume = 1.0;
         pVid.play().catch(() => {});
       }
-      if (unmuteBtn) unmuteBtn.classList.add('hidden');
     }
 
     // --- PENGENDALI ANIMASI SINEMATIK SCENE PROLOG TAMAN KOTOR (AI) ---
@@ -3000,46 +3071,17 @@
         pVid.loop = true;
         pVid.autoplay = true;
 
-        const startVideoPlayback = () => {
-          // Matikan narasi TTS & BGM agar tidak menimpa suara video asli
-          audio.stopBGM();
-          speech.stop();
-          stopAiSceneAnimation();
-
-          // Coba putar dengan suara aktif 100%
-          pVid.muted = false;
-          pVid.volume = 1.0;
-          const playPromise = pVid.play();
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              if (unmuteBtn) unmuteBtn.classList.add('hidden');
-            }).catch(() => {
-              // Jika browser menolak unmuted autoplay, putar muted dulu & tampilkan tombol unmute
-              pVid.muted = true;
-              pVid.play().then(() => {
-                if (unmuteBtn) unmuteBtn.classList.remove('hidden');
-              }).catch(() => {});
-            });
-          }
-        };
-
         if (pVid.readyState >= 2) {
-          startVideoPlayback();
+          playCurrentVideo();
         } else {
-          pVid.addEventListener('canplay', startVideoPlayback, { once: true });
-          pVid.addEventListener('loadeddata', startVideoPlayback, { once: true });
+          pVid.addEventListener('canplay', playCurrentVideo, { once: true });
+          pVid.addEventListener('loadeddata', playCurrentVideo, { once: true });
         }
 
         pVid.addEventListener('play', () => {
           // Pastikan audio BGM & TTS mati saat video diputar
           audio.stopBGM();
           speech.stop();
-        });
-
-        pVid.addEventListener('volumechange', () => {
-          if (!pVid.muted && unmuteBtn) {
-            unmuteBtn.classList.add('hidden');
-          }
         });
 
         pVid.addEventListener('ended', () => {
@@ -3066,11 +3108,12 @@
             if (pVid.muted) {
               pVid.muted = false;
               pVid.volume = 1.0;
-              if (unmuteBtn) unmuteBtn.classList.add('hidden');
             }
           }
         };
         window.addEventListener('pointerdown', unlockVideoAudio, { once: true });
+        window.addEventListener('touchstart', unlockVideoAudio, { once: true });
+        window.addEventListener('click', unlockVideoAudio, { once: true });
         window.addEventListener('keydown', unlockVideoAudio, { once: true });
       }
     });
