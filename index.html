@@ -326,6 +326,25 @@
         </div>
       </div>
 
+      <!-- KOTAK INPUT NAMA SAHABAT CILIK (UNTUK SERTIFIKAT TAHAP 5) -->
+      <div class="w-full max-w-md bg-white/95 backdrop-blur-md border-4 border-amber-300 rounded-3xl p-4 shadow-lg mb-6 text-center">
+        <label for="input-student-name" class="block text-xs md:text-sm font-extrabold text-amber-900 mb-1.5 flex items-center justify-center gap-1.5">
+          <span>🏷️</span>
+          <span>Nama Murid / Sahabat Cilik:</span>
+        </label>
+        <div class="relative flex items-center">
+          <input type="text" 
+                 id="input-student-name" 
+                 placeholder="Tulis nama anak di sini (misal: Budi / Siti)..." 
+                 maxlength="30"
+                 oninput="onStudentNameChange(this.value)"
+                 class="w-full text-center text-base md:text-lg font-black text-purple-900 placeholder:text-slate-400 placeholder:font-normal bg-amber-50/70 border-2 border-amber-300 rounded-2xl py-2.5 px-4 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:bg-white transition shadow-inner">
+        </div>
+        <p class="text-[10px] md:text-xs text-slate-500 mt-1.5 font-medium">
+          ✨ Nama ini akan otomatis tercetak di <strong>Sertifikat Penghargaan Bintang 5</strong>!
+        </p>
+      </div>
+
       <!-- Tombol Aksi Utama Raksasa -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md">
         <button onclick="startMission()" class="w-full py-5 px-8 bg-emerald-500 hover:bg-emerald-600 text-white text-2xl md:text-3xl font-bold rounded-3xl btn-cartoon-emerald animate-pulse-glow flex items-center justify-center gap-3">
@@ -522,7 +541,11 @@
         <div class="mt-4 pt-4 border-t border-purple-100">
           <p class="font-bold text-slate-700 text-sm md:text-base mb-3">Berapa jumlah seluruh bunga?</p>
           <div id="counting-choices-container" class="flex justify-center gap-4">
-            <!-- Tombol angka [3, 4, 5] dirender via JS -->
+            <!-- Tombol angka dirender dinamis via JS -->
+          </div>
+          <!-- Area Pesan Respon Jawaban -->
+          <div id="counting-feedback-msg" class="mt-3 min-h-[32px] flex items-center justify-center">
+            <!-- Diisi teks respon berhasil/coba lagi via JS -->
           </div>
         </div>
       </div>
@@ -736,7 +759,17 @@
 
           <!-- Rincian Penghargaan -->
           <div class="text-center md:text-left flex-grow">
-            <div class="text-xs text-slate-500 font-bold">Gelar Kehormatan:</div>
+            <div class="text-xs text-slate-500 font-bold uppercase tracking-wider">Sertifikat Diberikan Kepada:</div>
+            <div class="flex items-center justify-center md:justify-start gap-2 my-1">
+              <span id="cert-student-name" class="text-2xl md:text-3xl font-black text-purple-900 border-b-2 border-amber-300 pb-0.5 inline-block">
+                Sahabat Cilik Hebat
+              </span>
+              <button onclick="editCertStudentName()" title="Ubah Nama Murid" class="text-xs bg-amber-200 hover:bg-amber-300 text-amber-900 px-2 py-1 rounded-lg font-bold no-print transition flex items-center gap-1 shadow-sm">
+                <span>✏️</span> <span>Ubah</span>
+              </button>
+            </div>
+
+            <div class="text-xs text-slate-500 font-bold mt-2">Gelar Kehormatan:</div>
             <div class="text-xl md:text-2xl font-black text-emerald-800">Sahabat Bumi Teladan TK</div>
             
             <div class="my-2">
@@ -770,38 +803,50 @@
                 <tr>
                   <td class="p-1.5 font-bold">NAM</td>
                   <td class="p-1.5">Mengenal perilaku peduli lingkungan dan menyiram tanaman</td>
-                  <td class="p-1.5 text-center font-bold text-emerald-600">BSB</td>
+                  <td class="p-1.5 text-center">
+                    <span id="rubric-pred-nam" onclick="toggleRubricPredicate('nam')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
+                  </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Kognitif</td>
                   <td class="p-1.5">Mampu memilah sampah organik vs anorganik & urutan tanaman</td>
-                  <td class="p-1.5 text-center font-bold text-emerald-600">BSB</td>
+                  <td class="p-1.5 text-center">
+                    <span id="rubric-pred-kognitif" onclick="toggleRubricPredicate('kognitif')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
+                  </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Bahasa</td>
                   <td class="p-1.5">Menjawab pertanyaan pemantik dan menyimak narasi</td>
-                  <td class="p-1.5 text-center font-bold text-emerald-600">BSH</td>
+                  <td class="p-1.5 text-center">
+                    <span id="rubric-pred-bahasa" onclick="toggleRubricPredicate('bahasa')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSH</span>
+                  </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Numerasi</td>
                   <td class="p-1.5">Membilang 1-5 bunga secara visual dan auditori</td>
-                  <td class="p-1.5 text-center font-bold text-emerald-600">BSB</td>
+                  <td class="p-1.5 text-center">
+                    <span id="rubric-pred-numerasi" onclick="toggleRubricPredicate('numerasi')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
+                  </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Motorik</td>
                   <td class="p-1.5">Koordinasi motorik halus (interaksi layar) & aksi nyata kelas</td>
-                  <td class="p-1.5 text-center font-bold text-emerald-600">BSB</td>
+                  <td class="p-1.5 text-center">
+                    <span id="rubric-pred-motorik" onclick="toggleRubricPredicate('motorik')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
+                  </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Sosek</td>
                   <td class="p-1.5">Bekerja sama, bergantian, dan bangga atas hasil karya</td>
-                  <td class="p-1.5 text-center font-bold text-emerald-600">BSB</td>
+                  <td class="p-1.5 text-center">
+                    <span id="rubric-pred-sosek" onclick="toggleRubricPredicate('sosek')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
-            <span>*Keterangan: BSB (Berkembang Sangat Baik), BSH (Berkembang Sesuai Harapan)</span>
+          <div class="text-[10px] text-slate-400 mt-1.5 flex flex-wrap justify-between items-center gap-1">
+            <span>*Keterangan: <strong>BSB</strong> (Berkembang Sangat Baik), <strong>BSH</strong> (Berkembang Sesuai Harapan), <strong>MB</strong> (Mulai Berkembang), <strong>BB</strong> (Belum Berkembang) • <em class="no-print text-amber-700">Klik predikat untuk penyesuaian guru</em></span>
             <span id="cert-date-text">Tanggal: -</span>
           </div>
         </div>
@@ -1663,6 +1708,7 @@
         try {
           window.speechSynthesis.cancel();
           const utterance = new SpeechSynthesisUtterance(text);
+          this.currentUtterance = utterance; // Mencegah garbage collection di Chrome
           utterance.lang = 'id-ID';
           utterance.rate = this.rate;
           utterance.pitch = this.pitch;
@@ -1673,8 +1719,12 @@
           }
 
           if (onEndCallback) {
-            utterance.onend = onEndCallback;
+            utterance.onend = () => {
+              this.currentUtterance = null;
+              onEndCallback();
+            };
             utterance.onerror = (err) => {
+              this.currentUtterance = null;
               console.warn("Speech synthesis utterance error:", err);
               if (err.error !== 'canceled' && err.error !== 'interrupted') {
                 onEndCallback();
@@ -1683,13 +1733,17 @@
           }
           window.speechSynthesis.speak(utterance);
         } catch (e) {
+          this.currentUtterance = null;
           console.warn("Speech synthesis error:", e);
           if (onEndCallback) onEndCallback();
         }
       }
 
       stop() {
-        if (this.isSupported) window.speechSynthesis.cancel();
+        if (this.isSupported) {
+          window.speechSynthesis.cancel();
+          this.currentUtterance = null;
+        }
       }
     }
 
@@ -1699,6 +1753,7 @@
        D. STATE MANAGER & SIKLUS PERMAINAN
        ======================================================= */
     const GameState = {
+      studentName: "Sahabat Cilik Hebat",
       currentScreen: 0,
       stars: 0,
       selectedTrashId: null,
@@ -1710,7 +1765,20 @@
       isTimerRunning: false,
       cameraStream: null,
       photoDataUrl: null,
-      hasDiscussed: false
+      hasDiscussed: false,
+      trashMistakes: 0,
+      waterMistakes: 0,
+      countingMistakes: 0,
+      sequenceMistakes: 0,
+      checklistCount: 0,
+      rubricPredicates: {
+        nam: "BSB",
+        kognitif: "BSB",
+        bahasa: "BSH",
+        numerasi: "BSB",
+        motorik: "BSB",
+        sosek: "BSB"
+      }
     };
 
     function updateStarsDisplay() {
@@ -1785,7 +1853,49 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function onStudentNameChange(val) {
+      const clean = val.trim();
+      GameState.studentName = clean || "Sahabat Cilik Hebat";
+      const certNameEl = document.getElementById('cert-student-name');
+      if (certNameEl) certNameEl.innerText = GameState.studentName;
+    }
+
+    function editCertStudentName() {
+      audio.playPop();
+      const current = GameState.studentName || "Sahabat Cilik Hebat";
+      const newName = prompt("Masukkan nama murid / anak untuk sertifikat:", current);
+      if (newName !== null && newName.trim()) {
+        GameState.studentName = newName.trim();
+        const certNameEl = document.getElementById('cert-student-name');
+        if (certNameEl) certNameEl.innerText = GameState.studentName;
+        const inputName = document.getElementById('input-student-name');
+        if (inputName) inputName.value = GameState.studentName;
+      }
+    }
+
     function startMission() {
+      // Ambil nama anak dari input di Beranda
+      const inputName = document.getElementById('input-student-name');
+      if (inputName && inputName.value.trim()) {
+        GameState.studentName = inputName.value.trim();
+      } else {
+        GameState.studentName = "Sahabat Cilik Hebat";
+      }
+
+      // Pastikan nama murid langsung terpasang di sertifikat
+      const certNameEl = document.getElementById('cert-student-name');
+      if (certNameEl) certNameEl.innerText = GameState.studentName;
+
+      // Reset skor & riwayat kesalahan untuk sesi bermain baru
+      GameState.stars = 0;
+      GameState.hasDiscussed = false;
+      GameState.trashMistakes = 0;
+      GameState.waterMistakes = 0;
+      GameState.countingMistakes = 0;
+      GameState.sequenceMistakes = 0;
+      GameState.checklistCount = 0;
+      updateStarsDisplay();
+
       if (typeof stopAiSceneAnimation === 'function') stopAiSceneAnimation();
       const pVid = document.getElementById('prologue-video');
       if (pVid && !pVid.paused) {
@@ -1947,6 +2057,7 @@
         }
       } else {
         // --- JAWABAN SALAH (Lembut, Tanpa Hukuman) ---
+        GameState.trashMistakes = (GameState.trashMistakes || 0) + 1;
         audio.playSoftBuzzer();
         binEl.classList.add('animate-soft-shake');
         setTimeout(() => binEl.classList.remove('animate-soft-shake'), 400);
@@ -1988,11 +2099,21 @@
 
         speech.speak("Hore! Air segar membuat tanaman kembali tersenyum dan segar!");
       } else {
+        GameState.waterMistakes = (GameState.waterMistakes || 0) + 1;
         audio.playSoftBuzzer();
         btnEl.classList.add('animate-soft-shake');
         setTimeout(() => btnEl.classList.remove('animate-soft-shake'), 400);
         speech.speak("Wah, bukan itu teman-teman. Tanaman butuh air yang sejuk ya!");
       }
+    }
+
+    // Helper: Acak 3 pilihan unik yang selalu menyertakan jawaban benar (rentang 1-5)
+    function generateRandomCountingChoices(correctNum) {
+      const pool = [1, 2, 3, 4, 5].filter(n => n !== correctNum);
+      pool.sort(() => Math.random() - 0.5);
+      const choices = [correctNum, pool[0], pool[1]];
+      choices.sort((a, b) => a - b);
+      return choices;
     }
 
     // --- TAHAP 3: TANTANGAN CERDAS (NUMERASI & URUTAN SAINS) ---
@@ -2005,9 +2126,10 @@
       nextBtn.disabled = true;
       nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
-      switchSubChallenge(1);
+      // Siapkan konten acak terlebih dahulu, lalu buka tab 1
       setupSubChallenge3A();
       setupSubChallenge3B();
+      switchSubChallenge(1);
     }
 
     function switchSubChallenge(tabIndex) {
@@ -2033,51 +2155,116 @@
     }
 
     function setupSubChallenge3A() {
-      document.getElementById('counting-question-text').innerText = GAME_CONFIG.tahap3.kuisHitung.pertanyaan;
+      // 1. Acak jumlah bunga dinamis (2 sampai 5) sehingga tidak statis 5 saja tiap refresh
+      let targetCount = Math.floor(Math.random() * 4) + 2; // Menghasilkan 2, 3, 4, atau 5
+      if (window._lastRandomFlowerCount && window._lastRandomFlowerCount === targetCount) {
+        targetCount = ((targetCount - 2 + 1) % 4) + 2;
+      }
+      window._lastRandomFlowerCount = targetCount;
+
+      if (!GAME_CONFIG.tahap3.kuisHitung) GAME_CONFIG.tahap3.kuisHitung = {};
+      GAME_CONFIG.tahap3.kuisHitung.jumlahBenar = targetCount;
+      GAME_CONFIG.tahap3.kuisHitung.pilihan = generateRandomCountingChoices(targetCount);
+
+      const questionTextEl = document.getElementById('counting-question-text');
+      if (questionTextEl) {
+        questionTextEl.innerText = GAME_CONFIG.tahap3.kuisHitung.pertanyaan;
+      }
+
+      const feedbackEl = document.getElementById('counting-feedback-msg');
+      if (feedbackEl) feedbackEl.innerHTML = '';
+
       const container = document.getElementById('counting-items-container');
-      container.innerHTML = '';
+      if (container) container.innerHTML = '';
 
       const spokenNumbers = ["Satu", "Dua", "Tiga", "Empat", "Lima"];
+      const spokenWords = { 1: "satu", 2: "dua", 3: "tiga", 4: "empat", 5: "lima" };
 
-      for (let i = 1; i <= 5; i++) {
+      // Render bunga sejumlah targetCount yang diacak
+      for (let i = 1; i <= targetCount; i++) {
         const itemBox = document.createElement('div');
-        itemBox.className = "relative flex flex-col items-center justify-center p-4 bg-purple-50 hover:bg-purple-100 border-4 border-purple-300 rounded-3xl cursor-pointer transition-transform hover:scale-110 active:scale-95 shadow-md";
+        itemBox.className = "relative flex flex-col items-center justify-center p-4 bg-purple-50 hover:bg-purple-100 border-4 border-purple-300 rounded-3xl cursor-pointer transition-transform hover:scale-105 active:scale-95 shadow-md select-none";
         itemBox.innerHTML = `
-          <div class="text-5xl md:text-6xl animate-wiggle">${GAME_CONFIG.tahap3.kuisHitung.itemIkon}</div>
+          <div class="text-5xl md:text-6xl animate-wiggle">${GAME_CONFIG.tahap3.kuisHitung.itemIkon || '🌻'}</div>
           <span id="flower-num-${i}" class="absolute -top-3 -right-2 bg-purple-600 text-white font-black text-sm w-7 h-7 rounded-full flex items-center justify-center shadow-md scale-0 transition-transform">
             ${i}
           </span>
         `;
         itemBox.onclick = () => {
-          audio.playChime();
+          audio.playPop();
           const numBadge = document.getElementById(`flower-num-${i}`);
-          numBadge.classList.remove('scale-0');
-          numBadge.classList.add('scale-100');
+          if (numBadge && numBadge.classList.contains('scale-0')) {
+            numBadge.classList.remove('scale-0');
+            numBadge.classList.add('scale-100');
+          }
+          itemBox.classList.add('ring-4', 'ring-purple-400', 'bg-purple-100');
           speech.speak(spokenNumbers[i - 1]);
         };
-        container.appendChild(itemBox);
+        if (container) container.appendChild(itemBox);
       }
 
-      // Pilihan Jawaban
+      // Render Pilihan Jawaban Angka
       const choicesContainer = document.getElementById('counting-choices-container');
-      choicesContainer.innerHTML = '';
-      GAME_CONFIG.tahap3.kuisHitung.pilihan.forEach(num => {
-        const btn = document.createElement('button');
-        btn.className = "w-16 h-16 md:w-20 md:h-20 bg-purple-500 hover:bg-purple-600 text-white font-black text-2xl md:text-3xl rounded-3xl btn-cartoon-purple flex items-center justify-center shadow-lg";
-        btn.innerText = num;
-        btn.onclick = () => {
-          if (num === GAME_CONFIG.tahap3.kuisHitung.jumlahBenar) {
-            audio.playChime();
-            speech.speak("Hebat sekali! Jawabanmu benar ada lima! Sekarang mari susun urutan ya!", () => {
-              switchSubChallenge(2);
-            });
-          } else {
-            audio.playSoftBuzzer();
-            speech.speak("Ayo coba hitung lagi bersama-sama ya!");
-          }
-        };
-        choicesContainer.appendChild(btn);
-      });
+      if (choicesContainer) {
+        choicesContainer.innerHTML = '';
+
+        GAME_CONFIG.tahap3.kuisHitung.pilihan.forEach(num => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = "w-16 h-16 md:w-20 md:h-20 bg-purple-500 hover:bg-purple-600 active:bg-purple-700 text-white font-black text-2xl md:text-3xl rounded-3xl btn-cartoon-purple flex items-center justify-center shadow-lg transition-transform cursor-pointer select-none active:scale-95";
+          btn.innerText = num;
+
+          btn.onclick = (e) => {
+            if (e && e.stopPropagation) e.stopPropagation();
+
+            if (num === targetCount) {
+              // --- JAWABAN BENAR ---
+              audio.playChime();
+
+              // Respon visual instan: tombol hijau bercahaya dengan centang
+              btn.className = "w-16 h-16 md:w-20 md:h-20 bg-emerald-500 text-white font-black text-2xl md:text-3xl rounded-3xl flex items-center justify-center shadow-xl ring-4 ring-emerald-300 scale-110 transition-transform cursor-default";
+              btn.innerHTML = `${num} <span class="text-sm ml-1">✓</span>`;
+
+              // Kunci tombol pilihan lain
+              const allBtns = choicesContainer.querySelectorAll('button');
+              allBtns.forEach(b => {
+                if (b !== btn) {
+                  b.disabled = true;
+                  b.classList.add('opacity-40', 'cursor-not-allowed');
+                }
+              });
+
+              if (feedbackEl) {
+                feedbackEl.innerHTML = `<span class="inline-block text-emerald-700 font-extrabold text-base md:text-lg animate-bounce">🎉 Hebat sekali! Benar ada ${spokenWords[num]} (${num})!</span>`;
+              }
+
+              speech.speak(`Hebat sekali! Jawabanmu benar ada ${spokenWords[num]}! Sekarang mari susun urutan tanaman ya!`);
+
+              // Otomatis beralih ke Sub-Tantangan 2 setelah 1.4 detik secara pasti
+              setTimeout(() => {
+                switchSubChallenge(2);
+              }, 1400);
+
+            } else {
+              // --- JAWABAN SALAH ---
+              GameState.countingMistakes = (GameState.countingMistakes || 0) + 1;
+              audio.playSoftBuzzer();
+              btn.classList.add('animate-soft-shake', 'bg-rose-500');
+              setTimeout(() => {
+                btn.classList.remove('animate-soft-shake', 'bg-rose-500');
+              }, 500);
+
+              if (feedbackEl) {
+                feedbackEl.innerHTML = `<span class="inline-block text-amber-700 font-bold text-sm md:text-base">Ayo coba sentuh dan hitung bunganya lagi ya!</span>`;
+              }
+
+              speech.speak("Ayo coba sentuh dan hitung lagi bersama-sama ya!");
+            }
+          };
+
+          choicesContainer.appendChild(btn);
+        });
+      }
     }
 
     function setupSubChallenge3B() {
@@ -2139,6 +2326,7 @@
         }
       } else {
         // --- URUTAN SALAH ---
+        GameState.sequenceMistakes = (GameState.sequenceMistakes || 0) + 1;
         audio.playSoftBuzzer();
         const clickedCard = document.getElementById(`seq-card-${step.urutan}`);
         if (clickedCard) {
@@ -2228,8 +2416,9 @@
 
     function handleChecklistChange() {
       audio.playPop();
-      const allChecked = Array.from(document.querySelectorAll('#action-checklist-container input[type="checkbox"]'))
-        .every(cb => cb.checked);
+      const checkboxes = Array.from(document.querySelectorAll('#action-checklist-container input[type="checkbox"]'));
+      GameState.checklistCount = checkboxes.filter(cb => cb.checked).length;
+      const allChecked = checkboxes.length > 0 && checkboxes.every(cb => cb.checked);
       if (allChecked) {
         addStar();
         speech.speak("Hebat! Seluruh aksi nyata di kelas telah selesai!");
@@ -2292,6 +2481,125 @@
       speech.speak("Cekrek! Foto aksimu sangat keren dan tersimpan di sertifikat!");
     }
 
+    // --- RUBRIK EVALUASI OTOMATIS & INTERAKTIF (KURIKULUM MERDEKA PAUD 6 ASPEK) ---
+    const PREDICATE_ORDER = ["BSB", "BSH", "MB", "BB"];
+    const PREDICATE_STYLES = {
+      BSB: {
+        bg: "bg-emerald-100",
+        text: "text-emerald-800",
+        border: "border-emerald-300",
+        label: "Berkembang Sangat Baik"
+      },
+      BSH: {
+        bg: "bg-sky-100",
+        text: "text-sky-800",
+        border: "border-sky-300",
+        label: "Berkembang Sesuai Harapan"
+      },
+      MB: {
+        bg: "bg-amber-100",
+        text: "text-amber-800",
+        border: "border-amber-300",
+        label: "Mulai Berkembang"
+      },
+      BB: {
+        bg: "bg-rose-100",
+        text: "text-rose-800",
+        border: "border-rose-300",
+        label: "Belum Berkembang"
+      }
+    };
+
+    function calculateRubricPredicates() {
+      // 1. NAM: Perilaku peduli lingkungan & menyiram tanaman (Tahap 2)
+      const waterErr = GameState.waterMistakes || 0;
+      if (waterErr === 0) {
+        GameState.rubricPredicates.nam = "BSB";
+      } else if (waterErr === 1) {
+        GameState.rubricPredicates.nam = "BSH";
+      } else {
+        GameState.rubricPredicates.nam = "MB";
+      }
+
+      // 2. Kognitif: Memilah sampah & menyusun urutan tanaman (Tahap 2 & Tahap 3B)
+      const totalKogErr = (GameState.trashMistakes || 0) + (GameState.sequenceMistakes || 0);
+      if (totalKogErr === 0) {
+        GameState.rubricPredicates.kognitif = "BSB";
+      } else if (totalKogErr <= 2) {
+        GameState.rubricPredicates.kognitif = "BSH";
+      } else if (totalKogErr <= 4) {
+        GameState.rubricPredicates.kognitif = "MB";
+      } else {
+        GameState.rubricPredicates.kognitif = "BB";
+      }
+
+      // 3. Bahasa: Menjawab pertanyaan pemantik & menyimak narasi (Tahap 1)
+      if (GameState.hasDiscussed) {
+        GameState.rubricPredicates.bahasa = "BSB";
+      } else {
+        GameState.rubricPredicates.bahasa = "BSH";
+      }
+
+      // 4. Numerasi: Membilang 1-5 bunga secara visual & auditori (Tahap 3A)
+      const countErr = GameState.countingMistakes || 0;
+      if (countErr === 0) {
+        GameState.rubricPredicates.numerasi = "BSB";
+      } else if (countErr === 1) {
+        GameState.rubricPredicates.numerasi = "BSH";
+      } else if (countErr === 2) {
+        GameState.rubricPredicates.numerasi = "MB";
+      } else {
+        GameState.rubricPredicates.numerasi = "BB";
+      }
+
+      // 5. Motorik: Koordinasi motorik halus (layar sentuh) & aksi nyata kelas (Tahap 4)
+      const checkedCount = GameState.checklistCount || 0;
+      const hasPhoto = Boolean(GameState.photoDataUrl);
+      if (checkedCount >= 2 || hasPhoto) {
+        GameState.rubricPredicates.motorik = "BSB";
+      } else {
+        GameState.rubricPredicates.motorik = "BSH";
+      }
+
+      // 6. Sosek: Bekerja sama, bergantian, & menuntaskan misi (Semua Tahap)
+      const stars = GameState.stars || 5;
+      if (stars >= 5) {
+        GameState.rubricPredicates.sosek = "BSB";
+      } else if (stars >= 3) {
+        GameState.rubricPredicates.sosek = "BSH";
+      } else {
+        GameState.rubricPredicates.sosek = "MB";
+      }
+
+      renderRubricTable();
+    }
+
+    function renderRubricTable() {
+      const aspects = ['nam', 'kognitif', 'bahasa', 'numerasi', 'motorik', 'sosek'];
+      aspects.forEach(aspect => {
+        const el = document.getElementById(`rubric-pred-${aspect}`);
+        if (!el) return;
+        const pred = (GameState.rubricPredicates && GameState.rubricPredicates[aspect]) || "BSB";
+        const style = PREDICATE_STYLES[pred] || PREDICATE_STYLES.BSB;
+
+        el.className = `inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95 border ${style.bg} ${style.text} ${style.border}`;
+        el.innerText = pred;
+        el.title = `${pred} (${style.label}) - Klik untuk penyesuaian guru`;
+      });
+    }
+
+    function toggleRubricPredicate(aspect) {
+      audio.playPop();
+      if (!GameState.rubricPredicates) GameState.rubricPredicates = {};
+      const current = GameState.rubricPredicates[aspect] || "BSB";
+      const idx = PREDICATE_ORDER.indexOf(current);
+      const nextIdx = (idx + 1) % PREDICATE_ORDER.length;
+      const nextPred = PREDICATE_ORDER[nextIdx];
+
+      GameState.rubricPredicates[aspect] = nextPred;
+      renderRubricTable();
+    }
+
     // --- TAHAP 5: MISI BERHASIL & SERTIFIKAT ---
     function initStage5() {
       // Pastikan genap 5 bintang
@@ -2301,6 +2609,15 @@
       document.getElementById('stage5-title').innerText = GAME_CONFIG.tahap5.judul;
       document.getElementById('stage5-narasi').innerText = GAME_CONFIG.tahap5.narasi;
 
+      // Pasang nama murid ke sertifikat penghargaan
+      const certNameEl = document.getElementById('cert-student-name');
+      if (certNameEl) {
+        certNameEl.innerText = GameState.studentName || "Sahabat Cilik Hebat";
+      }
+
+      // Hitung evaluasi rubrik autentik berdasarkan riwayat aktivitas dan jawaban murid
+      calculateRubricPredicates();
+
       // Set tanggal hari ini pada sertifikat
       const now = new Date();
       document.getElementById('cert-date-text').innerText = `Tanggal: ${now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`;
@@ -2309,7 +2626,7 @@
       launchConfetti();
 
       setTimeout(() => {
-        speech.speak(GAME_CONFIG.tahap5.narasi);
+        speech.speak(`Selamat untuk ${GameState.studentName || "Sahabat Cilik"}! Kamu berhasil menyelesaikan semua misi dan mendapatkan lima bintang!`);
       }, 500);
     }
 
@@ -2317,6 +2634,19 @@
       audio.playPop();
       GameState.stars = 0;
       GameState.hasDiscussed = false;
+      GameState.trashMistakes = 0;
+      GameState.waterMistakes = 0;
+      GameState.countingMistakes = 0;
+      GameState.sequenceMistakes = 0;
+      GameState.checklistCount = 0;
+      GameState.rubricPredicates = {
+        nam: "BSB",
+        kognitif: "BSB",
+        bahasa: "BSH",
+        numerasi: "BSB",
+        motorik: "BSB",
+        sosek: "BSB"
+      };
       updateStarsDisplay();
       goToScreen(0);
     }
@@ -2647,6 +2977,7 @@
     // Inisialisasi awal saat DOM siap
     document.addEventListener('DOMContentLoaded', () => {
       updateStarsDisplay();
+      renderRubricTable();
       if (speech.isSupported) {
         speech.loadVoices();
         speech.updateSlidersUI();
