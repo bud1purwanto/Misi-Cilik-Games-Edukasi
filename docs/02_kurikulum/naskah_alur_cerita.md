@@ -1,59 +1,75 @@
 # Naskah Alur Cerita & Panduan Dialog Audio TTS
-> **MISI CILIK: Selamatkan Taman Ceria!**  
-> Naskah cerita lengkap, transkrip Text-to-Speech (TTS), dan panduan pertanyaan pemantik diskusi guru-anak.
+> **MISI CILIK: Selamatkan Lingkungan!**  
+> Naskah cerita lengkap, transkrip Text-to-Speech (TTS), dialog pemantik guru, dan diferensiasi audio Kelompok A & B.
 
 ---
 
 ## 1. Profil Karakter Maskot Utama
 
-* **Nama:** Ara si Lebah Ceria 🐝
-* **Karakteristik Suara:** Ceria, bersahabat, penuh semangat, menggunakan intonasi ramah anak dengan jeda bicara yang santai (*rate: 0.9, pitch: 1.25*).
-* **Peran:** Pemandu petualangan digital yang mengajak anak-anak menjadi *"Penyelamat Cilik"*.
+* **Nama:** Ara si Lebah Ceria 🐝 (pada tema Taman Ceria)
+* **Karakteristik Suara:** Ceria, bersahabat, penuh semangat, menggunakan intonasi ramah anak dengan laju bicara santai (*rate: 0.9, pitch: 1.25*).
+* **Peran:** Pemandu petualangan digital yang mengajak anak-anak menjadi *"Penyelamat Lingkungan Cilik"*.
 
 ---
 
 ## 2. Naskah Alur Cerita & Transkrip TTS Per Layar
 
-### Layar 0: Beranda (Home Screen)
+### Layar 0: Beranda (Home Screen) & Seleksi Kelompok Usia
 * **Status Musik:** Musik Latar Ceria (BGM) mengalun lembut.
-* **Transkrip Suara Ara (Saat tombol suara ditekan):**
-  > *"Halo teman-teman hebat! Namaku Ara si Lebah. Ayo kita berpetualang menyelamatkan Taman Ceria! Tekan tombol 'Mulai Misi' ya!"*
+* **Transkrip Suara Ara (Saat tombol suara beranda ditekan):**
+  > *"Halo teman-teman hebat! Namaku Ara si Lebah. Ayo kita berpetualang menyelamatkan lingkungan kita! Pilih kelompokmu lalu tekan Mulai Misi ya!"*
+* **Umpan Balik Suara saat Memilih Kelompok:**
+  * Klik `🐥 Kelompok A`: *"Asyik! Kita belajar bersama Kelompok A!"*
+  * Klik `🦉 Kelompok B`: *"Hebat! Tantangan seru menanti Kelompok B!"*
 
 ---
 
-### Layar 1: Tahap 1 — Panggilan Misi
-* **Visual Scene:** Taman dalam kondisi sedih, sampah plastik dan kulit buah berserakan di atas rumput kecokelatan, bunga layu menunduk, langit berawan redup.
+### Layar 1: Tahap 1 — Panggilan Misi (Observasi & Bahasa)
+* **Visual Scene:** Tampilan lingkungan kotor (sampah berserakan, tanaman layu kehausan, langit berawan redup).
 * **Transkrip Narasi Utama (TTS Otomatis saat klik ▶️ Putar Cerita):**
-  > *"Halo teman-teman! Aku Ara. Lihatlah, Taman Ceria kita sedang sangat sedih. Banyak sekali sampah berserakan dan bunga-bunganya layu kehausan. Yuk amati bersama Ibu Guru, kenapa ya taman kita bisa jadi kotor seperti ini?"*
-* **Panduan Diskusi Pemantik Guru & Anak:**
-  * **Pertanyaan 1:** *"Anak-anak pintar, apa saja benda yang membuat taman indah kita ini jadi kotor?"*
-    * *(Ekspektasi jawaban anak: Plastik, kulit pisang, botol kaleng, daun kering).*
-  * **Pertanyaan 2:** *"Kira-kira bagaimana perasaan bunga dan pohon jika tamannya kotor dan tidak pernah disiram air?"*
-    * *(Ekspektasi jawaban anak: Sedih, haus, layu, mati).*
-  * **Pertanyaan 3:** *"Siapa anak hebat yang mau ikut membantu Ara membersihkan taman ini bersama-sama?"*
-    * *(Anak mengangkat tangan dan menjawab serentak: Saya!)*
+  > *"Halo teman-teman! Aku Ara. Lihatlah, tempat kita sedang sangat sedih. Banyak sekali sampah berserakan dan bunganya layu kehausan. Yuk amati bersama Ibu Guru, kenapa ya tempat kita bisa jadi kotor seperti ini?"*
+
+* **Panduan Diskusi Pemantik Guru & Anak (Diferensiasi):**
+
+  #### 🐥 Panduan Diskusi Kelompok A (Observasi Konkret):
+  * **Pertanyaan 1:** *"Anak-anak pintar, apa saja benda yang membuat taman indah kita ini jadi kotor?"*  
+    *(Ekspektasi respon anak: Plastik, kulit pisang, botol kaleng, daun kering).*
+  * **Pertanyaan 2:** *"Kira-kira apa yang dirasakan tanaman jika kekurangan air dan tertutup sampah?"*  
+    *(Ekspektasi respon anak: Sedih, haus, layu, mati).*
+  * **Pertanyaan 3:** *"Siapa anak hebat yang mau ikut membantu Ara membersihkan taman ini bersama-sama?"*  
+    *(Anak mengangkat tangan serentak: Saya!)*
+
+  #### 🦉 Panduan Diskusi Kelompok B (Analisis Sebab-Akibat & Solusi):
+  * **Pertanyaan 1:** *"Menurut teman-teman, mengapa sampah bisa sampai menumpuk dan berserakan di tempat ini?"*  
+    *(Ekspektasi respon anak: Ada orang buang sampah sembarangan, tidak ada tong sampah, malas).*
+  * **Pertanyaan 2:** *"Apa bahayanya bagi lingkungan dan hewan di sekitar jika sampah plastik dibiarkan berhari-hari?"*  
+    *(Ekspektasi respon anak: Bau busuk, banjir, hewan tersedak plastik, banyak kuman).*
+  * **Pertanyaan 3:** *"Bagaimana cara kita mengajak teman atau keluarga agar selalu membuang sampah pada tempatnya?"*  
+    *(Ekspektasi respon anak: Mengingatkan dengan sopan, memberi contoh yang baik, membuat poster).*
+
 * **Aksi Guru:** Menekan tombol `"🗣️ Anak Sudah Berpendapat (+1 ⭐)"`.
 * **Suara Ara:**
-  > *"Wah hebat sekali anak-anak TK! Kalian sungguh peduli! Ayo kita mulai misi detektif sekarang!"*
+  > *"Wah hebat sekali anak-anak cerdas! Kalian sungguh peduli! Ayo kita mulai misi detektif sekarang!"*
 
 ---
 
-### Layar 2: Tahap 2 — Misi Detektif Sampah
-* **Visual Scene:** 6 benda sampah mengambang lembut di atas taman kotor. Di bawahnya berdiri tegak dua tong sampah besar: **Tong Hijau Organik** dan **Tong Kuning Anorganik**.
+### Layar 2: Tahap 2 — Misi Detektif Sampah (Kognitif & Motorik)
+* **Visual Scene:** 6 benda sampah mengambang lembut di atas pemandangan. Di bawahnya berdiri tegak dua tong sampah besar: **Tong Hijau Organik** dan **Tong Kuning Anorganik**.
 * **Transkrip Instruksi Awal (TTS):**
-  > *"Sentuh sampahnya, lalu masukkan ke tong sampah yang tepat ya! Tong hijau untuk sampah alami, dan tong kuning untuk plastik atau kaleng!"*
+  > *"Sentuh sampahnya, lalu masukkan ke tong yang tepat ya! Tong hijau untuk sampah alami, dan tong kuning untuk plastik atau kaleng!"*
+
 * **Dialog Umpan Balik Interaktif:**
   * **Saat Sampah Masuk ke Tong yang Benar:**
     * SFX: *Ting-ting ceria!*
-    * Narasi TTS Acak:
-      * *"Luar biasa! Kulit pisang adalah sampah organik alami!"*
-      * *"Pintar sekali! Botol plastik masuk ke tong anorganik kuning!"*
-      * *"Hebat! Tamannya semakin bersih!"*
-  * **Saat Sampah Dimasukkan ke Tong yang Salah:**
-    * SFX: *Buzzer lembut "tetot" + getaran tong.*
-    * Narasi TTS:
-      * *"Ups! Coba perhatikan lagi ya, apakah benda ini mudah membusuk atau terbuat dari plastik?"*
-* **Transkrip Mini-Kuis Menyiram Tanaman:**
+    * **Untuk Kelompok A:** *"Pintar sekali! [Nama Benda] masuk ke tong yang tepat!"*
+    * **Untuk Kelompok B (Dilengkapi Alasan Edukatif):**
+      * Sisa Pisang/Apel/Daun: *"Hebat! [Nama Benda] adalah sampah organik alami yang bisa menjadi pupuk kompos untuk tanaman!"*
+      * Botol Plastik/Kresek/Kaleng: *"Luar biasa! [Nama Benda] adalah sampah anorganik yang sulit terurai dan harus didaur ulang!"*
+  * **Saat Sampah Dimasukkan ke Tong yang Salah (Zero Punishment):**
+    * SFX: *Buzzer lembut pembinaan + getaran tong.*
+    * Narasi TTS: *"Ups! Coba perhatikan lagi ya teman-teman, apakah benda ini mudah membusuk atau terbuat dari plastik dan kaleng buatan pabrik?"*
+
+* **Transkrip Mini-Kuis Penyelamatan Tanaman:**
   > *"Semua sampah sudah bersih! Tapi lihat, tanaman masih sangat haus. Ayo bantu Ara memilih, benda apa yang kita gunakan untuk menyiram tanaman?"*
   * Klik `🚿 Penyiram Air` (Benar):
     > *"Hore! Air segar membuat tanaman kembali tersenyum dan segar!"*
@@ -62,56 +78,62 @@
 
 ---
 
-### Layar 3: Tahap 3 — Tantangan Cerdas
-* **Sub-Tantangan 3A: Berhitung Bunga Mekar**
-  * Transkrip Instruksi:
-    > *"Wah, bunga matahari mulai bermekaran! Ayo kita hitung bersama-sama, sentuh setiap bunganya ya!"*
-  * Saat anak menyentuh bunga:
-    * Bunga 1: *"Satu!"*
-    * Bunga 2: *"Dua!"*
-    * Bunga 3: *"Tiga!"*
-    * Bunga 4: *"Empat!"*
-    * Bunga 5: *"Lima! Ada lima bunga matahari yang indah!"*
-  * Pertanyaan Jumlah:
-    > *"Sekarang pilih angka yang tepat. Ada berapa jumlah semua bunga?"*
-    * Jawaban Benar (5): *"Hebat! Jawabanmu benar, ada lima bunga matahari!"*
+### Layar 3: Tahap 3 — Tantangan Cerdas (Numerasi & Sains)
 
-* **Sub-Tantangan 3B: Siklus Pertumbuhan Tanaman**
-  * Transkrip Instruksi:
-    > *"Ayo kita susun urutan tumbuhnya tanaman dari awal sampai berbunga mekar!"*
-  * Dialog kartu benar:
-    1. *"Pertama: Kita menanam biji kecil di dalam tanah."*
-    2. *"Kedua: Biji mulai tumbuh tunas hijau yang imut."*
-    3. *"Ketiga: Kita rajin menyiram tunas dengan air bersih."*
-    4. *"Keempat: Hore! Bunganya mekar dengan sangat indah!"*
+#### Sub-Tantangan 3A: Berhitung Bilangan (Numerasi)
+* **Instruksi Awal:**
+  > *"Wah, bunga-bunga mulai bermekaran! Ayo kita hitung bersama-sama, sentuh setiap bunganya ya!"*
+* **Membilang Interaktif:**
+  * Bunga 1: *"Satu!"*
+  * Bunga 2: *"Dua!"*
+  * Bunga 3: *"Tiga!"*
+  * Bunga 4: *"Empat!"*
+  * Bunga 5: *"Lima!"* *(Batas Kelompok A)*
+  * Bunga 6–10: *"Enam!"*, *"Tujuh!"*, *"Delapan!"*, *"Sembilan!"*, *"Sepuluh! Ada sepuluh bunga matahari yang sangat indah!"* *(Kelompok B)*
+* **Pertanyaan Jumlah:**
+  > *"Sekarang pilih angka yang tepat. Ada berapa jumlah semua bunga?"*
+  * Respon Benar: *"Hebat! Jawabanmu tepat sekali!"*
+
+#### Sub-Tantangan 3B: Mengurutkan Siklus Tumbuh Tanaman (Sains)
+* **Instruksi Awal:**
+  > *"Ayo kita susun urutan tumbuhnya tanaman dari awal sampai berbunga mekar!"*
+* **Dialog Kartu Langkah:**
+  1. *"Pertama: Kita menanam biji kecil di dalam tanah yang subur."*
+  2. *"Kedua: Biji mulai tumbuh menjadi tunas hijau yang mungil."*
+  3. *"Ketiga: Kita rajin menyiram tanaman dengan air yang segar."*
+  4. *"Keempat: Hore! Bunganya mekar dengan sangat indah dan harum!"*
+* **Narasi Penjelasan Sains Komprehensif (Khusus Kelompok B saat berhasil):**
+  > *"Luar biasa Kelompok B! Biji yang ditanam di dalam tanah memerlukan air, udara, dan sinar matahari untuk tumbuh menjadi tunas, hingga akhirnya mekar menjadi bunga yang asri dan memberi makan serangga lebah!"*
 
 ---
 
 ### Layar 4: Tahap 4 — Aksi Nyata Penyelamat Lingkungan
-* **Visual Scene:** Tampilan hitung mundur 60 detik dengan panduan gerak fisik dan panel cermin kamera video.
+* **Visual Scene:** Tampilan jam hitung mundur 60 detik dengan kartu checklist aktivitas dan video cermin langsung kamera laptop.
 * **Transkrip Instruksi Aksi:**
-  > *"Sekarang giliran anak-anak hebat beraksi di kelas bersama Ibu Guru! Yuk kita bersihkan ruang kelas, buang sampah ke tempatnya, dan bekerja sama dengan teman!"*
-* **Instruksi Foto Bersama:**
-  > *"Senyum yang manis ke kamera ya! Satu... dua... tiga... Cekrek! Kalian anak-anak penyelamat lingkungan yang luar biasa!"*
+  * **Kelompok A:**
+    > *"Sekarang saatnya kita beraksi nyata di kelas! Ayo buang sampah ke tempatnya dan rawat tanaman bersama Ibu Guru!"*
+  * **Kelompok B:**
+    > *"Hebat Kelompok B! Ayo kita bergotong royong, pilah sampah di ruang kelas, dan ajak teman-teman menjaga kebersihan bersama!"*
+* **Instruksi Foto Bukti Aksi:**
+  > *"Senyum yang manis dan bangga ke kamera ya! Satu... dua... tiga... Cekrek! Wah, kalian adalah pahlawan lingkungan yang luar biasa!"*
 
 ---
 
 ### Layar 5: Tahap 5 — Misi Berhasil & Perayaan Kemenangan
-* **Visual Scene:** Hujan confetti warna-warni, pelangi melengkung di langit biru, rumput hijau segar, bunga-bunga menari, Ara terbang gembira.
+* **Visual Scene:** Hujan confetti warna-warni, pelangi di langit cerah, lingkungan asri berseri, Ara menari gembira.
 * **Transkrip Perayaan (TTS Fanfare):**
-  > *"HOREEE! MISI KITA BERHASIL! Terima kasih para Penyelamat Cilik! Sekarang Taman Ceria sudah sangat bersih, segar, dan penuh warna. Kalian semua anak hebat, berhak mendapatkan Lencana Bintang Emas!"*
+  > *"HOREEE! MISI KITA BERHASIL! Terima kasih para Penyelamat Lingkungan Cilik! Sekarang tempat kita sudah sangat bersih, indah, dan penuh warna. Kalian semua berhak mendapatkan Lencana Bintang Emas Penuh!"*
 * **Pertanyaan Refleksi Lisan Guru:**
-  * *"Bagaimana perasaan teman-teman setelah melihat taman dan kelas kita menjadi bersih?"*
-  * *"Janji ya, mulai hari ini kita akan selalu membuang sampah pada tempatnya!"*
+  * *"Bagaimana perasaan teman-teman setelah berhasil membersihkan lingkungan bersama-sama?"*
+  * *"Janji ya, mulai hari ini kita akan selalu menjaga kebersihan dan membuang sampah pada tempatnya!"*
 
 ---
 
-## 3. Naskah Alternatif untuk 3 Tema Dadakan
+## 3. Naskah untuk 4 Preset Sub-Tema Lengkap
 
-Jika di lokasi lomba dewan juri meminta tema berbeda, naskah narasi akan berganti secara otomatis melalui preset:
-
-| Tema | Maskot & Setting | Narasi Utama TTS | Target Aksi |
+| Sub-Tema | Maskot & Setting | Narasi Utama TTS | Contoh Alasan Sains Pilah (Kelompok B) |
 | :--- | :--- | :--- | :--- |
-| **Pantai Bersih** | 🐬 *Lulu si Lumba-lumba* (Laut Biru) | *"Laut kita penuh sampah plastik! Kasihan ikan dan terumbu karang tidak bisa bernapas. Ayo selamatkan laut!"* | Pisahkan jaring/plastik dari bintang laut; bersihkan terumbu karang. |
-| **Kebun Binatang** | 🐵 *Mimi si Monyet* (Kandang Hewan) | *"Kandang hewan banyak sampah plastik yang berbahaya jika termakan hewan. Ayo kita rapikan dan beri makan yang sehat!"* | Pisahkan sampah kemasan dari buah/sayur makanan hewan. |
-| **Kelasku Rapi** | 🎒 *Budi si Pelajar Cilik* (Ruang Kelas) | *"Ruang kelas kita berantakan setelah belajar. Ayo rapikan buku, alat warna, dan buang serutan pensil ke tempat sampah!"* | Rapikan meja belajar, pilah kertas bekas vs spidol rusak. |
+| **🌻 Taman Ceria** | 🐝 *Ara si Lebah* (Taman Bunga) | *"Taman Ceria kita sedang sedih karena penuh sampah dan bunganya layu. Ayo kita selamatkan taman bunga ini!"* | Kulit pisang & daun kering dapat membusuk menjadi pupuk tanah; plastik berbahaya karena mencemari tanah berabad-abad. |
+| **🌊 Pantai & Laut** | 🐬 *Lulu si Lumba-lumba* (Pantai Berpasir & Laut Biru) | *"Laut kita penuh sampah plastik! Kasihan ikan dan terumbu karang tidak bisa bernapas. Ayo selamatkan biota laut!"* | Rumput laut terdampar bisa jadi makanan alami penyu; sampah sedotan dan jaring plastik membahayakan penyu serta merusak karang. |
+| **🦁 Kebun Binatang** | 🐵 *Mimi si Monyet* (Kandang Satwa Safari) | *"Kandang satwa kotor oleh sampah pengunjung. Sangat berbahaya jika termakan oleh hewan. Ayo kita selamatkan para satwa!"* | Kulit kacang dan daun bambu adalah sisa pakan alami; kantong kresek dan baterai bekas beracun serta mematikan bila tertelan hewan. |
+| **🏫 Kelasku Rapi** | 🎒 *Budi si Pelajar Cilik* (Ruang Kelas TK) | *"Ruang kelas kita berantakan setelah belajar dan bermain. Ayo kita bersihkan dan rapikan meja belajar kita!"* | Serutan pensil kayu dan sisa kertas mudah didaur ulang; spidol rusak dan mika plastik harus dipilah agar kelas tetap sehat dan higienis. |

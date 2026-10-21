@@ -1,5 +1,5 @@
 # AGENTS.MD — Panduan & Aturan Global AI Agent / Developer
-> **Proyek:** MISI CILIK: Selamatkan Taman Ceria!  
+> **Proyek:** MISI CILIK: Selamatkan Lingkungan! (Sub-Tema: Taman Ceria, Pantai & Laut, Kebun Binatang, Kelasku)  
 > **Target:** Media Pembelajaran Digital Interaktif Anak TK (Lomba PORSENI XV IGTKI-PGRI Jatim)  
 > **Status:** Wajib Dibaca & Dipatuhi oleh Setiap AI Agent / Developer Sebelum Menulis Kode
 
@@ -58,10 +58,12 @@ Sebelum menyentuh berkas implementasi (`index.html`), agen wajib memahami modul-
 
 Sebelum agen menyatakan tugas selesai, periksa hal-hal berikut:
 - [ ] Apakah berkas `index.html` dapat dibuka langsung via *double-click* browser tanpa web server?
+- [ ] Apakah selektor Kelompok A & Kelompok B berfungsi dan mendiferensiasi materi di seluruh 5 tahap?
 - [ ] Apakah suara SFX berbunyi tanpa membutuhkan koneksi internet?
 - [ ] Apakah narasi Web Speech TTS Bahasa Indonesia berjalan lancar?
-- [ ] Apakah sistem 2-klik pilah sampah berfungsi dengan umpan balik visual dan audio?
-- [ ] Apakah sub-kuis hitung bunga dan urutan pertumbuhan berfungsi dengan baik?
+- [ ] Apakah sistem 2-klik pilah sampah berfungsi dengan umpan balik visual dan audio ramah anak?
+- [ ] Apakah sub-kuis hitung (1-5 / 1-10) dan urutan pertumbuhan berfungsi dengan baik?
 - [ ] Apakah kamera webcam memiliki fallback otomatis jika izin kamera ditolak?
-- [ ] Apakah tombol ubah tema dapat mengganti seluruh konten secara instan?
-- [ ] Apakah sertifikat kelulusan menampilkan 5 bintang emas dan rubrik evaluasi guru siap cetak?
+- [ ] Apakah tombol ubah sub-tema dapat mengganti seluruh konten secara instan?
+- [ ] Apakah sertifikat kelulusan menampilkan badge kelompok, 5 bintang emas, dan rubrik evaluasi siap cetak?
+- [ ] Apakah data rekapitulasi murid tersimpan di Local Storage dan dapat dikelola di Panel Juri?
