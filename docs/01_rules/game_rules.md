@@ -57,7 +57,11 @@ graph LR
        2. *"Apa bahayanya bagi lingkungan dan hewan jika sampah dibiarkan berhari-hari?"*
        3. *"Bagaimana cara kita mengajak orang lain agar tidak membuang sampah sembarangan?"*
   4. Ketika anak merespons, guru menekan tombol `"🗣️ Anak Sudah Berpendapat (+1 ⭐)"`.
-  5. Sistem memutar SFX tepuk tangan meriah, menambah 1 bintang, dan membuka tombol `"Lanjut ke Tahap 2 ➔"`.
+  5. Sistem memutar SFX tepuk tangan meriah, menambah 1 bintang, dan membuka tombol `"Lanjut ke Misi Detektif ➔"`.
+  6. **Navigasi Mundur & Sinkronisasi Visual**:
+     * Layar 1 dilengkapi tombol navigasi `"⬅ Kembali"` menuju Beranda (Layar 0).
+     * Ikon skenario dan kondisi visual berganti dinamis 100% mengikuti sub-tema aktif (Pantai: `🌊`, Zoo: `🦁`, Kelas: `🎒`, Taman: `🥀`).
+     * Tombol suara narasi menyesuaikan nama maskot tema aktif (contoh: *"Dengarkan Cerita Lulu Lumba-lumba"*).
 
 ---
 
@@ -82,6 +86,7 @@ graph LR
   * Muncul otomatis setelah 6 sampah selesai dipilah.
   * Memilih alat bantu penyelamatan (misal: `🚿 Alat Siram Air` vs `🔥 Api` vs `🪨 Batu`).
   * Jawaban tepat memberikan **+1 ⭐** dan membuka akses ke Tahap 3.
+* **Navigasi Mundur:** Dilengkapi tombol navigasi `⬅ Kembali` yang memungkinkan guru/anak kembali ke Tahap 1 untuk meninjau observasi awal.
 
 ---
 
@@ -104,6 +109,7 @@ Terdiri dari 2 sub-tantangan berurutan:
   * **Kelompok A:** Kartu dilengkapi nomor urut eksplisit (`1. Tanam Biji`, `2. Tumbuh Tunas`, `3. Siram Air`, `4. Bunga Mekar`) sebagai petunjuk visual perancah (*scaffolding*).
   * **Kelompok B:** Kartu mandiri **tanpa nomor urut** (`Tanam Biji`, `Tumbuh Tunas`, `Siram Air`, `Bunga Mekar`). Saat selesai disusun, narasi TTS menguraikan sains sebab-akibat secara utuh (*"Hebat! Biji yang ditanam memerlukan air dan sinar matahari untuk bertunas hingga menjadi bunga mekar yang indah!"*).
 * Menyelesaikan kedua sub-tantangan ini memberikan reward **+1 ⭐** dan membuka tombol ke Tahap 4.
+* **Navigasi Mundur:** Dilengkapi tombol navigasi `⬅ Kembali` menuju Tahap 2.
 
 ---
 
@@ -124,13 +130,14 @@ Terdiri dari 2 sub-tantangan berurutan:
     * Tombol `"Ambil Foto"` merekam foto aksi anak yang nantinya otomatis disematkan pada sertifikat kelulusan.
     * Dilengkapi sistem **Safe Fallback**: jika kamera ditolak atau perangkat tidak berkamera, sistem otomatis menampilkan ilustrasi avatar anak hebat tanpa menghentikan alur game.
   * Menyelesaikan tahap ini memberikan **+1 ⭐** dan membuka gerbang Tahap 5.
+  * **Navigasi Mundur:** Dilengkapi tombol navigasi `⬅ Kembali` menuju Tahap 3.
 
 ---
 
 ### Layar 5: Tahap 5 — Misi Berhasil, Evaluasi & Rekapitulasi Murid
 * **Tujuan Pembelajaran:** Selebrasi keberhasilan, penguatan rasa percaya diri, asesmen autentik 6 aspek perkembangan, dan pencatatan portofolio digital.
 * **Fitur Utama:**
-  * **Pesta Kemenangan:** Hujan confetti visual bergerak dan transformasi sebelum-sesudah (*before-after transformation*).
+  * **Pesta Kemenangan:** Hujan confetti visual bergerak dan transformasi sebelum-sesudah (*before-after transformation*) yang 100% tersinkronisasi dinamis mengikuti sub-tema aktif (Pantai: `🐬`, Zoo: `🐵`, Kelas: `✨`, Taman: `🌈`).
   * **Sertifikat Digital Siap Cetak:**
     * Memuat Nama Murid, Badge Kelompok Usia (`🐥 Kelompok A (Usia 4–5 Thn)` atau `🦉 Kelompok B (Usia 5–6 Thn)`), Sub-Tema yang diselesaikan, Foto aksi dari Tahap 4, dan **5 Bintang Emas Penuh (⭐⭐⭐⭐⭐)**.
     * Tombol `"🖨️ Cetak / Simpan Sertifikat & Evaluasi"` membuka jendela cetak browser ramah kertas (Clean Print Stylesheet).

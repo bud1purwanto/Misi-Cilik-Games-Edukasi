@@ -30,6 +30,8 @@ Anak usia Taman Kanak-Kanak (Kelompok A dan B) memiliki karakteristik interaksi 
   * Tong sampah target: Minimal `160px x 180px` agar mudah dijangkau dari jarak jauh proyektor.
 * **Bentuk Sudut (*Border Radius*):**
   * Seluruh tombol, kontainer kartu, dan modal wajib menggunakan sudut membulat lebar (`rounded-2xl`, `rounded-3xl`, atau `rounded-full`). Hindari sudut tajam (`sharp corners`).
+* **Tata Letak Navigasi Bersanding (Dual Navigation Action):**
+  * Di setiap tahap interaktif (Tahap 1–4), tombol `⬅ Kembali` disandingkan harmonis dengan tombol `Lanjut ➔` menggunakan kontainer responsif (`flex flex-col sm:flex-row gap-3`).
 * **Efek Penekanan (*Tactile Feedback*):**
   * Setiap tombol harus memiliki efek visual saat disentuh: `active:scale-95 transition-transform duration-150` disertai bayangan timbul tebal (`shadow-lg hover:shadow-xl border-b-4 border-emerald-600 active:border-b-0 active:translate-y-1`).
 
@@ -68,6 +70,7 @@ Gunakan kombinasi warna cerah, kontras tinggi, dan ramah mata anak:
 | **Rumput & Alam (Organik)** | `bg-emerald-500 hover:bg-emerald-600` | Kesegaran, kebersihan alam, ramah lingkungan. |
 | **Peringatan & Anorganik** | `bg-amber-400 hover:bg-amber-500` | Kehangatan, waspada, menarik perhatian. |
 | **Apresiasi & Bintang** | `text-yellow-400 fill-yellow-400` | Prestasi, kemilau emas, kebahagiaan. |
+| **Navigasi Mundur (Kembali)** | `bg-slate-200 hover:bg-slate-300 text-slate-700` (`.btn-cartoon-slate`) | Netral, tenang, tidak mengaburkan fokus tombol aksi utama. |
 | **Aksi & Tombol Utama** | `bg-rose-500 hover:bg-rose-600` | Semangat, urgensi aksi penyelamatan. |
 
 ---

@@ -48,8 +48,11 @@
     *(Ekspektasi respon anak: Mengingatkan dengan sopan, memberi contoh yang baik, membuat poster).*
 
 * **Aksi Guru:** Menekan tombol `"🗣️ Anak Sudah Berpendapat (+1 ⭐)"`.
-* **Suara Ara:**
+* **Suara Ara (Disesuaikan Maskot Aktif):**
   > *"Wah hebat sekali anak-anak cerdas! Kalian sungguh peduli! Ayo kita mulai misi detektif sekarang!"*
+* **Tombol Suara & Navigasi:**
+  * Tombol audio membaca dinamis nama maskot: `"▶️ Dengarkan Cerita [Nama Maskot]"`.
+  * Tombol navigasi mundur `"⬅ Kembali"` mengarahkan kembali ke Beranda (Layar 0).
 
 ---
 
@@ -120,7 +123,7 @@
 ---
 
 ### Layar 5: Tahap 5 — Misi Berhasil & Perayaan Kemenangan
-* **Visual Scene:** Hujan confetti warna-warni, pelangi di langit cerah, lingkungan asri berseri, Ara menari gembira.
+* **Visual Scene:** Hujan confetti warna-warni, pelangi di langit cerah, kartu transformasi **Before-After Skenario Lingkungan** yang 100% mengikuti sub-tema aktif, lingkungan asri berseri, Ara menari gembira.
 * **Transkrip Perayaan (TTS Fanfare):**
   > *"HOREEE! MISI KITA BERHASIL! Terima kasih para Penyelamat Lingkungan Cilik! Sekarang tempat kita sudah sangat bersih, indah, dan penuh warna. Kalian semua berhak mendapatkan Lencana Bintang Emas Penuh!"*
 * **Pertanyaan Refleksi Lisan Guru:**

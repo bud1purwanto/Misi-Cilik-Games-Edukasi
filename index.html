@@ -123,6 +123,15 @@
       box-shadow: 0 2px 0 #6b21a8;
     }
 
+    .btn-cartoon-slate {
+      box-shadow: 0 8px 0 #64748b;
+      transition: all 0.1s ease;
+    }
+    .btn-cartoon-slate:active {
+      transform: translateY(6px);
+      box-shadow: 0 2px 0 #64748b;
+    }
+
     /* Efek Garis Luar Terpilih (Selection Glow) */
     .selected-trash {
       outline: 5px solid #f59e0b;
@@ -416,14 +425,14 @@
         </h2>
       </div>
 
-      <!-- Scene Visual Animasi Taman Kotor -->
+      <!-- Scene Visual Animasi Skenario Kotor -->
       <div id="stage1-scene" class="relative w-full max-w-3xl bg-gradient-to-b from-slate-300 via-amber-100 to-amber-200 border-4 border-amber-300 rounded-3xl p-6 shadow-xl mb-6 overflow-hidden">
         <div class="flex flex-col md:flex-row items-center gap-6">
-          <div class="text-7xl md:text-8xl animate-wiggle">
+          <div id="stage1-scene-icon" class="text-7xl md:text-8xl animate-wiggle select-none">
             🥀
           </div>
           <div class="flex-grow text-center md:text-left">
-            <div class="inline-block bg-white/90 text-amber-900 font-bold text-xs md:text-sm px-3 py-1 rounded-full mb-2">
+            <div id="stage1-scene-condition-badge" class="inline-block bg-white/90 text-amber-900 font-bold text-xs md:text-sm px-3 py-1 rounded-full mb-2 shadow-sm">
               ⚠️ Kondisi Lingkungan: Banyak Sampah & Kering
             </div>
             <p id="stage1-narasi" class="text-lg md:text-xl font-bold text-slate-700 leading-relaxed">
@@ -434,8 +443,8 @@
 
         <!-- Tombol Putar Ulang Cerita Suara -->
         <div class="mt-4 pt-4 border-t border-amber-300/60 flex justify-center md:justify-end">
-          <button onclick="speakStage1Narration()" class="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-2xl btn-cartoon-sky font-bold text-sm flex items-center gap-2">
-            <span>▶️</span> <span>Dengarkan Cerita Ara</span>
+          <button id="btn-stage1-speak" onclick="speakStage1Narration()" class="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-2xl btn-cartoon-sky font-bold text-sm flex items-center gap-2 shadow-sm">
+            <span>▶️</span> <span id="stage1-speak-text">Dengarkan Cerita Ara</span>
           </button>
         </div>
       </div>
@@ -459,9 +468,12 @@
         </div>
       </div>
 
-      <!-- Tombol Navigasi Lanjut -->
-      <div class="flex justify-center w-full max-w-md">
-        <button id="btn-stage1-next" onclick="goToScreen(2)" class="w-full py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-3xl btn-cartoon-emerald flex items-center justify-center gap-2 shadow-lg opacity-50 cursor-not-allowed transition" disabled>
+      <!-- Tombol Navigasi Lanjut & Kembali -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-lg">
+        <button id="btn-stage1-prev" onclick="goToScreen(0)" class="w-full sm:w-auto px-6 py-4 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-lg rounded-3xl btn-cartoon-slate flex items-center justify-center gap-2 shadow-md transition-all active:scale-95" title="Kembali ke Beranda">
+          <span>⬅</span> <span>Kembali</span>
+        </button>
+        <button id="btn-stage1-next" onclick="goToScreen(2)" class="w-full sm:flex-1 py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-3xl btn-cartoon-emerald flex items-center justify-center gap-2 shadow-lg opacity-50 cursor-not-allowed transition" disabled>
           <span>Lanjut ke Misi Detektif</span> <span>➔</span>
         </button>
       </div>
@@ -537,9 +549,12 @@
         </div>
       </div>
 
-      <!-- Tombol Lanjut ke Tahap 3 -->
-      <div class="flex justify-center w-full max-w-md">
-        <button id="btn-stage2-next" onclick="goToScreen(3)" class="w-full py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-3xl btn-cartoon-emerald flex items-center justify-center gap-2 shadow-lg opacity-50 cursor-not-allowed transition" disabled>
+      <!-- Tombol Navigasi Lanjut & Kembali -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-lg">
+        <button id="btn-stage2-prev" onclick="goToScreen(1)" class="w-full sm:w-auto px-6 py-4 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-lg rounded-3xl btn-cartoon-slate flex items-center justify-center gap-2 shadow-md transition-all active:scale-95" title="Kembali ke Tahap 1">
+          <span>⬅</span> <span>Kembali</span>
+        </button>
+        <button id="btn-stage2-next" onclick="goToScreen(3)" class="w-full sm:flex-1 py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-3xl btn-cartoon-emerald flex items-center justify-center gap-2 shadow-lg opacity-50 cursor-not-allowed transition" disabled>
           <span>Lanjut ke Tantangan Cerdas</span> <span>➔</span>
         </button>
       </div>
@@ -636,9 +651,12 @@
         </div>
       </div>
 
-      <!-- Tombol Lanjut ke Tahap 4 -->
-      <div class="flex justify-center w-full max-w-md">
-        <button id="btn-stage3-next" onclick="goToScreen(4)" class="w-full py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-3xl btn-cartoon-emerald flex items-center justify-center gap-2 shadow-lg opacity-50 cursor-not-allowed transition" disabled>
+      <!-- Tombol Navigasi Lanjut & Kembali -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-lg">
+        <button id="btn-stage3-prev" onclick="goToScreen(2)" class="w-full sm:w-auto px-6 py-4 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-lg rounded-3xl btn-cartoon-slate flex items-center justify-center gap-2 shadow-md transition-all active:scale-95" title="Kembali ke Tahap 2">
+          <span>⬅</span> <span>Kembali</span>
+        </button>
+        <button id="btn-stage3-next" onclick="goToScreen(4)" class="w-full sm:flex-1 py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-3xl btn-cartoon-emerald flex items-center justify-center gap-2 shadow-lg opacity-50 cursor-not-allowed transition" disabled>
           <span>Lanjut ke Aksi Nyata</span> <span>➔</span>
         </button>
       </div>
@@ -742,9 +760,12 @@
 
       </div>
 
-      <!-- Tombol Lanjut ke Tahap 5 -->
-      <div class="flex justify-center w-full max-w-md">
-        <button id="btn-stage4-next" onclick="goToScreen(5)" class="w-full py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-3xl btn-cartoon-emerald flex items-center justify-center gap-2 shadow-lg">
+      <!-- Tombol Navigasi Selesaikan & Kembali -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-lg">
+        <button id="btn-stage4-prev" onclick="goToScreen(3)" class="w-full sm:w-auto px-6 py-4 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-lg rounded-3xl btn-cartoon-slate flex items-center justify-center gap-2 shadow-md transition-all active:scale-95" title="Kembali ke Tahap 3">
+          <span>⬅</span> <span>Kembali</span>
+        </button>
+        <button id="btn-stage4-next" onclick="goToScreen(5)" class="w-full sm:flex-1 py-4 px-8 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl rounded-3xl btn-cartoon-emerald flex items-center justify-center gap-2 shadow-lg">
           <span>Selesaikan Misi!</span> <span>🎉</span>
         </button>
       </div>
@@ -767,18 +788,18 @@
         </p>
       </div>
 
-      <!-- Kartu Before-After Transformasi Visual Taman -->
+      <!-- Kartu Before-After Transformasi Visual Skenario -->
       <div class="w-full max-w-3xl bg-white border-2 border-emerald-300 rounded-3xl p-4 shadow-md mb-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="bg-amber-50 rounded-2xl p-3 border border-amber-200 text-center">
             <span class="text-xs font-bold text-amber-800 bg-amber-200 px-2 py-0.5 rounded-full">Kondisi Awal (Kotor)</span>
-            <div class="text-4xl my-2">🥀 🍂 🥫</div>
-            <p class="text-xs text-slate-500">Banyak sampah berserakan, bunga layu dan taman sedih.</p>
+            <div id="stage5-before-icons" class="text-4xl my-2">🥀 🍂 🥫</div>
+            <p id="stage5-before-desc" class="text-xs text-slate-500">Banyak sampah berserakan, bunga layu dan taman sedih.</p>
           </div>
           <div class="bg-emerald-50 rounded-2xl p-3 border border-emerald-300 text-center">
             <span class="text-xs font-bold text-emerald-800 bg-emerald-200 px-2 py-0.5 rounded-full">Kondisi Sekarang (Ceria)</span>
-            <div class="text-4xl my-2">🌈 🌻 🐝 🌷</div>
-            <p class="text-xs text-emerald-700 font-bold">Bersih, segar, penuh bunga warna-warni dan kupu-kupu!</p>
+            <div id="stage5-after-icons" class="text-4xl my-2">🌈 🌻 🐝 🌷</div>
+            <p id="stage5-after-desc" class="text-xs text-emerald-700 font-bold">Bersih, segar, penuh bunga warna-warni dan kupu-kupu!</p>
           </div>
         </div>
       </div>
@@ -2212,6 +2233,32 @@
       document.getElementById('stage1-title').innerText = GAME_CONFIG.tahap1.judul;
       document.getElementById('stage1-narasi').innerText = `"${GAME_CONFIG.tahap1.narasi}"`;
 
+      // Update Ikon & Badge Visual Skenario Tahap 1 Sesuai Tema Aktif
+      const sceneIconEl = document.getElementById('stage1-scene-icon');
+      const conditionBadgeEl = document.getElementById('stage1-scene-condition-badge');
+      const speakTextEl = document.getElementById('stage1-speak-text');
+
+      if (speakTextEl && GAME_CONFIG.maskot) {
+        speakTextEl.innerText = `Dengarkan Cerita ${GAME_CONFIG.maskot.nama}`;
+      }
+
+      if (conditionBadgeEl && GAME_CONFIG.tahap1.kondisiVisual) {
+        conditionBadgeEl.innerText = `⚠️ ${GAME_CONFIG.tahap1.kondisiVisual}`;
+      }
+
+      if (sceneIconEl) {
+        const themeId = GAME_CONFIG.id || 'taman';
+        if (themeId === 'pantai') {
+          sceneIconEl.innerText = '🌊';
+        } else if (themeId === 'zoo') {
+          sceneIconEl.innerText = '🦁';
+        } else if (themeId === 'kelas') {
+          sceneIconEl.innerText = '🎒';
+        } else {
+          sceneIconEl.innerText = '🥀';
+        }
+      }
+
       // Render 3 Pertanyaan Pemantik sesuai Kelompok A atau Kelompok B
       const isGroupB = GameState.studentGroup === 'B';
       const questions = (isGroupB && GAME_CONFIG.tahap1.pertanyaanB)
@@ -3026,6 +3073,35 @@
 
       document.getElementById('stage5-title').innerText = GAME_CONFIG.tahap5.judul;
       document.getElementById('stage5-narasi').innerText = GAME_CONFIG.tahap5.narasi;
+
+      // Update Kartu Before-After Transformasi Sesuai Tema
+      const beforeIconsEl = document.getElementById('stage5-before-icons');
+      const beforeDescEl = document.getElementById('stage5-before-desc');
+      const afterIconsEl = document.getElementById('stage5-after-icons');
+      const afterDescEl = document.getElementById('stage5-after-desc');
+
+      const themeId = GAME_CONFIG.id || 'taman';
+      if (themeId === 'pantai') {
+        if (beforeIconsEl) beforeIconsEl.innerText = '🌊 🥤 🕸️ 🧴';
+        if (beforeDescEl) beforeDescEl.innerText = 'Banyak sampah plastik, sedotan, dan jaring bekas menutupi pantai.';
+        if (afterIconsEl) afterIconsEl.innerText = '🐬 🌊 🐢 🏖️';
+        if (afterDescEl) afterDescEl.innerText = 'Air laut jernih, lumba-lumba melompat riang, dan penyu berenang bebas!';
+      } else if (themeId === 'zoo') {
+        if (beforeIconsEl) beforeIconsEl.innerText = '🦁 🍿 🔋 🥫';
+        if (beforeDescEl) beforeDescEl.innerText = 'Bungkus snack berserakan dan kandang hewan kotor berantakan.';
+        if (afterIconsEl) afterIconsEl.innerText = '🐵 🦁 🥕 🌿 🦋';
+        if (afterDescEl) afterDescEl.innerText = 'Kandang bersih, hewan sehat makan buah segar, dan burung berkicau riang!';
+      } else if (themeId === 'kelas') {
+        if (beforeIconsEl) beforeIconsEl.innerText = '🎒 ✏️ 🍞 📦';
+        if (beforeDescEl) beforeDescEl.innerText = 'Serutan pensil, kertas sobek, dan sisa bekal berceceran di lantai.';
+        if (afterIconsEl) afterIconsEl.innerText = '✨ 🏫 📚 🧽 🧒';
+        if (afterDescEl) afterDescEl.innerText = 'Ruang kelas rapi, meja bersih berkilau, dan siap untuk belajar nyaman!';
+      } else {
+        if (beforeIconsEl) beforeIconsEl.innerText = '🥀 🍂 🥫';
+        if (beforeDescEl) beforeDescEl.innerText = 'Banyak sampah berserakan, bunga layu dan taman sedih.';
+        if (afterIconsEl) afterIconsEl.innerText = '🌈 🌻 🐝 🌷';
+        if (afterDescEl) afterDescEl.innerText = 'Bersih, segar, penuh bunga warna-warni dan kupu-kupu!';
+      }
 
       // Pasang nama murid ke sertifikat penghargaan
       const certNameEl = document.getElementById('cert-student-name');

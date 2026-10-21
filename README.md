@@ -18,10 +18,13 @@
      - 🌊 *Selamatkan Pantai & Laut!*
      - 🦁 *Selamatkan Kebun Binatang!*
      - 🏫 *Selamatkan Kelasku!*
-3. **Rekapitulasi Portofolio Murid (Local Storage):**
+   * *Sinkronisasi Visual Dinamis Penuh*: Seluruh adegan awal (Tahap 1), maskot pencerita, materi pilah sampah, hingga kartu transformasi Before-After (Tahap 5) 100% berganti visual secara dinamis sesuai tema yang dipilih.
+3. **Navigasi Ramah Anak & Guru (Maju & Mundur):**
+   * Dilengkapi tombol navigasi `⬅ Kembali` di setiap tahapan (Tahap 1 kembali ke Beranda, Tahap 2–4 kembali ke tahap sebelumnya) sehingga guru dan anak leluasa mengulang penjelasan tanpa perlu me-refresh aplikasi.
+4. **Rekapitulasi Portofolio Murid (Local Storage):**
    * Data nama anak, kelompok usia, sub-tema, 5 bintang emas, foto aksi nyata, dan nilai rubrik 6 aspek perkembangan tersimpan otomatis di memori peramban.
    * Tersedia di Tab 3 Panel Juri: guru dapat meninjau tabel daftar murid, mencetak ulang sertifikat kelulusan per anak, atau menghapus riwayat data secara praktis.
-4. **Kemandirian Penuh (*Zero Dependency Failure*):**
+5. **Kemandirian Penuh (*Zero Dependency Failure*):**
    * Sintesis efek suara prosedural Web Audio API murni (tanpa file mp3 eksternal).
    * Narasi suara AI Web Speech API (`id-ID`) ramah anak.
    * Kamera aksi nyata `getUserMedia` dengan *safe fallback* otomatis.

@@ -35,6 +35,7 @@ const GAME_CONFIG = {
   tahap1_panggilan: {
     judul: "Tahap 1: Panggilan Misi",
     narasi: "Halo teman-teman! Aku Ara. Lihatlah, Taman Ceria kita sedang sedih karena penuh sampah dan bunganya layu...",
+    kondisiVisual: "🥀 Kondisi: Banyak Sampah Berserakan & Kering", // Sinkron dinamis per sub-tema (Pantai: 🌊, Zoo: 🦁, Kelas: 🎒, Taman: 🥀)
     pertanyaanA: [ // 🐥 Kelompok A: Observasi Konkret
       "Apa saja benda yang membuat taman menjadi kotor?",
       "Bagaimana perasaan tanaman jika kekurangan air?",
@@ -173,36 +174,39 @@ Di dalam kode aplikasi, disediakan koleksi `THEME_PRESETS` yang dapat diaktifkan
 ### 🌊 Preset 2: Pantai & Laut Bersih (Selamatkan Biota Laut)
 * **Sub-Tema:** `SELAMATKAN PANTAI & LAUT!`
 * **Maskot:** `Lulu si Lumba-lumba` (🐬) | Video: `assets/video/cerita_pantai.mp4`
-* **Latar Belakang:** Pasir pantai kuning cerah dan laut biru berombak.
+* **Latar Belakang & Visual Tahap 1:** Pasir pantai kuning cerah dan laut biru berombak dengan ikon adegan `🌊` (Terumbu karang & biota tertutup sampah plastik).
 * **Misi Sampah:**
   * *Organik:* Rumput laut (`🌿`), cangkang kerang (`🐚`), kayu apung (`🪵`).
   * *Anorganik:* Sedotan plastik (`🥤`), botol kaca (`🍾`), jaring ikan bekas (`🕸️`).
 * **Mini-Kuis Penyelamatan:** Memilih alat membebaskan penyu terjerat (`✂️ Gunting`).
 * **Tantangan Sains:** Menghitung bintang laut (`⭐`) & menyusun siklus penyu (Telur → Menetas tukik → Merayap ke ombak → Berenang bebas).
+* **Transformasi Tahap 5 (Before-After):** `🌊 🥤 🕸️ 🧴` (Banyak sampah plastik pantai) ➔ `🐬 🌊 🐢 🏖️` (Air laut jernih, lumba-lumba melompat riang, penyu berenang bebas).
 
 ---
 
 ### 🦁 Preset 3: Kebun Binatang Ceria (Sayangi Satwa Liar)
 * **Sub-Tema:** `SELAMATKAN KEBUN BINATANG!`
-* **Maskot:** `Mimi si Monyet Cerdik` (🐵) | Video: `assets/video/cerita_kebun_binatang.mp4`
-* **Latar Belakang:** Kawasan safari asri dengan pepohonan rindang.
+* **Maskot:** `Mimi si Monyet Cerdik` (🐵) | Video: `assets/video/cerita_zoo.mp4`
+* **Latar Belakang & Visual Tahap 1:** Kawasan safari asri dengan pepohonan rindang dengan ikon adegan `🦁` (Kandang hewan kotor & sampah makanan).
 * **Misi Sampah:**
   * *Organik:* Kulit kacang (`🥜`), batang pisang (`🍌`), daun bambu (`🎍`).
   * *Anorganik:* Bungkus makanan ringan (`🍿`), botol sirup plastik (`🍼`), baterai bekas (`🔋`).
 * **Mini-Kuis Penyelamatan:** Memilih pakan sehat untuk satwa gajah (`🥕 Wortel & Buah Segar`).
 * **Tantangan Sains:** Menghitung satwa anak singa (`🦁`) & menyusun siklus kupu-kupu safari (Telur → Ulat → Kepompong → Kupu-kupu).
+* **Transformasi Tahap 5 (Before-After):** `🦁 🍿 🔋 🥫` (Bungkus snack berserakan di kandang) ➔ `🐵 🦁 🥕 🌿 🦋` (Kandang bersih, hewan sehat makan buah segar, burung berkicau).
 
 ---
 
 ### 🏫 Preset 4: Kelasku Bersih & Rapi (Lingkungan Sekolahku)
 * **Sub-Tema:** `SELAMATKAN KELASKU!`
 * **Maskot:** `Budi si Pelajar Cilik` (🎒) | Video: `assets/video/cerita_kelas.mp4`
-* **Latar Belakang:** Ruang kelas TK yang rapi dengan ornamen edukasi ceria.
+* **Latar Belakang & Visual Tahap 1:** Ruang kelas TK yang rapi dengan ornamen edukasi ceria dengan ikon adegan `🎒` (Ruang kelas berantakan & serutan pensil).
 * **Misi Sampah:**
   * *Organik:* Sisa roti bekal (`🍞`), serutan pensil kayu (`✏️`), kulit jeruk (`🍊`).
   * *Anorganik:* Wadah mika plastik (`📦`), spidol rusak (`🖊️`), selotip plastik (`🩹`).
 * **Mini-Kuis Penyelamatan:** Memilih alat membersihkan papan tulis (`🧽 Penghapus Papan Tulis`).
 * **Tantangan Sains:** Menghitung buku cerita (`📚`) & menyusun rutinitas pagi (Bangun tidur → Mandi & sikat gigi → Sarapan sehat → Belajar ceria di kelas).
+* **Transformasi Tahap 5 (Before-After):** `🎒 ✏️ 🍞 📦` (Serutan pensil & kertas di lantai) ➔ `✨ 🏫 📚 🧽 🧒` (Ruang kelas rapi, meja bersih berkilau, belajar nyaman).
 
 ---
 
