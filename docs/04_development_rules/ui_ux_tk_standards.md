@@ -1,6 +1,6 @@
 # Standar Desain Antarmuka & Pengalaman Pengguna Anak TK (UI/UX Standards)
-> **MISI CILIK: Selamatkan Taman Ceria!**  
-> Karakteristik psikologi anak usia 4–6 tahun, ergonomi sentuh, palet warna, dan animasi interaktif.
+> **MISI CILIK: Selamatkan Lingkungan!**  
+> Karakteristik psikologi anak usia 4–6 tahun, arsitektur Dual-Mode (Mode Anak vs Mode Guru), ergonomi sentuh, palet warna, dan animasi interaktif.
 
 ---
 
@@ -17,19 +17,40 @@ Anak usia Taman Kanak-Kanak (Kelompok A dan B) memiliki karakteristik interaksi 
 │     dan suara langsung dalam < 0.2 detik)                    │
 │  4. Membutuhkan penguatan positif (Tidak boleh membuat rasa   │
 │     takut/frustrasi saat membuat kesalahan)                  │
+│  5. Rentan terdistraksi tombol/teks teknis yang tidak relevan│
 └──────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 2. Standar Tombol & Ukuran Area Sentuh (Touch Targets)
+## 2. Arsitektur Dual-Mode UX (Mode Anak vs Mode Guru / Juri)
+
+Untuk menjaga tampilan tetap fokus bagi anak sekaligus menyediakan kokpit lengkap bagi guru dan dewan juri:
+
+### 🧒 Mode Anak (Child / Game Play Mode):
+* **Sederhana & Ceria:** Antarmuka bebas dari teks teknis, istilah administratif lomba, dan parameter AI yang membingungkan anak.
+* **Fokus Penuh Permainan:** Seluruh layar dialokasikan untuk kanvas petualangan, objek interaktif, dan tombol aksi besar.
+* **Audio Interaktif:** Setiap arahan penting dibacakan oleh narasi suara TTS ramah anak Bahasa Indonesia.
+
+### 👩‍🏫 Mode Guru / Juri (Teacher / Jury Cockpit Mode):
+* **Panel Kontrol Tersembunyi Rapi:** Akses panel guru ditempatkan secara teratur di header global (`📋 Panel Juri`).
+* **Fitur Terbuka:**
+  * Panduan Kurikulum Merdeka (CP, TP terukur, 6 aspek).
+  * *Live Theme Switcher* (4 preset tema dadakan).
+  * Lembar asesmen observasi autentik (pilihan skala BB, MB, BSH, BSB).
+  * Manajemen portofolio hasil belajar murid (Local Storage) & cetak ulang sertifikat.
+  * SOP presentasi lomba 5 menit.
+
+---
+
+## 3. Standar Tombol & Ukuran Area Sentuh (Touch Targets)
 
 * **Dimensi Minimal Tombol Interaktif:**
   * Tombol navigasi utama: Minimal tinggi `72px` (kelas Tailwind: `py-4 px-8` hingga `py-6 px-12`).
   * Item kartu/sampah: Minimal `96px x 96px` (kelas: `w-24 h-24` hingga `w-28 h-28`).
   * Tong sampah target: Minimal `160px x 180px` agar mudah dijangkau dari jarak jauh proyektor.
 * **Bentuk Sudut (*Border Radius*):**
-  * Seluruh tombol, kontainer kartu, dan modal wajib menggunakan sudut membulat lebar (`rounded-2xl`, `rounded-3xl`, atau `rounded-full`). Hindari sudut tajam (`sharp corners`).
+  * Seluruh tombol, kontainer kartu, dan modal wajib menggunakan sudut membulat lebar (`rounded-2xl`, `rounded-3xl`, atau `rounded-full`). Hindari sudut tajam (*sharp corners*).
 * **Tata Letak Navigasi Bersanding (Dual Navigation Action):**
   * Di setiap tahap interaktif (Tahap 1–4), tombol `⬅ Kembali` disandingkan harmonis dengan tombol `Lanjut ➔` menggunakan kontainer responsif (`flex flex-col sm:flex-row gap-3`).
 * **Efek Penekanan (*Tactile Feedback*):**
@@ -37,7 +58,7 @@ Anak usia Taman Kanak-Kanak (Kelompok A dan B) memiliki karakteristik interaksi 
 
 ---
 
-## 3. Sistem Dual-Input (Ramah Layar Sentuh & Proyektor Kelas)
+## 4. Sistem Dual-Input (Ramah Layar Sentuh & Proyektor Kelas)
 
 Di banyak ruang kelas TK atau panggung lomba, media diproyeksikan menggunakan proyektor dinding atau layar sentuh (*touchscreen* monitor). Menyeret (*drag-and-drop*) di layar proyektor sering kali macet atau terlepas di tengah jalan karena jari anak licin/kering.
 
@@ -60,7 +81,7 @@ sequenceDiagram
 
 ---
 
-## 4. Palet Warna Ramah Anak (Color Palette)
+## 5. Palet Warna Ramah Anak (Color Palette)
 
 Gunakan kombinasi warna cerah, kontras tinggi, dan ramah mata anak:
 
@@ -75,7 +96,7 @@ Gunakan kombinasi warna cerah, kontras tinggi, dan ramah mata anak:
 
 ---
 
-## 5. Standar Animasi CSS Keyframes
+## 6. Standar Animasi CSS Keyframes
 
 Seluruh animasi menggunakan CSS murni berbasis *transform* dan *opacity* untuk menjaga performa rendering tetap 60 FPS pada laptop sekolah spesifikasi standar:
 
@@ -89,7 +110,7 @@ Seluruh animasi menggunakan CSS murni berbasis *transform* dan *opacity* untuk m
   animation: float 3s ease-in-out infinite;
 }
 
-/* 2. Goyang Ceria (Wiggle) pada Bunga & Bintang */
+/* 2. Goyang Ceria (Wiggle) pada Bunga, Bintang & Maskot */
 @keyframes wiggle {
   0%, 100% { transform: rotate(-4deg); }
   50% { transform: rotate(4deg); }
@@ -120,11 +141,11 @@ Seluruh animasi menggunakan CSS murni berbasis *transform* dan *opacity* untuk m
 
 ---
 
-## 6. Filosofi Penguatan Positif (Zero Punishment Policy)
+## 7. Filosofi Penguatan Positif (Zero Punishment Policy)
 
 1. **Tidak Ada Status *Game Over*:** Anak tidak boleh mengalami layar kekalahan merah menyala yang menakutkan atau skor minus.
 2. **Koreksi Konstruktif:** Jika anak salah memasukkan sampah ke tong yang keliru:
    * Tong hanya bergoyang pelan dengan suara *tetot* tumpul lembut.
    * Sampah kembali ke posisinya dengan aman.
-   * Suara Ara memberikan dorongan: *"Ups, coba perhatikan lagi ya! Benda ini terbuat dari apa?"*.
+   * Suara maskot memberikan dorongan: *"Ups, coba perhatikan lagi ya! Benda ini terbuat dari apa?"*.
 3. **Pujian Multi-Sensori:** Setiap keberhasilan selalu dirayakan dengan kombinasi visual (bintang terbang / warna emas), auditori (suara *ting!* harmonis), dan verbal (suara TTS apresiatif).

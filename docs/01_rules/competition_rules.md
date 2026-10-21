@@ -6,7 +6,7 @@
 
 ## 1. Profil Kompetisi & Sasaran Penilaian
 
-Dalam ajang PORSENI IGTKI-PGRI, pembuatan media pembelajaran digital dinilai berdasarkan relevansi terhadap dunia pendidikan anak usia dini (PAUD), orisinalitas ide, diferensiasi jenjang usia, kemudahan implementasi oleh guru di kelas, serta pemanfaatan teknologi mutakhir (termasuk kecerdasan buatan / AI).
+Dalam ajang PORSENI IGTKI-PGRI, pembuatan media pembelajaran digital dinilai berdasarkan relevansi terhadap dunia pendidikan anak usia dini (PAUD), orisinalitas ide, diferensiasi jenjang usia, tujuan pembelajaran terukur, kemudahan implementasi oleh guru di kelas, serta pemanfaatan teknologi mutakhir (termasuk kecerdasan buatan / AI).
 
 ```mermaid
 pie title Bobot Penilaian Media Digital PORSENI
@@ -23,11 +23,11 @@ pie title Bobot Penilaian Media Digital PORSENI
 
 | No | Indikator Penilaian | Kriteria Unggul (Skor Maksimal) | Bukti Nyata dalam Aplikasi MISI CILIK |
 | :---: | :--- | :--- | :--- |
-| **1** | **Kesesuaian Kurikulum Merdeka** | Memenuhi Capaian Pembelajaran (CP), mencakup 6 aspek perkembangan anak usia dini, dan menyediakan **Diferensiasi Pembelajaran (Kelompok A 4–5 Thn vs Kelompok B 5–6 Thn)** secara nyata. | Pilihan kelompok usia di awal mengatur kompleksitas misi (1–5 vs 1–10, nomor urut vs mandiri, 2 vs 3 checklist aksi) dan rubrik evaluasi dinamis. |
-| **2** | **Karakteristik Ramah Anak TK** | Desain visual cerah, kontras tinggi, navigasi intuitif tanpa perlu membaca teks rumit, serta umpan balik suara menyenangkan. | Tombol raksasa membulat (`rounded-3xl`), animasi CSS lembut, panduan suara narasi TTS di setiap langkah. |
-| **3** | **Interaktivitas & Keterlibatan Anak** | Media tidak pasif (bukan sekadar menonton video), melainkan menuntut anak berbuat (*learning by doing*). | Mekanisme 2-klik pilah sampah, berhitung sentuh bunga, susun urutan sains, dan kamera aksi nyata. |
-| **4** | **Inovasi Pemanfaatan AI & Portofolio** | Pemanfaatan AI tepat guna, terarah, dan memiliki sistem rekapitulasi data hasil asesmen murid yang rapi. | AI Voice TTS Bahasa Indonesia ramah anak, arsitektur *AI Generative Config*, dan penyimpanan otomatis portofolio murid di **Local Storage**. |
-| **5** | **Kepraktisan di Kelas (Zero Setup)** | Media dapat dijalankan di laptop sekolah mana pun tanpa instalasi rumit, tanpa internet kencang, dan tanpa crash. | Format tunggal `index.html`, *offline-first*, Web Audio sintetis prosedural tanpa butuh file MP3 eksternal. |
+| **1** | **Kesesuaian Kurikulum Merdeka & TP Terukur** | Memenuhi Capaian Pembelajaran (CP), memiliki Tujuan Pembelajaran (TP) terukur per misi, dan menerapkan **Diferensiasi Fase Fondasi (Kelompok A 4–5 Thn vs Kelompok B 5–6 Thn)** secara nyata. | Pilihan kelompok usia membedakan materi secara substansial (4 item sampah vs 6 item ilmiah; membilang 1–5 vs 1–10 mandiri; kartu bernomor vs konsep siklus; 2 vs 3 aksi gotong royong). |
+| **2** | **Karakteristik Ramah Anak & Ergonomi TK** | Desain visual cerah, kontras tinggi, navigasi intuitif tanpa perlu membaca teks rumit, serta memiliki **Pemisahan Mode Antarmuka (Mode Anak vs Mode Guru)**. | Mode Anak bersih tanpa distraksi teks teknis, tombol raksasa ($\ge 72\text{px}$), sistem 2-klik proyektor sentuh, dan umpan balik suara TTS bersahabat. |
+| **3** | **Interaktivitas & Keterlibatan Anak** | Media menuntut anak aktif (*learning by doing*), menghitung mandiri tanpa bocoran angka, serta menghubungkan dunia digital ke aksi nyata. | Mekanisme 2-klik pilah sampah, berhitung sentuh objek lingkungan mandiri, susun urutan sains, checklist gotong royong, dan kamera cermin aksi. |
+| **4** | **Asesmen Autentik Berbasis Bukti Pengamatan** | Evaluasi anak tidak dibuat otomatis buta, melainkan memberikan instrumen bagi guru untuk mencatat bukti observasi perilaku riil. | Lembar evaluasi guru di Tahap 5 menyediakan pilihan skala capaian (BB, MB, BSH, BSB) interaktif dan otomatis tersimpan ke **Local Storage** untuk portofolio kelas. |
+| **5** | **Kepraktisan di Kelas (Zero Setup)** | Media dapat dijalankan di laptop sekolah mana pun tanpa instalasi rumit, tanpa koneksi internet, dan tanpa risiko crash. | Format berkas tunggal `index.html`, *offline-first*, Web Audio sintetis prosedural tanpa membutuhkan berkas MP3 eksternal. |
 | **6** | **Kesiapan Menghadapi Tema Dadakan** | Guru dapat menyesuaikan tema materi lomba dalam hitungan detik di depan dewan juri. | Fitur *Live Theme Switcher* dengan 4 sub-tema lengkap (Taman Ceria, Pantai & Laut, Kebun Binatang, Kelasku). |
 
 ---
@@ -38,37 +38,62 @@ Untuk dipresentasikan kepada dewan juri, integrasi AI dalam proyek ini terbagi m
 
 ### Pilar 1: AI Speech Synthesis (Suara Edukatif Otomatis)
 * **Teknologi:** Web Speech API (`window.speechSynthesis`).
-* **Manfaat Pedagogis:** Anak TK belum lancar membaca tulisan. AI bertindak sebagai pemandu suara ceria yang membacakan setiap narasi cerita, instruksi misi, dan ucapan selamat secara interaktif.
-* **Keunggulan Teknis:** Berjalan langsung di peramban tanpa kuota API eksternal dan dapat menyesuaikan laju bicara (*rate* 0.9x) serta nada (*pitch* 1.25x) agar terdengar ramah seperti guru TK.
+* **Manfaat Pedagogis:** Membimbing anak TK yang belum lancar membaca melalui suara ceria, intonasi bersahabat (*pitch: 1.25, rate: 0.9*), serta umpan balik penguatan positif seketika.
+* **Keunggulan Teknis:** Berjalan langsung di peramban tanpa kuota API eksternal dan bebas hambatan sinyal internet.
 
 ### Pilar 2: AI Config-Driven Generative Content & Video Panggung
-* **Teknologi:** Arsitektur Objek `GAME_CONFIG` dan video animasi AI.
-* **Manfaat Lomba:** Menjawab tantangan sistem lomba di mana juri dapat mengumumkan tema atau sub-tema secara mendadak (misal: "Tema Air, Udara, Api" atau "Tema Binatang Ternak").
-* **Keunggulan Teknis:** Konsep *prompt-ready architecture* memungkinkan prompt AI menghasilkan konfigurasi baru seketika lengkap dengan video latar sub-tema yang relevan.
+* **Teknologi:** Arsitektur Objek `GAME_CONFIG` dan video animasi AI per sub-tema.
+* **Manfaat Lomba:** Menjawab tantangan sistem lomba di mana juri dapat mengumumkan tema atau sub-tema secara mendadak.
+* **Keunggulan Teknis:** Konsep *prompt-ready architecture* memungkinkan konfigurasi baru disuntikkan secara instan lengkap dengan video latar sub-tema yang relevan.
 
-### Pilar 3: Asistensi Evaluasi Autentik & Portofolio Digital (Local Storage)
-* **Teknologi:** Smart Observation Matrix di Tahap 5 & Engine Penyimpanan Lokal.
-* **Manfaat Guru:** Mengonversi data interaksi anak selama bermain game (ketepatan memilah, kecepatan berhitung, foto aksi) menjadi lembar laporan capaian perkembangan siap cetak serta menyimpannya ke tabel rekap portofolio kelas.
+### Pilar 3: Asistensi Asesmen Autentik & Portofolio Digital (Local Storage)
+* **Teknologi:** Interactive Evidence-Based Observation Matrix di Tahap 5 & Engine Penyimpanan Lokal.
+* **Manfaat Guru:** Memudahkan guru mendokumentasikan capaian perkembangan 6 aspek anak berdasarkan bukti pengamatan riil, mencetak sertifikat penghargaan, dan mengelola portofolio kelas tanpa beban administrasi kertas.
 
 ---
 
-## 4. SOP Presentasi 5 Menit di Hadapan Dewan Juri
+## 4. SOP Presentasi 5 Menit di Hadapan Dewan Juri (Panduan Mbak Ratih)
 
-Jika peserta memiliki waktu terbatas (5 menit) untuk mempresentasikan media di hadapan juri:
+Skenario alur presentasi efektif selama 5 menit:
 
-1. **Menit 01 — Pembukaan, Diferensiasi Usia & Latar Belakang (1 Menit):**
-   * Perkenalkan media: *"MISI CILIK: Selamatkan Lingkungan!"* sebagai jembatan inovatif kurikulum digital ke aksi nyata anak TK.
-   * Tunjukkan fitur diferensiasi usia: pilih `🐥 Kelompok A (4–5 Tahun)` atau `🦉 Kelompok B (5–6 Tahun)` dan masukkan nama anak.
-   * Tunjukkan bahwa aplikasi langsung dibuka melalui *double-click* berkas `index.html` tanpa internet.
-2. **Menit 02–03 — Simulasi Gameplay Interaktif (2 Menit):**
-   * Jalankan Tahap 1 (suara TTS menyala, tunjukkan pertanyaan pemantik yang menyesuaikan kelompok usia).
-   * Tunjukkan Tahap 2: demonstrasikan sistem 2-klik pilah sampah dan alasan edukatif (Kelompok B).
-   * Tunjukkan Tahap 3: demonstrasikan membilang bunga interaktif (1–5 atau 1–10) dan urutan sains.
-   * Tunjukkan Tahap 4: demonstrasikan aktivasi kamera webcam anak beraksi langsung di layar.
-3. **Menit 04 — Pembuktian Kurikulum, Sertifikat & Rekap Data Murid (1 Menit):**
-   * Masuk ke Tahap 5, perlihatkan sertifikat digital terbit lengkap dengan badge kelompok, foto anak, dan 5 Bintang.
-   * Tunjukkan tabel rubrik evaluasi guru yang indikatornya otomatis berganti sesuai kelompok A/B.
-   * Buka panel juri Tab 3 ("📊 Data Hasil Murid"): perlihatkan bahwa data anak langsung tersimpan, bisa dicetak ulang, atau dihapus.
+```
+[Menit 1: Pembukaan & Diferensiasi] ──► [Menit 2-3: Gameplay Interaktif & Mode Anak]
+                                                         │
+                                                         ▼
+[Menit 5: Pameran 4 Sub-Tema Dadakan] ◄── [Menit 4: Asesmen Berbasis Bukti & Portofolio]
+```
+
+1. **Menit 01 — Pembukaan, Tujuan Pembelajaran Terukur & Diferensiasi (1 Menit):**
+   * Perkenalkan media: *"MISI CILIK: Selamatkan Lingkungan!"* sebagai media pembelajaran digital interaktif berbasis Kurikulum Merdeka Fase Fondasi.
+   * Tunjukkan **Diferensiasi Pembelajaran**: pilih `🐥 Kelompok A (4–5 Tahun)` atau `🦉 Kelompok B (5–6 Tahun)`. Jelaskan bahwa materi disesuaikan secara substansial (bukan sekadar label).
+   * Tunjukkan bahwa aplikasi dibuka langsung via *double-click* berkas `index.html` tanpa memerlukan internet.
+2. **Menit 02–03 — Simulasi Gameplay Interaktif & Mode Anak (2 Menit):**
+   * **Tahap 1:** Tunjukkan video cerita animasi AI, suara narasi TTS, dan pertanyaan pemantik diskusi guru.
+   * **Tahap 2:** Demonstrasikan sistem 2-klik pilah sampah (ramah proyektor sentuh) dan tunjukkan kartu sampah Kelompok A (4 item konkret) vs Kelompok B (6 item dengan alasan ilmiah).
+   * **Tahap 3:** Demonstrasikan berhitung mandiri tanpa bocoran angka dan penyesuaian nama objek sesuai tema (misal: bintang laut di pantai).
+   * **Tahap 4:** Tunjukkan timer 60 detik gotong royong dan aktivasi kamera aksi nyata dengan izin pengguna.
+3. **Menit 04 — Asesmen Berbasis Bukti Pengamatan & Sertifikat (1 Menit):**
+   * Masuk ke Tahap 5, perlihatkan sertifikat digital terbit lengkap dengan badge kelompok, foto aksi anak, dan 5 Bintang Emas.
+   * Buka lembar evaluasi guru: jelaskan bahwa **skala capaian (BB, MB, BSH, BSB) dipilih guru berdasarkan bukti nyata pengamatan** selama bermain, bukan otomatis buta.
+   * Buka Panel Juri Tab 3 ("📊 Data Hasil Murid"): perlihatkan portofolio kelas yang tersimpan rapi di Local Storage dan dapat dicetak ulang.
 4. **Menit 05 — Pameran Fleksibilitas Tema Dadakan (1 Menit):**
-   * Buka panel juri Tab 2: `"🎨 Ubah Tema Cepat"`.
-   * Klik salah satu preset (misal: *Pantai & Laut Bersih*). Tunjukkan bahwa dalam 1 detik seluruh tampilan, narasi, video, maskot, dan sampah berganti menjadi biota laut tanpa menulis kode baru.
+   * Buka Panel Juri Tab 2: `"🎨 Ubah Tema Cepat"`.
+   * Klik salah satu preset (misal: *Pantai & Laut Bersih* atau *Kebun Binatang*). Tunjukkan bahwa dalam 1 detik seluruh tampilan, narasi, video latar, maskot, sampah, dan objek hitung berganti secara harmonis tanpa membuka baris kode baru.
+
+---
+
+## 5. Checklist Pengujian Menyeluruh Menjelang Lomba (Pre-Competition Checklist)
+
+Sebelum tampil di panggung lomba, pastikan seluruh item berikut telah diuji pada laptop yang akan digunakan:
+
+- [ ] **Video Cerita Animasi:** Seluruh 4 video (`cerita_taman.mp4`, `cerita_pantai.mp4`, `cerita_zoo.mp4`, `cerita_kelas.mp4`) dapat diputar lancar tanpa lag.
+- [ ] **Narasi Suara (Web Speech API):** Suara narasi Bahasa Indonesia terdengar jernih dan tombol kontrol audio (`🔊` dan `🎵`) berfungsi baik.
+- [ ] **Pilah Sampah 2-Klik:** Respon klik-sampah lalu klik-tong berjalan mulus pada mouse maupun layar sentuh.
+- [ ] **Diferensiasi Sampah A & B:** Kelompok A menampilkan 4 item konkret, Kelompok B menampilkan 6 item berargumen ilmiah.
+- [ ] **Penghitungan Numerasi:** Objek hitung sesuai tema (bunga/bintang laut/hewan/peralatan) dan narasi instruksi bebas bocoran angka.
+- [ ] **Urutan Sains:** Kartu urutan siklus 1–4 dapat disusun dengan feedback visual yang benar.
+- [ ] **Timer Aksi Nyata:** Jam hitung mundur 60 detik dapat dimulai, dijeda, dan dilewati.
+- [ ] **Kamera Bukti Aksi:** Berfungsi dengan izin pengguna (*permission prompt*) dan memiliki *safe fallback* avatar jika kamera tidak tersedia.
+- [ ] **Sertifikat & Cetak:** Tombol cetak membuka jendela print yang bersih dan rapi (*clean print stylesheet*).
+- [ ] **Asesmen Guru & Local Storage:** Predikat BB-BSB dapat diklik guru dan data murid tersimpan di Tab 3 Panel Juri.
+- [ ] **Live Theme Switcher:** Pergantian ke 4 tema dadakan berjalan instan (<0.5 detik).

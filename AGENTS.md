@@ -20,13 +20,13 @@ Sebelum menyentuh berkas implementasi (`index.html`), agen wajib memahami modul-
 | Urutan | Modul Dokumen | Fokus yang Wajib Dipahami |
 | :---: | :--- | :--- |
 | **1** | [docs/04_development_rules/development_guidelines.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/04_development_rules/development_guidelines.md) | **Standar Rekayasa:** Wajib 1 file `index.html`, zero-build step, offline-first, zero-placeholder. |
-| **2** | [docs/04_development_rules/ui_ux_tk_standards.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/04_development_rules/ui_ux_tk_standards.md) | **Standar Desain TK:** Ukuran tombol $\ge 72\text{px}$, `rounded-3xl`, dual-input 2-klik, warna pastel kontras. |
-| **3** | [docs/03_architecture/config_driven_design.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/03_architecture/config_driven_design.md) | **Arsitektur Data:** Objek `GAME_CONFIG` sebagai *Single Source of Truth* & 4 Preset Tema Dadakan. |
-| **4** | [docs/03_architecture/system_architecture.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/03_architecture/system_architecture.md) | **Mesin Status:** Alur 6 State Layar (State 0 hingga State 5) & siklus event interaksi. |
-| **5** | [docs/03_architecture/audio_and_hardware.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/03_architecture/audio_and_hardware.md) | **Audio & Kamera:** Web Audio API prosedural (tanpa file mp3 eksternal), Web Speech API (`id-ID`), & fallback webcam. |
-| **6** | [docs/01_rules/game_rules.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/01_rules/game_rules.md) | **Aturan Main:** Logika gameplay tiap tahap, umpan balik benar/salah, & perolehan 5 Bintang. |
-| **7** | [docs/01_rules/competition_rules.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/01_rules/competition_rules.md) | **Kriteria Lomba:** Rubrik penilaian juri PORSENI IGTKI, justifikasi 3 pilar AI, & SOP presentasi 5 menit. |
-| **8** | [docs/02_kurikulum/kurikulum_paud.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/02_kurikulum/kurikulum_paud.md) & [naskah_alur_cerita.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/02_kurikulum/naskah_alur_cerita.md) | **Muatan Pedagogis:** CP/TP Kurikulum Merdeka, 6 aspek perkembangan, & naskah dialog TTS Ara. |
+| **2** | [docs/04_development_rules/ui_ux_tk_standards.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/04_development_rules/ui_ux_tk_standards.md) | **Standar Desain TK:** Ukuran tombol $\ge 72\text{px}$, `rounded-3xl`, dual-input 2-klik, warna pastel, dan arsitektur Dual-Mode (Mode Anak vs Mode Guru). |
+| **3** | [docs/03_architecture/config_driven_design.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/03_architecture/config_driven_design.md) | **Arsitektur Data:** Objek `GAME_CONFIG` sebagai *Single Source of Truth*, diferensiasi item sampah (4 item vs 6 item), objek numerasi 4 tema, & 4 Preset Tema Dadakan. |
+| **4** | [docs/03_architecture/system_architecture.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/03_architecture/system_architecture.md) | **Mesin Status:** Alur 6 State Layar (State 0 hingga State 5), Dual-Mode UI, dan sistem asesmen autentik berbasis bukti pengamatan. |
+| **5** | [docs/03_architecture/audio_and_hardware.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/03_architecture/audio_and_hardware.md) | **Audio & Kamera:** Web Audio API prosedural (tanpa file mp3 eksternal), Web Speech API (`id-ID`), & izin pengguna eksplisit webcam dengan fallback aman. |
+| **6** | [docs/01_rules/game_rules.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/01_rules/game_rules.md) | **Aturan Main:** Logika gameplay tiap tahap, pemilahan sampah A vs B, numerasi bebas bocoran angka, & perolehan 5 Bintang. |
+| **7** | [docs/01_rules/competition_rules.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/01_rules/competition_rules.md) | **Kriteria Lomba:** Rubrik penilaian juri PORSENI IGTKI, justifikasi 3 pilar AI, SOP presentasi 5 menit Mbak Ratih, & checklist uji pra-lomba. |
+| **8** | [docs/02_kurikulum/kurikulum_paud.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/02_kurikulum/kurikulum_paud.md) & [naskah_alur_cerita.md](file:///c:/Users/User/Documents/Personal%20Project/Games/docs/02_kurikulum/naskah_alur_cerita.md) | **Muatan Pedagogis:** CP, TP Terukur, 6 aspek perkembangan, asesmen berbasis bukti pengamatan (BB, MB, BSH, BSB), & naskah dialog TTS bebas bocoran angka. |
 
 ---
 
@@ -59,11 +59,15 @@ Sebelum menyentuh berkas implementasi (`index.html`), agen wajib memahami modul-
 Sebelum agen menyatakan tugas selesai, periksa hal-hal berikut:
 - [ ] Apakah berkas `index.html` dapat dibuka langsung via *double-click* browser tanpa web server?
 - [ ] Apakah selektor Kelompok A & Kelompok B berfungsi dan mendiferensiasi materi di seluruh 5 tahap?
+- [ ] Apakah pilah sampah di Tahap 2 membedakan 4 item konkret (Kelompok A) vs 6 item ilmiah berargumen (Kelompok B)?
+- [ ] Apakah objek numerasi di Tahap 3A sesuai tema (Pantai: bintang laut, Zoo: hewan, Kelas: peralatan sekolah, Taman: bunga matahari)?
+- [ ] Apakah narasi instruksi numerasi bebas dari bocoran angka target sehingga anak menghitung mandiri?
+- [ ] Apakah lembar asesmen guru di Tahap 5 memungkinkan pemilihan manual predikat BB, MB, BSH, BSB berbasis bukti observasi?
+- [ ] Apakah antarmuka memisahkan Mode Anak (bersih & ceria) dari panel teknis guru/juri?
 - [ ] Apakah suara SFX berbunyi tanpa membutuhkan koneksi internet?
 - [ ] Apakah narasi Web Speech TTS Bahasa Indonesia berjalan lancar?
 - [ ] Apakah sistem 2-klik pilah sampah berfungsi dengan umpan balik visual dan audio ramah anak?
-- [ ] Apakah sub-kuis hitung (1-5 / 1-10) dan urutan pertumbuhan berfungsi dengan baik?
-- [ ] Apakah kamera webcam memiliki fallback otomatis jika izin kamera ditolak?
+- [ ] Apakah kamera webcam hanya aktif dengan izin pengguna dan memiliki fallback otomatis jika izin ditolak?
 - [ ] Apakah tombol ubah sub-tema dapat mengganti seluruh konten secara instan?
 - [ ] Apakah sertifikat kelulusan menampilkan badge kelompok, 5 bintang emas, dan rubrik evaluasi siap cetak?
 - [ ] Apakah data rekapitulasi murid tersimpan di Local Storage dan dapat dikelola di Panel Juri?
