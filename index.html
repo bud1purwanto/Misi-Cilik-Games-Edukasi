@@ -165,12 +165,17 @@
       <div class="flex items-center justify-center space-x-3 cursor-pointer text-center sm:text-left" onclick="goToScreen(0)" title="Klik untuk ke Beranda">
         <div id="header-mascot-icon" class="text-4xl animate-bounce-slow">🐝</div>
         <div class="flex flex-col items-center sm:items-start">
-          <h1 id="header-game-title" class="text-lg md:text-xl font-bold text-emerald-800 tracking-wide leading-tight">
-            MISI CILIK
+          <h1 id="header-game-title" class="text-sm md:text-base font-black text-emerald-800 tracking-wide leading-tight uppercase">
+            MISI CILIK: SELAMATKAN LINGKUNGAN!
           </h1>
-          <span id="header-stage-badge" class="inline-block bg-emerald-100 text-emerald-700 font-bold text-xs px-2.5 py-0.5 rounded-full border border-emerald-300">
-            Beranda
-          </span>
+          <div class="flex items-center gap-1.5 mt-0.5">
+            <span id="header-stage-badge" class="inline-block bg-emerald-100 text-emerald-700 font-bold text-xs px-2.5 py-0.5 rounded-full border border-emerald-300">
+              Beranda
+            </span>
+            <span id="header-theme-subbadge" class="inline-block bg-amber-100 text-amber-900 font-extrabold text-[11px] px-2 py-0.5 rounded-full border border-amber-300">
+              🌻 Selamatkan Taman Ceria
+            </span>
+          </div>
         </div>
       </div>
 
@@ -225,19 +230,22 @@
         </div>
       </div>
 
-      <!-- Judul & Subjudul -->
+      <!-- Judul Payung Global & Tema Terpilih -->
+      <div class="inline-flex items-center gap-2 bg-emerald-700 text-white font-black text-xs md:text-sm px-4 py-1 rounded-full uppercase tracking-wider mb-2 shadow-sm border border-emerald-500">
+        <span>🌍</span> <span>MISI CILIK: SELAMATKAN LINGKUNGAN!</span>
+      </div>
       <h1 id="home-title" class="text-3xl md:text-5xl font-extrabold text-emerald-800 tracking-wide mb-2 drop-shadow-sm leading-tight">
-        MISI CILIK: Selamatkan Taman Ceria!
+        SELAMATKAN TAMAN CERIA!
       </h1>
       <p id="home-subtitle" class="text-base md:text-xl text-slate-600 max-w-2xl font-semibold mb-6">
-        Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B
+        Media Pembelajaran Digital Interaktif Anak TK (Kelompok A & Kelompok B)
       </p>
 
       <!-- Badge Kurikulum Singkat -->
       <div class="flex flex-wrap justify-center gap-2 mb-6">
         <span class="bg-white/80 text-emerald-700 font-bold text-xs px-3 py-1.5 rounded-full border border-emerald-200 shadow-sm">🌿 Nilai Agama & Moral</span>
         <span class="bg-white/80 text-amber-700 font-bold text-xs px-3 py-1.5 rounded-full border border-amber-200 shadow-sm">🧩 Kognitif & Sains</span>
-        <span class="bg-white/80 text-sky-700 font-bold text-xs px-3 py-1.5 rounded-full border border-sky-200 shadow-sm">🔢 Numerasi 1-5</span>
+        <span class="bg-white/80 text-sky-700 font-bold text-xs px-3 py-1.5 rounded-full border border-sky-200 shadow-sm">🔢 Numerasi 1-5 & 1-10</span>
         <span class="bg-white/80 text-rose-700 font-bold text-xs px-3 py-1.5 rounded-full border border-rose-200 shadow-sm">🤝 Aksi Nyata Kelas</span>
       </div>
 
@@ -321,7 +329,7 @@
         </div>
       </div>
 
-      <!-- KOTAK INPUT NAMA SAHABAT CILIK (UNTUK SERTIFIKAT TAHAP 5) -->
+      <!-- KOTAK INPUT NAMA SAHABAT CILIK & PILIHAN KELOMPOK A / B -->
       <div class="w-full max-w-md bg-white/95 backdrop-blur-md border-4 border-amber-300 rounded-3xl p-4 shadow-lg mb-6 text-center">
         <label for="input-student-name" class="block text-xs md:text-sm font-extrabold text-amber-900 mb-1.5 flex items-center justify-center gap-1.5">
           <span>🏷️</span>
@@ -338,6 +346,41 @@
         <p class="text-[10px] md:text-xs text-slate-500 mt-1.5 font-medium">
           ✨ Nama ini akan otomatis tercetak di <strong>Sertifikat Penghargaan Bintang 5</strong>!
         </p>
+
+        <!-- PILIHAN KELOMPOK TK (KELOMPOK A vs KELOMPOK B) -->
+        <div class="mt-4 pt-3 border-t-2 border-amber-200">
+          <label class="block text-xs md:text-sm font-extrabold text-amber-900 mb-2 flex items-center justify-center gap-1.5">
+            <span>🎒</span>
+            <span>Pilih Kelompok Usia Murid:</span>
+          </label>
+          <div class="grid grid-cols-2 gap-2.5">
+            <button type="button" 
+                    id="btn-group-a" 
+                    onclick="selectStudentGroup('A')"
+                    class="p-2.5 rounded-2xl border-4 font-black text-xs md:text-sm flex flex-col items-center justify-center gap-1 transition-all shadow-md bg-amber-400 border-amber-600 text-amber-950 scale-105 ring-4 ring-amber-300">
+              <div class="flex items-center gap-1 text-sm md:text-base">
+                <span>🐥</span>
+                <span>Kelompok A</span>
+              </div>
+              <span class="text-[11px] font-bold opacity-90">(Usia 4–5 Tahun)</span>
+              <span class="text-[9px] bg-white/80 px-2 py-0.5 rounded-full font-bold text-amber-900 mt-0.5">Membilang 1–5 • Bertahap</span>
+            </button>
+            <button type="button" 
+                    id="btn-group-b" 
+                    onclick="selectStudentGroup('B')"
+                    class="p-2.5 rounded-2xl border-4 font-black text-xs md:text-sm flex flex-col items-center justify-center gap-1 transition-all shadow-sm bg-white border-sky-300 text-sky-800 hover:bg-sky-50">
+              <div class="flex items-center gap-1 text-sm md:text-base">
+                <span>🦉</span>
+                <span>Kelompok B</span>
+              </div>
+              <span class="text-[11px] font-bold opacity-80">(Usia 5–6 Tahun)</span>
+              <span class="text-[9px] bg-sky-100 px-2 py-0.5 rounded-full font-bold text-sky-900 mt-0.5">Membilang 1–10 • Sebab-Akibat</span>
+            </button>
+          </div>
+          <p id="group-description-hint" class="text-[11px] text-amber-950 font-bold mt-2.5 bg-amber-50 py-1.5 px-3 rounded-xl border border-amber-300 text-center">
+            🐥 <strong>Kelompok A terpilih:</strong> Membilang 1–5, bantuan visual & audio ramah, tantangan bertahap.
+          </p>
+        </div>
       </div>
 
       <!-- Tombol Aksi Utama Raksasa -->
@@ -448,6 +491,16 @@
         <div id="trash-items-container" class="grid grid-cols-3 sm:grid-cols-6 gap-3 min-h-[110px] items-center justify-center">
           <!-- Item sampah dirender via JS -->
         </div>
+      </div>
+
+      <!-- Kotak Alasan Edukatif Sebab-Akibat (Diferensiasi Kelompok B & Penguatan Kelompok A) -->
+      <div id="stage2-reason-box" class="w-full max-w-3xl hidden mb-4 p-3.5 bg-emerald-50 border-2 border-emerald-400 rounded-3xl shadow-sm text-center transition-all animate-fade-in">
+        <span class="inline-block bg-emerald-600 text-white font-extrabold text-xs px-3 py-0.5 rounded-full mb-1">
+          💡 Catatan Edukatif Sebab-Akibat
+        </span>
+        <p id="stage2-reason-text" class="text-xs md:text-sm font-bold text-emerald-950 leading-snug">
+          <!-- Alasan edukatif muncul saat anak memilih/memilah sampah -->
+        </p>
       </div>
 
       <!-- Area 2 Tong Sampah Interaktif (Drop Targets) -->
@@ -755,12 +808,22 @@
           <!-- Rincian Penghargaan -->
           <div class="text-center md:text-left flex-grow">
             <div class="text-xs text-slate-500 font-bold uppercase tracking-wider">Sertifikat Diberikan Kepada:</div>
-            <div class="flex items-center justify-center md:justify-start gap-2 my-1">
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 my-1">
               <span id="cert-student-name" class="text-2xl md:text-3xl font-black text-purple-900 border-b-2 border-amber-300 pb-0.5 inline-block">
                 Sahabat Cilik Hebat
               </span>
               <button onclick="editCertStudentName()" title="Ubah Nama Murid" class="text-xs bg-amber-200 hover:bg-amber-300 text-amber-900 px-2 py-1 rounded-lg font-bold no-print transition flex items-center gap-1 shadow-sm">
-                <span>✏️</span> <span>Ubah</span>
+                <span>✏️</span> <span>Ubah Nama</span>
+              </button>
+            </div>
+
+            <!-- Badge Kelompok Usia di Sertifikat -->
+            <div class="flex items-center justify-center md:justify-start gap-2 mt-1 mb-2">
+              <span id="cert-group-badge" class="px-3 py-1 rounded-full text-xs font-black bg-amber-200 text-amber-900 border border-amber-400 shadow-sm">
+                🐥 Kelompok A (Usia 4–5 Tahun)
+              </span>
+              <button onclick="toggleCertStudentGroup()" title="Ganti Kelompok A / B" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-lg border border-slate-300 font-bold no-print transition flex items-center gap-1 shadow-sm">
+                <span>🎒</span> <span>Ganti Kelompok</span>
               </button>
             </div>
 
@@ -783,7 +846,7 @@
         <!-- Tabel Rubrik Penilaian Observasi Guru (Kurikulum Merdeka 6 Aspek) -->
         <div class="mt-4 pt-4 border-t-2 border-dashed border-amber-300">
           <h4 class="text-xs font-bold text-amber-900 mb-2 uppercase tracking-wider flex items-center gap-1">
-            <span>📋</span> <span>Rubrik Evaluasi Guru (6 Aspek Perkembangan PAUD)</span>
+            <span>📋</span> <span id="cert-rubric-title">Rubrik Evaluasi Guru (6 Aspek Perkembangan PAUD — Kelompok A)</span>
           </h4>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs border border-amber-200 rounded-lg overflow-hidden">
@@ -797,42 +860,42 @@
               <tbody class="divide-y divide-amber-100 text-slate-700 bg-white/70">
                 <tr>
                   <td class="p-1.5 font-bold">NAM</td>
-                  <td class="p-1.5">Mengenal perilaku peduli lingkungan dan menyiram tanaman</td>
+                  <td id="rubric-desc-nam" class="p-1.5">Mengenal perilaku peduli lingkungan dan menyiram tanaman</td>
                   <td class="p-1.5 text-center">
                     <span id="rubric-pred-nam" onclick="toggleRubricPredicate('nam')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
                   </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Kognitif</td>
-                  <td class="p-1.5">Mampu memilah sampah organik vs anorganik & urutan tanaman</td>
+                  <td id="rubric-desc-kognitif" class="p-1.5">Mampu memilah sampah organik vs anorganik & urutan tanaman</td>
                   <td class="p-1.5 text-center">
                     <span id="rubric-pred-kognitif" onclick="toggleRubricPredicate('kognitif')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
                   </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Bahasa</td>
-                  <td class="p-1.5">Menjawab pertanyaan pemantik dan menyimak narasi</td>
+                  <td id="rubric-desc-bahasa" class="p-1.5">Menjawab pertanyaan pemantik dan menyimak narasi</td>
                   <td class="p-1.5 text-center">
                     <span id="rubric-pred-bahasa" onclick="toggleRubricPredicate('bahasa')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSH</span>
                   </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Numerasi</td>
-                  <td class="p-1.5">Membilang 1-5 bunga secara visual dan auditori</td>
+                  <td id="rubric-desc-numerasi" class="p-1.5">Membilang 1-5 bunga secara visual dan auditori</td>
                   <td class="p-1.5 text-center">
                     <span id="rubric-pred-numerasi" onclick="toggleRubricPredicate('numerasi')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
                   </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Motorik</td>
-                  <td class="p-1.5">Koordinasi motorik halus (interaksi layar) & aksi nyata kelas</td>
+                  <td id="rubric-desc-motorik" class="p-1.5">Koordinasi motorik halus (interaksi layar) & aksi nyata kelas</td>
                   <td class="p-1.5 text-center">
                     <span id="rubric-pred-motorik" onclick="toggleRubricPredicate('motorik')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
                   </td>
                 </tr>
                 <tr>
                   <td class="p-1.5 font-bold">Sosek</td>
-                  <td class="p-1.5">Bekerja sama, bergantian, dan bangga atas hasil karya</td>
+                  <td id="rubric-desc-sosek" class="p-1.5">Bekerja sama, bergantian, dan bangga atas hasil karya</td>
                   <td class="p-1.5 text-center">
                     <span id="rubric-pred-sosek" onclick="toggleRubricPredicate('sosek')" class="inline-block px-2.5 py-0.5 rounded-md font-black text-xs cursor-pointer select-none transition-transform hover:scale-105 active:scale-95" title="Klik untuk mengubah predikat">BSB</span>
                   </td>
@@ -1130,7 +1193,7 @@
     const THEME_PRESETS = {
       taman: {
         id: "taman",
-        judulUtama: "MISI CILIK: Selamatkan Taman Ceria!",
+        judulUtama: "SELAMATKAN TAMAN CERIA!",
         subJudul: "Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B",
         maskot: { nama: "Ara si Lebah", ikon: "🐝" },
         temaAksen: "emerald",
@@ -1140,10 +1203,15 @@
           judul: "Panggilan Misi: Taman Sedang Sedih",
           narasi: "Halo teman-teman! Aku Ara. Lihatlah, Taman Ceria kita sedang sangat sedih karena banyak sampah berserakan dan bunga-bunganya layu kehausan. Yuk amati bersama Ibu Guru, kenapa ya taman kita bisa jadi kotor seperti ini?",
           kondisiVisual: "🥀 Kondisi: Banyak Sampah Berserakan & Kering",
-          pertanyaan: [
+          pertanyaanA: [
             "Benda apa saja yang membuat taman jadi kotor?",
-            "Bagaimana perasaan tanaman jika tidak disiram?",
+            "Bagaimana perasaan bunga saat layu dan kehausan?",
             "Siapa yang mau membantu Ara membersihkan taman?"
+          ],
+          pertanyaanB: [
+            "Apa akibatnya bagi lebah jika taman dipenuhi sampah plastik?",
+            "Mengapa tanaman membutuhkan air dan tanah yang bersih untuk mekar?",
+            "Bagaimana cara kita mengajak teman lain agar membuang sampah pada tempatnya?"
           ]
         },
         tahap2: {
@@ -1152,12 +1220,12 @@
           tong1: { label: "Tong Hijau", sublabel: "Sampah Organik (Alami / Sisa)", ikon: "🍏" },
           tong2: { label: "Tong Kuning", sublabel: "Sampah Anorganik (Plastik / Kaleng)", ikon: "🧴" },
           items: [
-            { id: 1, nama: "Kulit Pisang", ikon: "🍌", kategori: "organik" },
-            { id: 2, nama: "Botol Plastik", ikon: "🧴", kategori: "anorganik" },
-            { id: 3, nama: "Daun Kering", ikon: "🍂", kategori: "organik" },
-            { id: 4, nama: "Kaleng Minuman", ikon: "🥫", kategori: "anorganik" },
-            { id: 5, nama: "Sisa Apel", ikon: "🍎", kategori: "organik" },
-            { id: 6, nama: "Kantong Kresek", ikon: "🛍️", kategori: "anorganik" }
+            { id: 1, nama: "Kulit Pisang", ikon: "🍌", kategori: "organik", alasan: "Kulit pisang berasal dari alam dan bisa terurai menjadi pupuk penyubur tanaman." },
+            { id: 2, nama: "Botol Plastik", ikon: "🧴", kategori: "anorganik", alasan: "Botol plastik buatan pabrik butuh ratusan tahun untuk hancur, jadi harus didaur ulang." },
+            { id: 3, nama: "Daun Kering", ikon: "🍂", kategori: "organik", alasan: "Daun kering adalah bagian alami pohon yang mudah membusuk menjadi tanah subur." },
+            { id: 4, nama: "Kaleng Minuman", ikon: "🥫", kategori: "anorganik", alasan: "Kaleng logam tajam dan tidak bisa terurai sendiri, berbahaya jika berserakan di taman." },
+            { id: 5, nama: "Sisa Apel", ikon: "🍎", kategori: "organik", alasan: "Sisa buah adalah bahan organik yang menjadi makanan cacing dan menyuburkan tanah." },
+            { id: 6, nama: "Kantong Kresek", ikon: "🛍️", kategori: "anorganik", alasan: "Kantong kresek plastik bisa tertiup angin dan menutupi tunas bunga hingga tidak bisa bernapas." }
           ],
           kuisSiram: {
             pertanyaan: "Sampah sudah bersih! Sekarang tanaman masih haus, pilih benda untuk menyiram tanaman:",
@@ -1179,20 +1247,25 @@
           kuisUrutan: {
             pertanyaan: "Ayo susun urutan tumbuhnya tanaman dari awal sampai berbunga!",
             langkah: [
-              { urutan: 1, label: "1. Tanam Biji", ikon: "🌰" },
-              { urutan: 2, label: "2. Tumbuh Tunas", ikon: "🌱" },
-              { urutan: 3, label: "3. Siram Air", ikon: "🚿" },
-              { urutan: 4, label: "4. Bunga Mekar", ikon: "🌷" }
-            ]
+              { urutan: 1, labelA: "1. Tanam Biji", labelB: "Menanam Biji", ikon: "🌰" },
+              { urutan: 2, labelA: "2. Tumbuh Tunas", labelB: "Tumbuh Tunas", ikon: "🌱" },
+              { urutan: 3, labelA: "3. Siram Air", labelB: "Menyiram Air", ikon: "🚿" },
+              { urutan: 4, labelA: "4. Bunga Mekar", labelB: "Bunga Mekar", ikon: "🌷" }
+            ],
+            penjelasanB: "Biji yang tertanam di tanah subur dan rajin disiram air akan tumbuh tunas, lalu mekar menjadi bunga yang sangat indah!"
           }
         },
         tahap4: {
           judul: "Aksi Nyata Penyelamat Lingkungan!",
           instruksi: "Sekarang giliran teman-teman beraksi nyata di kelas bersama Ibu Guru!",
-          checklist: [
-            "Mengambil sampah di sekitar dan membuang ke tempatnya",
-            "Menyiram tanaman di taman sekolah dengan tertib",
-            "Bekerja sama dan merapikan alat permainan kelas"
+          checklistA: [
+            "Mengambil sampah di sekitar meja dan membuang ke tempatnya",
+            "Merapikan alat mewarnai dan krayon bersama teman"
+          ],
+          checklistB: [
+            "Memilah sampah kertas dan plastik di kelas ke wadah terpisah",
+            "Membantu menyiram tanaman sekolah atau membersihkan meja belajar",
+            "Bekerja sama gotong royong dan mencuci tangan bersih dengan sabun"
           ]
         },
         tahap5: {
@@ -1203,7 +1276,7 @@
 
       pantai: {
         id: "pantai",
-        judulUtama: "MISI CILIK: Selamatkan Pantai & Laut Bersih!",
+        judulUtama: "SELAMATKAN PANTAI & LAUT!",
         subJudul: "Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B",
         maskot: { nama: "Lulu Lumba-lumba", ikon: "🐬" },
         temaAksen: "sky",
@@ -1213,10 +1286,15 @@
           judul: "Panggilan Misi: Laut Sedang Sedih",
           narasi: "Halo teman-teman! Aku Lulu si lumba-lumba. Lautan kita penuh sampah plastik! Kasihan ikan dan terumbu karang tidak bisa bernapas. Ayo bersama Ibu Guru, amati apa yang terjadi pada pantai kita!",
           kondisiVisual: "🌊 Terumbu Karang Tertutup Sampah Plastik",
-          pertanyaan: [
+          pertanyaanA: [
             "Benda apa saja yang membahayakan ikan di laut?",
-            "Mengapa penyu tidak boleh makan kantong plastik?",
+            "Apa warna sampah plastik yang mengapung di pantai?",
             "Siapa yang mau membantu Lulu membersihkan pantai?"
+          ],
+          pertanyaanB: [
+            "Mengapa penyu laut bisa sakit jika mengira kantong plastik adalah ubur-ubur?",
+            "Apa akibatnya jika terumbu karang tertutup oleh sampah botol plastik?",
+            "Bagaimana cara kita mengurangi sampah plastik saat bermain ke pantai?"
           ]
         },
         tahap2: {
@@ -1225,12 +1303,12 @@
           tong1: { label: "Sampah Alami", sublabel: "Organik (Rumput Laut / Kerang)", ikon: "🐚" },
           tong2: { label: "Sampah Plastik", sublabel: "Anorganik (Sedotan / Botol / Jaring)", ikon: "🥤" },
           items: [
-            { id: 1, nama: "Rumput Laut Kering", ikon: "🌿", kategori: "organik" },
-            { id: 2, nama: "Sedotan Plastik", ikon: "🥤", kategori: "anorganik" },
-            { id: 3, nama: "Cangkang Kerang", ikon: "🐚", kategori: "organik" },
-            { id: 4, nama: "Botol Kaca", ikon: "🍾", kategori: "anorganik" },
-            { id: 5, nama: "Sisa Kayu Lapuk", ikon: "🪵", kategori: "organik" },
-            { id: 6, nama: "Jaring Bekas", ikon: "🕸️", kategori: "anorganik" }
+            { id: 1, nama: "Rumput Laut Kering", ikon: "🌿", kategori: "organik", alasan: "Rumput laut adalah tumbuhan alami laut yang aman terurai dan menjadi makanan ikan kecil." },
+            { id: 2, nama: "Sedotan Plastik", ikon: "🥤", kategori: "anorganik", alasan: "Sedotan plastik tidak bisa hancur di laut dan berbahaya jika tersangkut di hidung penyu." },
+            { id: 3, nama: "Cangkang Kerang", ikon: "🐚", kategori: "organik", alasan: "Cangkang kerang berasal dari hewan laut alami yang kelak hancur menjadi butiran pasir pantai." },
+            { id: 4, nama: "Botol Kaca", ikon: "🍾", kategori: "anorganik", alasan: "Pecahan botol kaca berbahaya melukai sirip ikan dan telapak kaki pengunjung pantai." },
+            { id: 5, nama: "Sisa Kayu Lapuk", ikon: "🪵", kategori: "organik", alasan: "Kayu lapuk adalah bahan alami dari pohon yang menjadi rumah berlindung kepiting pantai." },
+            { id: 6, nama: "Jaring Bekas", ikon: "🕸️", kategori: "anorganik", alasan: "Jaring nilon bekas bisa menjerat penyu dan lumba-lumba hingga tidak bisa berenang bebas." }
           ],
           kuisSiram: {
             pertanyaan: "Sampah sudah bersih! Ada penyu terbelit jaring bekas, pilih benda untuk membebaskan penyu:",
@@ -1252,20 +1330,25 @@
           kuisUrutan: {
             pertanyaan: "Ayo susun urutan siklus hidup penyu laut dari telur sampai berenang!",
             langkah: [
-              { urutan: 1, label: "1. Telur di Pasir", ikon: "🥚" },
-              { urutan: 2, label: "2. Menetas Tukik", ikon: "🐣" },
-              { urutan: 3, label: "3. Merayap ke Ombak", ikon: "🌊" },
-              { urutan: 4, label: "4. Berenang Bebas", ikon: "🐢" }
-            ]
+              { urutan: 1, labelA: "1. Telur di Pasir", labelB: "Telur di Pasir", ikon: "🥚" },
+              { urutan: 2, labelA: "2. Menetas Tukik", labelB: "Menetas Tukik", ikon: "🐣" },
+              { urutan: 3, labelA: "3. Merayap ke Ombak", labelB: "Merayap ke Ombak", ikon: "🌊" },
+              { urutan: 4, labelA: "4. Berenang Bebas", labelB: "Berenang Bebas", ikon: "🐢" }
+            ],
+            penjelasanB: "Telur penyu di pasir pantai yang hangat menetas menjadi tukik mungil, lalu merayap ke ombak dan berenang bebas di laut bersih!"
           }
         },
         tahap4: {
           judul: "Aksi Nyata Penyelamat Biota Laut!",
           instruksi: "Yuk bersama teman-teman tidak membuang sampah sembarangan agar laut tetap jernih!",
-          checklist: [
+          checklistA: [
             "Membuang kemasan botol air ke tempat daur ulang",
-            "Mengurangi pemakaian kantong kresek sekali pakai",
             "Menyayangi ikan dan hewan air ciptaan Tuhan"
+          ],
+          checklistB: [
+            "Memilah sampah plastik dan botol kemasan di sekolah",
+            "Mengurangi pemakaian kantong kresek sekali pakai saat jajan",
+            "Mengajak teman menjaga kebersihan selokan agar air laut tetap jernih"
           ]
         },
         tahap5: {
@@ -1276,7 +1359,7 @@
 
       zoo: {
         id: "zoo",
-        judulUtama: "MISI CILIK: Kebun Binatang Ceria & Sehat!",
+        judulUtama: "SELAMATKAN KEBUN BINATANG!",
         subJudul: "Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B",
         maskot: { nama: "Mimi si Monyet", ikon: "🐵" },
         temaAksen: "amber",
@@ -1286,10 +1369,15 @@
           judul: "Panggilan Misi: Hewan-Hewan Butuh Bantuan",
           narasi: "Halo teman-teman! Aku Mimi si monyet ceria. Kandang hewan kita sedang kotor karena banyak bungkus makanan berceceran. Yuk amati bersama Ibu Guru agar hewan tidak sakit!",
           kondisiVisual: "🦁 Kandang Hewan Kotor & Banyak Plastik Makanan",
-          pertanyaan: [
-            "Mengapa hewan tidak boleh makan plastik pembungkus?",
-            "Makanan apa yang sehat untuk hewan kebun binatang?",
+          pertanyaanA: [
+            "Sampah apa saja yang membuat kandang hewan jadi kotor?",
+            "Makanan sehat apa yang disukai monyet dan kelinci?",
             "Siapa yang mau membantu Mimi membersihkan kandang?"
+          ],
+          pertanyaanB: [
+            "Mengapa hewan kebun binatang bisa sakit perut jika menelan plastik snack?",
+            "Apa tanggung jawab pengunjung anak saat melihat hewan di kandang?",
+            "Bagaimana cara kita menjaga kebersihan area bermain satwa agar tetap sehat?"
           ]
         },
         tahap2: {
@@ -1298,12 +1386,12 @@
           tong1: { label: "Sisa Makanan Hewan", sublabel: "Organik (Kulit Buah / Rumput)", ikon: "🍌" },
           tong2: { label: "Sampah Berbahaya", sublabel: "Anorganik (Bungkus Snack / Baterai)", ikon: "🍿" },
           items: [
-            { id: 1, nama: "Kulit Kacang", ikon: "🥜", kategori: "organik" },
-            { id: 2, nama: "Bungkus Snack", ikon: "🍿", kategori: "anorganik" },
-            { id: 3, nama: "Daun Bambu", ikon: "🎍", kategori: "organik" },
-            { id: 4, nama: "Botol Susu Plastik", ikon: "🍼", kategori: "anorganik" },
-            { id: 5, nama: "Kulit Pisang", ikon: "🍌", kategori: "organik" },
-            { id: 6, nama: "Baterai Bekas", ikon: "🔋", kategori: "anorganik" }
+            { id: 1, nama: "Kulit Kacang", ikon: "🥜", kategori: "organik", alasan: "Kulit kacang adalah bagian tanaman alami yang aman membusuk dan menyuburkan rumput kandang." },
+            { id: 2, nama: "Bungkus Snack", ikon: "🍿", kategori: "anorganik", alasan: "Bungkus plastik berminyak bisa membuat perut satwa sakit parah jika sampai tertelan." },
+            { id: 3, nama: "Daun Bambu", ikon: "🎍", kategori: "organik", alasan: "Daun bambu adalah makanan alami panda yang mudah terurai menjadi kompos hijau." },
+            { id: 4, nama: "Botol Susu Plastik", ikon: "🍼", kategori: "anorganik", alasan: "Botol plastik tidak dapat dicerna oleh satwa dan harus didaur ulang di tempat khusus." },
+            { id: 5, nama: "Kulit Pisang", ikon: "🍌", kategori: "organik", alasan: "Kulit pisang sangat disukai cacing tanah untuk menggemburkan tanah habitat satwa." },
+            { id: 6, nama: "Baterai Bekas", ikon: "🔋", kategori: "anorganik", alasan: "Baterai mengandung zat kimia berbahaya yang bisa mencemari air minum satwa jika dibuang sembarangan." }
           ],
           kuisSiram: {
             pertanyaan: "Kandang sudah bersih! Gajah lapar butuh makanan sehat, pilih makanan terbaik:",
@@ -1325,20 +1413,25 @@
           kuisUrutan: {
             pertanyaan: "Ayo susun urutan metamorfosis kupu-kupu safari dari telur sampai bersayap indah!",
             langkah: [
-              { urutan: 1, label: "1. Telur di Daun", ikon: "🥚" },
-              { urutan: 2, label: "2. Ulat Bulu", ikon: "🐛" },
-              { urutan: 3, label: "3. Kepompong", ikon: "🛖" },
-              { urutan: 4, label: "4. Kupu-Kupu Mekar", ikon: "🦋" }
-            ]
+              { urutan: 1, labelA: "1. Telur di Daun", labelB: "Telur di Daun", ikon: "🥚" },
+              { urutan: 2, labelA: "2. Ulat Bulu", labelB: "Ulat Bulu", ikon: "🐛" },
+              { urutan: 3, labelA: "3. Kepompong", labelB: "Kepompong", ikon: "🛖" },
+              { urutan: 4, labelA: "4. Kupu-Kupu Indah", labelB: "Kupu-Kupu Indah", ikon: "🦋" }
+            ],
+            penjelasanB: "Telur kecil di daun menetas jadi ulat lapar, lalu berdiam dalam kepompong hingga berubah menjadi kupu-kupu yang sangat elok!"
           }
         },
         tahap4: {
           judul: "Aksi Nyata Menyayangi Hewan!",
           instruksi: "Praktikkan perilaku peduli satwa bersama Ibu Guru di kelas!",
-          checklist: [
+          checklistA: [
             "Menyayangi hewan peliharaan dan tidak menyakitinya",
-            "Merapikan sisa makanan dan membuang ke tempat sampah",
-            "Mencuci tangan bersih setelah memegang hewan atau tanah"
+            "Mencuci tangan bersih dengan sabun setelah memegang hewan atau tanah"
+          ],
+          checklistB: [
+            "Memilah sampah organik sisa makanan dan plastik kemasan",
+            "Menyayangi seluruh hewan ciptaan Tuhan dan memberi makan teratur",
+            "Mempraktikkan sikap tertib dan sopan saat berkunjung ke kebun binatang"
           ]
         },
         tahap5: {
@@ -1349,7 +1442,7 @@
 
       kelas: {
         id: "kelas",
-        judulUtama: "MISI CILIK: Kelasku Bersih & Rapi!",
+        judulUtama: "SELAMATKAN KELASKU!",
         subJudul: "Media Pembelajaran Digital Interaktif Anak TK Kelompok A/B",
         maskot: { nama: "Budi si Pelajar Cilik", ikon: "🎒" },
         temaAksen: "rose",
@@ -1359,10 +1452,15 @@
           judul: "Panggilan Misi: Ruang Kelas Berantakan",
           narasi: "Halo teman-teman! Aku Budi. Setelah kegiatan menggambar, ruang kelas kita penuh serutan pensil dan kertas sobek di lantai. Yuk amati bersama Ibu Guru agar kelas nyaman kembali!",
           kondisiVisual: "🎒 Ruang Kelas Berantakan & Sampah Kertas",
-          pertanyaan: [
+          pertanyaanA: [
             "Benda apa yang berserakan di bawah meja belajarmu?",
             "Bagaimana rasanya belajar jika ruang kelas bersih dan wangi?",
             "Siapa yang mau ikut merapikan kelas bersama Budi?"
+          ],
+          pertanyaanB: [
+            "Apa akibatnya jika rautan pensil dan sampah kertas dibiarkan menumpuk di lantai?",
+            "Mengapa kerja sama gotong royong membuat kelas lebih cepat rapi?",
+            "Bagaimana cara kita menjaga agar meja belajar tetap rapi setelah berkegiatan?"
           ]
         },
         tahap2: {
@@ -1371,12 +1469,12 @@
           tong1: { label: "Sampah Kertas / Makanan", sublabel: "Organik (Roti / Serutan Pensil)", ikon: "🍞" },
           tong2: { label: "Sampah Plastik / Alat", sublabel: "Anorganik (Spidol Rusak / Selotip)", ikon: "🖊️" },
           items: [
-            { id: 1, nama: "Sisa Bekal Roti", ikon: "🍞", kategori: "organik" },
-            { id: 2, nama: "Mika Plastik", ikon: "📦", kategori: "anorganik" },
-            { id: 3, nama: "Serutan Kayu Pensil", ikon: "✏️", kategori: "organik" },
-            { id: 4, nama: "Spidol Rusak", ikon: "🖊️", kategori: "anorganik" },
-            { id: 5, nama: "Kulit Jeruk Bekal", ikon: "🍊", kategori: "organik" },
-            { id: 6, nama: "Selotip Plastik", ikon: "🩹", kategori: "anorganik" }
+            { id: 1, nama: "Sisa Bekal Roti", ikon: "🍞", kategori: "organik", alasan: "Sisa makanan roti mudah berjamur dan harus dibuang ke wadah sampah organik." },
+            { id: 2, nama: "Mika Plastik", ikon: "📦", kategori: "anorganik", alasan: "Mika plastik tidak bisa terurai dan bisa membuat lantai kelas licin jika terinjak." },
+            { id: 3, nama: "Serutan Kayu Pensil", ikon: "✏️", kategori: "organik", alasan: "Serutan kayu pensil adalah bahan alami dari pohon yang mudah membusuk menjadi tanah." },
+            { id: 4, nama: "Spidol Rusak", ikon: "🖊️", kategori: "anorganik", alasan: "Spidol plastik dan tinta kimia harus dikumpulkan di tempat daur ulang terpisah." },
+            { id: 5, nama: "Kulit Jeruk Bekal", ikon: "🍊", kategori: "organik", alasan: "Kulit buah jeruk alami mengeluarkan aroma segar dan bisa dijadikan pupuk kompos." },
+            { id: 6, nama: "Selotip Plastik", ikon: "🩹", kategori: "anorganik", alasan: "Pita selotip plastik lengket dan tidak bisa hancur sendiri di dalam tanah." }
           ],
           kuisSiram: {
             pertanyaan: "Lantai sudah bersih! Sekarang papan tulis masih kotor, pilih benda untuk membersihkan papan tulis:",
@@ -1398,20 +1496,25 @@
           kuisUrutan: {
             pertanyaan: "Ayo susun urutan rutinitas pagi anak TK yang mandiri dan tertib!",
             langkah: [
-              { urutan: 1, label: "1. Bangun Pagi", ikon: "⏰" },
-              { urutan: 2, label: "2. Mandi & Sikat Gigi", ikon: "🛁" },
-              { urutan: 3, label: "3. Sarapan Sehat", ikon: "🍳" },
-              { urutan: 4, label: "4. Masuk Kelas Senyum", ikon: "🏫" }
-            ]
+              { urutan: 1, labelA: "1. Bangun Pagi", labelB: "Bangun Pagi", ikon: "⏰" },
+              { urutan: 2, labelA: "2. Mandi & Sikat Gigi", labelB: "Mandi & Sikat Gigi", ikon: "🛁" },
+              { urutan: 3, labelA: "3. Sarapan Sehat", labelB: "Sarapan Sehat", ikon: "🍳" },
+              { urutan: 4, labelA: "4. Masuk Kelas Senyum", labelB: "Masuk Kelas Senyum", ikon: "🏫" }
+            ],
+            penjelasanB: "Bangun pagi tepat waktu membuat tubuh bugar, mandiri menyiapkan diri, dan tersenyum ceria belajar di sekolah!"
           }
         },
         tahap4: {
           judul: "Aksi Nyata Mandiri di Kelas!",
           instruksi: "Yuk bersama merapikan meja belajar dan loker masing-masing!",
-          checklist: [
+          checklistA: [
             "Memasukkan krayon dan pensil warna ke dalam kotak",
-            "Mendorong kursi masuk ke bawah meja setelah selesai",
-            "Membuang sampah rautan ke tong sampah kelas"
+            "Membuang sampah serutan ke tong sampah kelas"
+          ],
+          checklistB: [
+            "Merapikan meja belajar dan loker kelas secara mandiri",
+            "Mendorong kursi masuk ke bawah meja setelah selesai kegiatan",
+            "Membantu teman piket menyapu lantai ruang kelas agar nyaman"
           ]
         },
         tahap5: {
@@ -1796,6 +1899,7 @@
     const GameState = {
       currentRecordId: null,
       studentName: "Sahabat Cilik Hebat",
+      studentGroup: "A", // 'A' (Usia 4-5 thn) | 'B' (Usia 5-6 thn)
       currentScreen: 0,
       stars: 0,
       selectedTrashId: null,
@@ -1822,6 +1926,76 @@
         sosek: "BSB"
       }
     };
+
+    /* Teks Rubrik Evaluasi Kurikulum Merdeka PAUD 6 Aspek Berdasarkan Kelompok Usia */
+    const RUBRIC_INDICATORS = {
+      A: {
+        title: "Rubrik Evaluasi Guru (6 Aspek Perkembangan PAUD — Kelompok A / 4–5 Tahun)",
+        badge: "🐥 Kelompok A (Usia 4–5 Tahun)",
+        nam: "Mengenal perilaku peduli ciptaan Tuhan dan menyiram tanaman secara terbimbing",
+        kognitif: "Memilah sampah organik & anorganik serta mengenali gambar tahapan tanaman",
+        bahasa: "Menjawab pertanyaan observasi visual langsung dan menyimak narasi pemantik",
+        numerasi: "Membilang 1–5 objek secara konkret dengan visual & auditori terbimbing",
+        motorik: "Koordinasi motorik halus (2-klik layar sentuh) & gotong royong merapikan kelas",
+        sosek: "Menunjukkan rasa peduli lingkungan, antusias mencoba, dan bangga atas pencapaiannya"
+      },
+      B: {
+        title: "Rubrik Evaluasi Guru (6 Aspek Perkembangan PAUD — Kelompok B / 5–6 Tahun)",
+        badge: "🦉 Kelompok B (Usia 5–6 Tahun)",
+        nam: "Membiasakan merawat alam ciptaan Tuhan dan memahami tanggung jawab menjaga bumi",
+        kognitif: "Memilah sampah disertai alasan logis sebab-akibat & menyusun siklus sains mandiri",
+        bahasa: "Mengemukakan gagasan analisis sebab-akibat dan berdialog aktif di kelas",
+        numerasi: "Membilang 1–10 secara mandiri, akurat, dan mengenal lambang bilangan",
+        motorik: "Kemandirian motorik halus presisi & aksi nyata gotong royong terstruktur",
+        sosek: "Bekerja sama dalam kelompok, memecahkan masalah mandiri, dan peduli sesama"
+      }
+    };
+
+    function selectStudentGroup(group) {
+      audio.playPop();
+      GameState.studentGroup = group;
+
+      const btnA = document.getElementById('btn-group-a');
+      const btnB = document.getElementById('btn-group-b');
+      const hintEl = document.getElementById('group-description-hint');
+
+      if (group === 'A') {
+        if (btnA) {
+          btnA.className = "p-2.5 rounded-2xl border-4 font-black text-xs md:text-sm flex flex-col items-center justify-center gap-1 transition-all shadow-md bg-amber-400 border-amber-600 text-amber-950 scale-105 ring-4 ring-amber-300";
+        }
+        if (btnB) {
+          btnB.className = "p-2.5 rounded-2xl border-4 font-black text-xs md:text-sm flex flex-col items-center justify-center gap-1 transition-all shadow-sm bg-white border-sky-300 text-sky-800 hover:bg-sky-50";
+        }
+        if (hintEl) {
+          hintEl.className = "text-[11px] text-amber-950 font-bold mt-2.5 bg-amber-50 py-1.5 px-3 rounded-xl border border-amber-300 text-center";
+          hintEl.innerHTML = `🐥 <strong>Kelompok A terpilih:</strong> Membilang 1–5, bantuan gambar jelas, tantangan bertahap.`;
+        }
+        speech.speak("Kelompok A dipilih! Kita akan bermain membilang satu sampai lima dan memilah sampah bersama!");
+      } else {
+        if (btnA) {
+          btnA.className = "p-2.5 rounded-2xl border-4 font-black text-xs md:text-sm flex flex-col items-center justify-center gap-1 transition-all shadow-sm bg-white border-amber-300 text-amber-800 hover:bg-amber-50";
+        }
+        if (btnB) {
+          btnB.className = "p-2.5 rounded-2xl border-4 font-black text-xs md:text-sm flex flex-col items-center justify-center gap-1 transition-all shadow-md bg-sky-400 border-sky-600 text-sky-950 scale-105 ring-4 ring-sky-300";
+        }
+        if (hintEl) {
+          hintEl.className = "text-[11px] text-sky-950 font-bold mt-2.5 bg-sky-50 py-1.5 px-3 rounded-xl border border-sky-300 text-center";
+          hintEl.innerHTML = `🦉 <strong>Kelompok B terpilih:</strong> Membilang 1–10, memilah sampah disertai alasan sebab-akibat, & mengurutkan sains mandiri.`;
+        }
+        speech.speak("Kelompok B dipilih! Kita akan berpetualang membilang sampai sepuluh dan menemukan sebab akibat yang seru!");
+      }
+    }
+
+    function toggleCertStudentGroup() {
+      audio.playPop();
+      const nextGroup = GameState.studentGroup === 'A' ? 'B' : 'A';
+      GameState.studentGroup = nextGroup;
+      renderRubricTable();
+      if (typeof saveCurrentStudentRecord === 'function') {
+        saveCurrentStudentRecord();
+      }
+      speech.speak(`Kelompok diubah menjadi Kelompok ${nextGroup}!`);
+    }
 
     function updateStarsDisplay() {
       for (let i = 1; i <= 5; i++) {
@@ -2038,13 +2212,21 @@
       document.getElementById('stage1-title').innerText = GAME_CONFIG.tahap1.judul;
       document.getElementById('stage1-narasi').innerText = `"${GAME_CONFIG.tahap1.narasi}"`;
 
-      // Render 3 Pertanyaan Pemantik
+      // Render 3 Pertanyaan Pemantik sesuai Kelompok A atau Kelompok B
+      const isGroupB = GameState.studentGroup === 'B';
+      const questions = (isGroupB && GAME_CONFIG.tahap1.pertanyaanB)
+        ? GAME_CONFIG.tahap1.pertanyaanB
+        : (GAME_CONFIG.tahap1.pertanyaanA || GAME_CONFIG.tahap1.pertanyaan || []);
+
       const qContainer = document.getElementById('stage1-questions');
       qContainer.innerHTML = '';
-      GAME_CONFIG.tahap1.pertanyaan.forEach((q, idx) => {
+      questions.forEach((q, idx) => {
         const card = document.createElement('div');
-        card.className = "bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs md:text-sm text-amber-900 font-semibold";
-        card.innerHTML = `<span class="bg-amber-400 text-amber-900 font-bold px-2 py-0.5 rounded-full text-xs mr-1">${idx + 1}</span> ${q}`;
+        card.className = isGroupB
+          ? "bg-sky-50 border border-sky-200 rounded-2xl p-3 text-xs md:text-sm text-sky-900 font-semibold"
+          : "bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs md:text-sm text-amber-900 font-semibold";
+        const badgeColor = isGroupB ? "bg-sky-500 text-white" : "bg-amber-400 text-amber-900";
+        card.innerHTML = `<span class="${badgeColor} font-bold px-2 py-0.5 rounded-full text-xs mr-1">${idx + 1}</span> ${q}`;
         qContainer.appendChild(card);
       });
 
@@ -2100,6 +2282,10 @@
 
       GameState.remainingTrash = [...GAME_CONFIG.tahap2.items];
       GameState.selectedTrashId = null;
+
+      // Sembunyikan kotak alasan sebab-akibat di awal
+      const reasonBox = document.getElementById('stage2-reason-box');
+      if (reasonBox) reasonBox.classList.add('hidden');
 
       document.getElementById('stage2-water-challenge').classList.add('hidden');
       const nextBtn = document.getElementById('btn-stage2-next');
@@ -2160,12 +2346,21 @@
       if (!item) return;
 
       const binEl = targetKategori === 'organik' ? document.getElementById('bin-organic') : document.getElementById('bin-inorganic');
+      const isGroupB = GameState.studentGroup === 'B';
+      const reasonBox = document.getElementById('stage2-reason-box');
+      const reasonText = document.getElementById('stage2-reason-text');
 
       if (item.kategori === targetKategori) {
         // --- JAWABAN BENAR ---
         audio.playChime();
         binEl.classList.add('scale-105');
         setTimeout(() => binEl.classList.remove('scale-105'), 200);
+
+        // Tampilkan catatan edukatif sebab-akibat
+        if (item.alasan && reasonBox && reasonText) {
+          reasonText.innerHTML = `<strong>${item.nama} (${item.kategori === 'organik' ? 'Alami' : 'Buatan'}):</strong> ${item.alasan}`;
+          reasonBox.classList.remove('hidden');
+        }
 
         // Hapus sampah dari daftar
         GameState.remainingTrash = GameState.remainingTrash.filter(t => t.id !== item.id);
@@ -2176,16 +2371,27 @@
           // Semua sampah selesai dipilah, tampilkan mini-kuis menyiram tanaman
           setTimeout(showWaterChallenge, 400);
         } else {
-          speech.speak(`Hebat! ${item.nama} masuk ke tong yang benar!`);
+          if (isGroupB && item.alasan) {
+            speech.speak(`Benar sekali! ${item.nama} masuk tong ${targetKategori}. ${item.alasan}`);
+          } else {
+            speech.speak(`Hebat! ${item.nama} masuk ke tong ${targetKategori === 'organik' ? 'hijau' : 'kuning'}!`);
+          }
         }
       } else {
-        // --- JAWABAN SALAH (Lembut, Tanpa Hukuman) ---
+        // --- JAWABAN SALAH (Lembut, Tanpa Hukuman, Membantu Anak Belajar) ---
         GameState.trashMistakes = (GameState.trashMistakes || 0) + 1;
         audio.playSoftBuzzer();
         binEl.classList.add('animate-soft-shake');
         setTimeout(() => binEl.classList.remove('animate-soft-shake'), 400);
 
-        speech.speak(`Ups! ${item.nama} bukan masuk ke tong ini ya. Coba perhatikan lagi!`);
+        if (isGroupB) {
+          const hint = item.kategori === 'organik'
+            ? `${item.nama} berasal dari alam yang bisa terurai, jadi masukkan ke tong hijau ya!`
+            : `${item.nama} adalah buatan pabrik yang tidak bisa membusuk, jadi masukkan ke tong kuning daur ulang ya!`;
+          speech.speak(`Ups! ${hint}`);
+        } else {
+          speech.speak(`Ups! ${item.nama} bukan masuk ke tong ini ya. Coba perhatikan lagi!`);
+        }
       }
     }
 
@@ -2230,9 +2436,11 @@
       }
     }
 
-    // Helper: Acak 3 pilihan unik yang selalu menyertakan jawaban benar (rentang 1-5)
-    function generateRandomCountingChoices(correctNum) {
-      const pool = [1, 2, 3, 4, 5].filter(n => n !== correctNum);
+    // Helper: Acak 3 pilihan unik yang selalu menyertakan jawaban benar (rentang 1-5 untuk Kelompok A, 1-10 untuk Kelompok B)
+    function generateRandomCountingChoices(correctNum, isGroupB) {
+      const pool = isGroupB 
+        ? [4, 5, 6, 7, 8, 9, 10].filter(n => n !== correctNum)
+        : [1, 2, 3, 4, 5].filter(n => n !== correctNum);
       pool.sort(() => Math.random() - 0.5);
       const choices = [correctNum, pool[0], pool[1]];
       choices.sort((a, b) => a - b);
@@ -2249,7 +2457,7 @@
       nextBtn.disabled = true;
       nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
-      // Siapkan konten acak terlebih dahulu, lalu buka tab 1
+      // Siapkan konten acak sesuai kelompok, lalu buka tab 1
       setupSubChallenge3A();
       setupSubChallenge3B();
       switchSubChallenge(1);
@@ -2257,6 +2465,7 @@
 
     function switchSubChallenge(tabIndex) {
       audio.playPop();
+      const isGroupB = GameState.studentGroup === 'B';
       const tab1 = document.getElementById('tab-sub3a');
       const tab2 = document.getElementById('tab-sub3b');
       const sub1 = document.getElementById('sub-challenge-3a');
@@ -2265,9 +2474,10 @@
       if (tabIndex === 1) {
         tab1.className = "px-5 py-2.5 rounded-2xl font-bold text-sm bg-purple-600 text-white shadow-md transition";
         tab2.className = "px-5 py-2.5 rounded-2xl font-bold text-sm bg-purple-100 text-purple-800 shadow-sm transition";
+        tab1.innerText = isGroupB ? "1. Hitung Bunga (1-10)" : "1. Hitung Bunga (1-5)";
         sub1.classList.remove('hidden');
         sub2.classList.add('hidden');
-        speech.speak(GAME_CONFIG.tahap3.kuisHitung.pertanyaan);
+        speech.speak(document.getElementById('counting-question-text').innerText || GAME_CONFIG.tahap3.kuisHitung.pertanyaan);
       } else {
         tab2.className = "px-5 py-2.5 rounded-2xl font-bold text-sm bg-purple-600 text-white shadow-md transition";
         tab1.className = "px-5 py-2.5 rounded-2xl font-bold text-sm bg-purple-100 text-purple-800 shadow-sm transition";
@@ -2278,20 +2488,36 @@
     }
 
     function setupSubChallenge3A() {
-      // 1. Acak jumlah bunga dinamis (2 sampai 5) sehingga tidak statis 5 saja tiap refresh
-      let targetCount = Math.floor(Math.random() * 4) + 2; // Menghasilkan 2, 3, 4, atau 5
+      const isGroupB = GameState.studentGroup === 'B';
+      const tab1 = document.getElementById('tab-sub3a');
+      if (tab1) {
+        tab1.innerText = isGroupB ? "1. Hitung Bunga (1-10)" : "1. Hitung Bunga (1-5)";
+      }
+
+      // Rentang berhitung: Kelompok A (2 sampai 5), Kelompok B (6 sampai 10)
+      let targetCount;
+      if (isGroupB) {
+        targetCount = Math.floor(Math.random() * 5) + 6; // Menghasilkan 6, 7, 8, 9, atau 10
+      } else {
+        targetCount = Math.floor(Math.random() * 4) + 2; // Menghasilkan 2, 3, 4, atau 5
+      }
+
       if (window._lastRandomFlowerCount && window._lastRandomFlowerCount === targetCount) {
-        targetCount = ((targetCount - 2 + 1) % 4) + 2;
+        targetCount = isGroupB 
+          ? (((targetCount - 6 + 1) % 5) + 6)
+          : (((targetCount - 2 + 1) % 4) + 2);
       }
       window._lastRandomFlowerCount = targetCount;
 
       if (!GAME_CONFIG.tahap3.kuisHitung) GAME_CONFIG.tahap3.kuisHitung = {};
       GAME_CONFIG.tahap3.kuisHitung.jumlahBenar = targetCount;
-      GAME_CONFIG.tahap3.kuisHitung.pilihan = generateRandomCountingChoices(targetCount);
+      GAME_CONFIG.tahap3.kuisHitung.pilihan = generateRandomCountingChoices(targetCount, isGroupB);
 
       const questionTextEl = document.getElementById('counting-question-text');
       if (questionTextEl) {
-        questionTextEl.innerText = GAME_CONFIG.tahap3.kuisHitung.pertanyaan;
+        questionTextEl.innerText = isGroupB
+          ? `Wah, banyak bunga matahari bermekaran! Ayo tantang dirimu berhitung sampai ${targetCount}, ada berapa seluruh bunga?`
+          : GAME_CONFIG.tahap3.kuisHitung.pertanyaan;
       }
 
       const feedbackEl = document.getElementById('counting-feedback-msg');
@@ -2300,16 +2526,21 @@
       const container = document.getElementById('counting-items-container');
       if (container) container.innerHTML = '';
 
-      const spokenNumbers = ["Satu", "Dua", "Tiga", "Empat", "Lima"];
-      const spokenWords = { 1: "satu", 2: "dua", 3: "tiga", 4: "empat", 5: "lima" };
+      const spokenNumbers = ["Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh"];
+      const spokenWords = { 
+        1: "satu", 2: "dua", 3: "tiga", 4: "empat", 5: "lima",
+        6: "enam", 7: "tujuh", 8: "delapan", 9: "sembilan", 10: "sepuluh" 
+      };
 
       // Render bunga sejumlah targetCount yang diacak
       for (let i = 1; i <= targetCount; i++) {
         const itemBox = document.createElement('div');
-        itemBox.className = "relative flex flex-col items-center justify-center p-4 bg-purple-50 hover:bg-purple-100 border-4 border-purple-300 rounded-3xl cursor-pointer transition-transform hover:scale-105 active:scale-95 shadow-md select-none";
+        const boxPadding = isGroupB ? "p-3 md:p-3.5" : "p-4";
+        const iconSize = isGroupB ? "text-4xl md:text-5xl" : "text-5xl md:text-6xl";
+        itemBox.className = `relative flex flex-col items-center justify-center ${boxPadding} bg-purple-50 hover:bg-purple-100 border-4 border-purple-300 rounded-3xl cursor-pointer transition-transform hover:scale-105 active:scale-95 shadow-md select-none`;
         itemBox.innerHTML = `
-          <div class="text-5xl md:text-6xl animate-wiggle">${GAME_CONFIG.tahap3.kuisHitung.itemIkon || '🌻'}</div>
-          <span id="flower-num-${i}" class="absolute -top-3 -right-2 bg-purple-600 text-white font-black text-sm w-7 h-7 rounded-full flex items-center justify-center shadow-md scale-0 transition-transform">
+          <div class="${iconSize} animate-wiggle">${GAME_CONFIG.tahap3.kuisHitung.itemIkon || '🌻'}</div>
+          <span id="flower-num-${i}" class="absolute -top-3 -right-2 bg-purple-600 text-white font-black text-xs md:text-sm w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center shadow-md scale-0 transition-transform">
             ${i}
           </span>
         `;
@@ -2321,7 +2552,7 @@
             numBadge.classList.add('scale-100');
           }
           itemBox.classList.add('ring-4', 'ring-purple-400', 'bg-purple-100');
-          speech.speak(spokenNumbers[i - 1]);
+          speech.speak(spokenNumbers[i - 1] || String(i));
         };
         if (container) container.appendChild(itemBox);
       }
@@ -2344,11 +2575,9 @@
               // --- JAWABAN BENAR ---
               audio.playChime();
 
-              // Respon visual instan: tombol hijau bercahaya dengan centang
               btn.className = "w-16 h-16 md:w-20 md:h-20 bg-emerald-500 text-white font-black text-2xl md:text-3xl rounded-3xl flex items-center justify-center shadow-xl ring-4 ring-emerald-300 scale-110 transition-transform cursor-default";
               btn.innerHTML = `${num} <span class="text-sm ml-1">✓</span>`;
 
-              // Kunci tombol pilihan lain
               const allBtns = choicesContainer.querySelectorAll('button');
               allBtns.forEach(b => {
                 if (b !== btn) {
@@ -2361,9 +2590,8 @@
                 feedbackEl.innerHTML = `<span class="inline-block text-emerald-700 font-extrabold text-base md:text-lg animate-bounce">🎉 Hebat sekali! Benar ada ${spokenWords[num]} (${num})!</span>`;
               }
 
-              speech.speak(`Hebat sekali! Jawabanmu benar ada ${spokenWords[num]}! Sekarang mari susun urutan tanaman ya!`);
+              speech.speak(`Hebat sekali! Jawabanmu tepat, ada ${spokenWords[num]}! Sekarang mari susun urutan sains ya!`);
 
-              // Otomatis beralih ke Sub-Tantangan 2 setelah 1.4 detik secara pasti
               setTimeout(() => {
                 switchSubChallenge(2);
               }, 1400);
@@ -2394,6 +2622,20 @@
       document.getElementById('sequence-question-text').innerText = GAME_CONFIG.tahap3.kuisUrutan.pertanyaan;
       const cardsContainer = document.getElementById('sequence-cards-container');
       cardsContainer.innerHTML = '';
+      const isGroupB = GameState.studentGroup === 'B';
+
+      // Reset slot urutan
+      GameState.sequenceSlots = [null, null, null, null];
+      for (let s = 1; s <= 4; s++) {
+        const slotEl = document.getElementById(`slot-${s}`);
+        if (slotEl) {
+          slotEl.className = "border-2 border-dashed border-purple-300 rounded-2xl p-3 min-h-[110px] flex flex-col items-center justify-center bg-purple-50/50";
+          slotEl.innerHTML = `
+            <span class="text-xs font-bold text-purple-400">Langkah ${s}</span>
+            <div class="slot-content text-4xl mt-1">❓</div>
+          `;
+        }
+      }
 
       // Acak kartu urutan
       const shuffledSteps = [...GAME_CONFIG.tahap3.kuisUrutan.langkah].sort(() => Math.random() - 0.5);
@@ -2402,9 +2644,14 @@
         const card = document.createElement('div');
         card.id = `seq-card-${step.urutan}`;
         card.className = "cursor-pointer p-3 bg-purple-50 hover:bg-purple-100 border-2 border-purple-300 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition-transform hover:scale-105 active:scale-95";
+        
+        // Kelompok A: Label dengan nomor panduan visual ("1. Tanam Biji")
+        // Kelompok B: Label konsep mandiri tanpa nomor di kartu ("Menanam Biji")
+        const cardLabel = isGroupB ? (step.labelB || step.label) : (step.labelA || step.label);
+
         card.innerHTML = `
           <div class="text-4xl mb-1">${step.ikon}</div>
-          <span class="text-xs font-bold text-purple-900">${step.label}</span>
+          <span class="text-xs font-bold text-purple-900">${cardLabel}</span>
         `;
         card.onclick = () => handleSequenceCardClick(step);
         cardsContainer.appendChild(card);
@@ -2417,6 +2664,8 @@
       if (emptySlotIndex === -1) return;
 
       const expectedUrutan = emptySlotIndex + 1;
+      const isGroupB = GameState.studentGroup === 'B';
+      const stepLabel = isGroupB ? (step.labelB || step.label) : (step.labelA || step.label);
 
       if (step.urutan === expectedUrutan) {
         // --- URUTAN BENAR ---
@@ -2428,14 +2677,14 @@
         slotEl.innerHTML = `
           <span class="text-xs font-bold text-emerald-700">Langkah ${expectedUrutan} (Selesai)</span>
           <div class="text-4xl mt-1">${step.ikon}</div>
-          <span class="text-[11px] font-bold text-emerald-900 mt-1">${step.label}</span>
+          <span class="text-[11px] font-bold text-emerald-900 mt-1">${stepLabel}</span>
         `;
 
         // Sembunyikan kartu asal
         const sourceCard = document.getElementById(`seq-card-${step.urutan}`);
         if (sourceCard) sourceCard.classList.add('opacity-30', 'pointer-events-none');
 
-        speech.speak(`Langkah ${expectedUrutan}: ${step.label}!`);
+        speech.speak(`Langkah ${expectedUrutan}: ${stepLabel}!`);
 
         // Cek jika ke-4 urutan sudah lengkap
         if (!GameState.sequenceSlots.includes(null)) {
@@ -2445,7 +2694,11 @@
           nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
           nextBtn.classList.add('animate-pulse');
 
-          speech.speak("Luar biasa! Urutan tanaman sudah tersusun sempurna!");
+          if (isGroupB && GAME_CONFIG.tahap3.kuisUrutan.penjelasanB) {
+            speech.speak(`Luar biasa! ${GAME_CONFIG.tahap3.kuisUrutan.penjelasanB}`);
+          } else {
+            speech.speak("Luar biasa! Urutan tanaman sudah tersusun sempurna!");
+          }
         }
       } else {
         // --- URUTAN SALAH ---
@@ -2465,10 +2718,15 @@
       document.getElementById('stage4-title').innerText = GAME_CONFIG.tahap4.judul;
       document.getElementById('stage4-instruction').innerText = GAME_CONFIG.tahap4.instruksi;
 
-      // Render Checklist
+      // Render Checklist sesuai Kelompok A atau B
+      const isGroupB = GameState.studentGroup === 'B';
+      const checklistItems = (isGroupB && GAME_CONFIG.tahap4.checklistB)
+        ? GAME_CONFIG.tahap4.checklistB
+        : (GAME_CONFIG.tahap4.checklistA || GAME_CONFIG.tahap4.checklist || []);
+
       const chContainer = document.getElementById('action-checklist-container');
       chContainer.innerHTML = '';
-      GAME_CONFIG.tahap4.checklist.forEach((item, idx) => {
+      checklistItems.forEach((item, idx) => {
         const row = document.createElement('label');
         row.className = "flex items-center gap-2 p-2 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-slate-200 transition text-xs font-semibold text-slate-700";
         row.innerHTML = `
@@ -2663,7 +2921,7 @@
         GameState.rubricPredicates.bahasa = "BSH";
       }
 
-      // 4. Numerasi: Membilang 1-5 bunga secara visual & auditori (Tahap 3A)
+      // 4. Numerasi: Membilang bunga secara visual & auditori (Tahap 3A)
       const countErr = GameState.countingMistakes || 0;
       if (countErr === 0) {
         GameState.rubricPredicates.numerasi = "BSB";
@@ -2698,6 +2956,40 @@
     }
 
     function renderRubricTable() {
+      const grp = GameState.studentGroup === 'B' ? 'B' : 'A';
+      const rubricTexts = RUBRIC_INDICATORS[grp] || RUBRIC_INDICATORS.A;
+
+      // Update Judul Rubrik & Badge Kelompok di Sertifikat
+      const certTitleEl = document.getElementById('cert-rubric-title');
+      if (certTitleEl) certTitleEl.innerText = rubricTexts.title;
+
+      const certBadgeEl = document.getElementById('cert-group-badge');
+      if (certBadgeEl) {
+        certBadgeEl.innerText = rubricTexts.badge;
+        if (grp === 'B') {
+          certBadgeEl.className = "px-3 py-1 rounded-full text-xs font-black bg-sky-200 text-sky-900 border border-sky-400 shadow-sm";
+        } else {
+          certBadgeEl.className = "px-3 py-1 rounded-full text-xs font-black bg-amber-200 text-amber-900 border border-amber-400 shadow-sm";
+        }
+      }
+
+      // Update Teks Indikator tiap aspek
+      const descElements = {
+        nam: document.getElementById('rubric-desc-nam'),
+        kognitif: document.getElementById('rubric-desc-kognitif'),
+        bahasa: document.getElementById('rubric-desc-bahasa'),
+        numerasi: document.getElementById('rubric-desc-numerasi'),
+        motorik: document.getElementById('rubric-desc-motorik'),
+        sosek: document.getElementById('rubric-desc-sosek')
+      };
+
+      if (descElements.nam) descElements.nam.innerText = rubricTexts.nam;
+      if (descElements.kognitif) descElements.kognitif.innerText = rubricTexts.kognitif;
+      if (descElements.bahasa) descElements.bahasa.innerText = rubricTexts.bahasa;
+      if (descElements.numerasi) descElements.numerasi.innerText = rubricTexts.numerasi;
+      if (descElements.motorik) descElements.motorik.innerText = rubricTexts.motorik;
+      if (descElements.sosek) descElements.sosek.innerText = rubricTexts.sosek;
+
       const aspects = ['nam', 'kognitif', 'bahasa', 'numerasi', 'motorik', 'sosek'];
       aspects.forEach(aspect => {
         const el = document.getElementById(`rubric-pred-${aspect}`);
@@ -2920,8 +3212,9 @@
         dateFormatted: dateFormatted,
         timeFormatted: timeFormatted,
         studentName: GameState.studentName || "Sahabat Cilik Hebat",
+        studentGroup: GameState.studentGroup || "A",
         themeId: (GAME_CONFIG && GAME_CONFIG.id) || "taman",
-        themeTitle: (GAME_CONFIG && GAME_CONFIG.judulUtama) || "MISI CILIK: Selamatkan Taman Ceria!",
+        themeTitle: (GAME_CONFIG && GAME_CONFIG.judulUtama) || "SELAMATKAN TAMAN CERIA!",
         mascotIkon: (GAME_CONFIG && GAME_CONFIG.maskot) ? GAME_CONFIG.maskot.ikon : "🐝",
         stars: GameState.stars || 5,
         rubricPredicates: { ...(GameState.rubricPredicates || {}) },
@@ -2972,6 +3265,10 @@
       records.forEach((rec, idx) => {
         const themeIkon = rec.mascotIkon || '🌻';
         const preds = rec.rubricPredicates || {};
+        const isGrpB = rec.studentGroup === 'B';
+        const grpBadge = isGrpB 
+          ? `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300">🦉 Kelompok B (5–6 Thn)</span>`
+          : `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">🐥 Kelompok A (4–5 Thn)</span>`;
 
         html += `
           <div class="bg-white border-2 border-purple-100 hover:border-purple-300 rounded-2xl p-4 shadow-sm transition hover:shadow-md space-y-3">
@@ -2981,7 +3278,10 @@
                   ${idx + 1}
                 </span>
                 <div>
-                  <h4 class="font-black text-slate-900 text-sm md:text-base leading-tight">${rec.studentName}</h4>
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <h4 class="font-black text-slate-900 text-sm md:text-base leading-tight">${rec.studentName}</h4>
+                    ${grpBadge}
+                  </div>
                   <p class="text-[11px] text-purple-700 font-semibold flex items-center gap-1 mt-0.5">
                     <span>${themeIkon}</span> <span>${rec.themeTitle || 'Petualangan Ceria'}</span>
                   </p>
@@ -3051,6 +3351,7 @@
       // 1. Pasang data anak ke GameState
       GameState.currentRecordId = rec.id;
       GameState.studentName = rec.studentName;
+      GameState.studentGroup = rec.studentGroup || 'A';
       GameState.stars = rec.stars || 5;
       GameState.rubricPredicates = { ...rec.rubricPredicates };
       GameState.photoDataUrl = rec.photoDataUrl || null;
@@ -3171,7 +3472,11 @@
 
       // Terapkan ke DOM Global
       document.getElementById('header-mascot-icon').innerText = GAME_CONFIG.maskot.ikon;
-      document.getElementById('header-game-title').innerText = GAME_CONFIG.judulUtama.split(':')[0] || "MISI CILIK";
+      document.getElementById('header-game-title').innerText = "MISI CILIK: SELAMATKAN LINGKUNGAN!";
+      const themeSubBadge = document.getElementById('header-theme-subbadge');
+      if (themeSubBadge) {
+        themeSubBadge.innerText = `${GAME_CONFIG.maskot.ikon} ${GAME_CONFIG.judulUtama}`;
+      }
       document.getElementById('home-mascot').innerText = GAME_CONFIG.maskot.ikon;
       document.getElementById('home-title').innerText = GAME_CONFIG.judulUtama;
       document.getElementById('home-subtitle').innerText = GAME_CONFIG.subJudul;
@@ -3208,6 +3513,10 @@
       if (customIcon) GAME_CONFIG.maskot.ikon = customIcon;
 
       document.getElementById('header-mascot-icon').innerText = GAME_CONFIG.maskot.ikon;
+      const themeSubBadge = document.getElementById('header-theme-subbadge');
+      if (themeSubBadge) {
+        themeSubBadge.innerText = `${GAME_CONFIG.maskot.ikon} ${GAME_CONFIG.judulUtama}`;
+      }
       document.getElementById('home-mascot').innerText = GAME_CONFIG.maskot.ikon;
       document.getElementById('home-title').innerText = GAME_CONFIG.judulUtama;
 
@@ -3409,6 +3718,10 @@
       updateStarsDisplay();
       renderRubricTable();
       updateRecordsCountBadge();
+      const themeSubBadge = document.getElementById('header-theme-subbadge');
+      if (themeSubBadge && GAME_CONFIG) {
+        themeSubBadge.innerText = `${GAME_CONFIG.maskot.ikon} ${GAME_CONFIG.judulUtama}`;
+      }
       if (speech.isSupported) {
         speech.loadVoices();
         speech.updateSlidersUI();
