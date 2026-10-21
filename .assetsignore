@@ -1,0 +1,5 @@
+.git/
+docs/
+AGENTS.md
+README.md
+wrangler.json
