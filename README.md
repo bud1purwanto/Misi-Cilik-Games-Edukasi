@@ -19,7 +19,7 @@
    * **Mode Anak:** Tampilan permainan bersih, ceria, tombol besar, minim distraksi teks teknis, fokus pada petualangan.
    * **Mode Guru / Juri:** Panel kontrol kokpit lengkap memuat Live Theme Switcher 4 tema, lembar asesmen autentik, dan panduan kurikulum & SOP presentasi.
 4. **Asesmen Autentik Berbasis Bukti Pengamatan Guru (*Evidence-Based Assessment*):**
-   * Predikat (BB, MB, BSH, BSB) tidak diberikan otomatis buta, melainkan dipilih langsung oleh guru berdasarkan bukti perilaku nyata anak saat berdiskusi, memilah sampah, berhitung mandiri, dan bergotong royong.
+   * Predikat (BB, MB, BSH, BSB) tidak diberikan secara otomatis oleh sistem semata, melainkan dipilih langsung oleh guru berdasarkan bukti perilaku nyata anak saat berdiskusi, memilah sampah, berhitung mandiri, dan bergotong royong.
 5. **Rekapitulasi Portofolio Murid (Local Storage):**
    * Data nama anak, kelompok usia, sub-tema, 5 bintang emas, foto aksi nyata, dan nilai rubrik 6 aspek tersimpan otomatis di memori peramban tanpa memerlukan koneksi internet.
 6. **Kemandirian Penuh (*Zero External Dependency*):**

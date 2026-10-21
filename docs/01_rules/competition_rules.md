@@ -26,7 +26,7 @@ pie title Bobot Penilaian Media Digital PORSENI
 | **1** | **Kesesuaian Kurikulum Merdeka & TP Terukur** | Memenuhi Capaian Pembelajaran (CP), memiliki Tujuan Pembelajaran (TP) terukur per misi, dan menerapkan **Diferensiasi Fase Fondasi (Kelompok A 4–5 Thn vs Kelompok B 5–6 Thn)** secara nyata. | Pilihan kelompok usia membedakan materi secara substansial (4 item sampah vs 6 item ilmiah; membilang 1–5 vs 1–10 mandiri; kartu bernomor vs konsep siklus; 2 vs 3 aksi gotong royong). |
 | **2** | **Karakteristik Ramah Anak & Ergonomi TK** | Desain visual cerah, kontras tinggi, navigasi intuitif tanpa perlu membaca teks rumit, serta memiliki **Pemisahan Mode Antarmuka (Mode Anak vs Mode Guru)**. | Mode Anak bersih tanpa distraksi teks teknis, tombol raksasa ($\ge 72\text{px}$), sistem 2-klik proyektor sentuh, dan umpan balik suara TTS bersahabat. |
 | **3** | **Interaktivitas & Keterlibatan Anak** | Media menuntut anak aktif (*learning by doing*), menghitung mandiri tanpa bocoran angka, serta menghubungkan dunia digital ke aksi nyata. | Mekanisme 2-klik pilah sampah, berhitung sentuh objek lingkungan mandiri, susun urutan sains, checklist gotong royong, dan kamera cermin aksi. |
-| **4** | **Asesmen Autentik Berbasis Bukti Pengamatan** | Evaluasi anak tidak dibuat otomatis buta, melainkan memberikan instrumen bagi guru untuk mencatat bukti observasi perilaku riil. | Lembar evaluasi guru di Tahap 5 menyediakan pilihan skala capaian (BB, MB, BSH, BSB) interaktif dan otomatis tersimpan ke **Local Storage** untuk portofolio kelas. |
+| **4** | **Asesmen Autentik Berbasis Bukti Pengamatan** | Evaluasi anak tidak dibuat secara otomatis oleh sistem semata, melainkan memberikan instrumen bagi guru untuk mencatat bukti observasi perilaku riil. | Lembar evaluasi guru di Tahap 5 menyediakan pilihan skala capaian (BB, MB, BSH, BSB) interaktif dan otomatis tersimpan ke **Local Storage** untuk portofolio kelas. |
 | **5** | **Kepraktisan di Kelas (Zero Setup)** | Media dapat dijalankan di laptop sekolah mana pun tanpa instalasi rumit, tanpa koneksi internet, dan tanpa risiko crash. | Format berkas tunggal `index.html`, *offline-first*, Web Audio sintetis prosedural tanpa membutuhkan berkas MP3 eksternal. |
 | **6** | **Kesiapan Menghadapi Tema Dadakan** | Guru dapat menyesuaikan tema materi lomba dalam hitungan detik di depan dewan juri. | Fitur *Live Theme Switcher* dengan 4 sub-tema lengkap (Taman Ceria, Pantai & Laut, Kebun Binatang, Kelasku). |
 
@@ -74,7 +74,7 @@ Skenario alur presentasi efektif selama 5 menit:
    * **Tahap 4:** Tunjukkan timer 60 detik gotong royong dan aktivasi kamera aksi nyata dengan izin pengguna.
 3. **Menit 04 — Asesmen Berbasis Bukti Pengamatan & Sertifikat (1 Menit):**
    * Masuk ke Tahap 5, perlihatkan sertifikat digital terbit lengkap dengan badge kelompok, foto aksi anak, dan 5 Bintang Emas.
-   * Buka lembar evaluasi guru: jelaskan bahwa **skala capaian (BB, MB, BSH, BSB) dipilih guru berdasarkan bukti nyata pengamatan** selama bermain, bukan otomatis buta.
+   * Buka lembar evaluasi guru: jelaskan bahwa **skala capaian (BB, MB, BSH, BSB) dipilih guru berdasarkan bukti nyata pengamatan** selama bermain, bukan otomatis tanpa pengamatan.
    * Buka Panel Juri Tab 3 ("📊 Data Hasil Murid"): perlihatkan portofolio kelas yang tersimpan rapi di Local Storage dan dapat dicetak ulang.
 4. **Menit 05 — Pameran Fleksibilitas Tema Dadakan (1 Menit):**
    * Buka Panel Juri Tab 2: `"🎨 Ubah Tema Cepat"`.

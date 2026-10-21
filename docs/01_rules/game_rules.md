@@ -167,7 +167,7 @@ Untuk menjaga fokus anak dan profesionalitas saat presentasi lomba, antarmuka di
     * Memuat Nama Murid, Badge Kelompok Usia (`🐥 Kelompok A` / `🦉 Kelompok B`), Sub-Tema yang diselesaikan, Foto aksi dari Tahap 4, dan **5 Bintang Emas Penuh (⭐⭐⭐⭐⭐)**.
     * Tombol cetak ramah kertas (`Print Stylesheet`).
   * **Lembar Asesmen Guru Berbasis Bukti Pengamatan (Evidence-Based Assessment):**
-    * **Bukan Nilai Otomatis:** Predikat BB, MB, BSH, BSB **tidak diberikan secara otomatis buta**. Guru mencatat hasil pengamatan berdasarkan perilaku nyata anak selama bermain:
+    * **Bukan Nilai Otomatis:** Predikat BB, MB, BSH, BSB **tidak diberikan secara otomatis oleh sistem semata**. Guru mencatat hasil pengamatan berdasarkan perilaku nyata anak selama bermain:
       1. *NAM:* Anak terbiasa menyayangi ciptaan Tuhan dan peduli lingkungan.
       2. *Kognitif:* Anak mampu memilah sampah sesuai kategori dengan tepat.
       3. *Bahasa:* Anak berani menyampaikan pendapat sederhana saat diskusi lingkungan.

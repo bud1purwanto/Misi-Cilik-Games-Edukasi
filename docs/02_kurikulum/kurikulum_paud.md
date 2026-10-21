@@ -79,7 +79,7 @@ Setiap langkah dalam *MISI CILIK* secara spesifik menstimulasi 6 aspek perkemban
 
 ## 5. Lembar Asesmen Autentik Berbasis Bukti Pengamatan Guru (Rubrik Tahap 5)
 
-Pada Tahap 5, guru disajikan instrumen evaluasi perkembangan autentik. **Predikat tidak diberikan secara otomatis buta**, melainkan berdasarkan hasil observasi guru terhadap interaksi dan perilaku anak di kelas:
+Pada Tahap 5, guru disajikan instrumen evaluasi perkembangan autentik. **Predikat tidak diberikan secara otomatis oleh sistem semata**, melainkan berdasarkan hasil observasi guru terhadap interaksi dan perilaku anak di kelas:
 
 ### 🎯 Prinsip Asesmen Berbasis Bukti (*Evidence-Based Assessment*):
 1. **Berdasarkan Bukti Nyata:** Guru mengamati bagaimana anak merespons saat berdiskusi, memilah sampah, membilang objek, dan beraksi gotong royong di kelas.
